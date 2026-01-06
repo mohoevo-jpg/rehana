@@ -64,8 +64,6 @@ import { computed, onMounted, ref, onErrorCaptured } from 'vue'
 import { ArrowRight, MapPin, Plus, Trash2, Phone } from 'lucide-vue-next'
 import { useAuthStore } from '../store/auth'
 
-console.log('Addresses component script setup executing')
-
 const authStore = useAuthStore()
 const error = ref(null)
 
@@ -91,6 +89,6 @@ const deleteAddress = async (id) => {
 }
 
 onMounted(() => {
-  console.log('Addresses view mounted')
+  // Component mounted
 })
 </script>
