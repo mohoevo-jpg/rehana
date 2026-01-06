@@ -1,0 +1,129 @@
+name: Build Mobile Apps
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Debug Directory Structure
+        run: |
+          echo "Current Directory: $(pwd)"
+          ls -R
+          if [ -d "mobile-app" ]; then
+            echo "mobile-app directory exists"
+            ls -la mobile-app
+          else
+            echo "ERROR: mobile-app directory NOT found!"
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Dependencies
+        working-directory: mobile-app
+        run: npm install
+
+      - name: Build Web Assets
+        working-directory: mobile-app
+        run: npm run build
+
+      - name: Sync Capacitor
+        working-directory: mobile-app
+        run: npx cap sync android
+
+      - name: Build APK
+        working-directory: mobile-app/android
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug.apk
+          path: mobile-app/android/app/build/outputs/apk/debug/app-debug.apk
+
+  build-ios:
+    name: Build iOS IPA (Unsigned)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Debug Directory Structure
+        run: |
+          echo "Current Directory: $(pwd)"
+          ls -R
+          if [ -d "mobile-app" ]; then
+            echo "mobile-app directory exists"
+            ls -la mobile-app
+          else
+            echo "ERROR: mobile-app directory NOT found!"
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        working-directory: mobile-app
+        run: npm install
+
+      - name: Build Web Assets
+        working-directory: mobile-app
+        run: npm run build
+
+      - name: Sync Capacitor
+        working-directory: mobile-app
+        run: npx cap sync ios
+
+      - name: Build iOS App
+        working-directory: mobile-app/ios/App
+        run: |
+          # List project info for debugging
+          xcodebuild -list -project App.xcodeproj || true
+          
+          # Build using Target "App" directly (avoids missing Scheme issues)
+          xcodebuild build -project App.xcodeproj -target App -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+
+      - name: Package IPA
+        working-directory: mobile-app/ios/App
+        run: |
+          mkdir Payload
+          # Find the built App.app in the custom build directory
+          APP_PATH=$(find build -name "App.app" -type d | head -n 1)
+          if [ -z "$APP_PATH" ]; then
+            echo "ERROR: App.app not found in build directory!"
+            exit 1
+          fi
+          echo "Found App at: $APP_PATH"
+          cp -r "$APP_PATH" Payload/
+          zip -r App.ipa Payload
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: App.ipa
+          path: mobile-app/ios/App/App.ipa
