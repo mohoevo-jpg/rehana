@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-
-const SERVER_URL = 'https://rehanaforflowers.com'
+import { SERVER_URL } from '../config'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({

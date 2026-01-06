@@ -628,9 +628,12 @@ const updateWallet = async (type) => {
   if (!walletAmount.value || walletAmount.value <= 0) return
   
   try {
-    const res = await fetch(`http://localhost:3001/api/users/${selectedUser.value.id}/wallet`, {
+    const res = await fetch(`${SERVER_URL}/api/users/${selectedUser.value.id}/wallet`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
       body: JSON.stringify({
         amount: walletAmount.value,
         type

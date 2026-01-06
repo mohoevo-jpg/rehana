@@ -159,9 +159,7 @@ import { useRouter } from 'vue-router'
 import { ArrowRight, ChevronDown, Send, User } from 'lucide-vue-next'
 import { useAuthStore } from '../store/auth'
 import { useAppStore } from '../store/app'
-
-const SERVER_URL = window.location.origin
-// const SERVER_URL = 'http://localhost:3001'
+import { SERVER_URL } from '../config'
 
 const router = useRouter()
 const authStore = useAuthStore()

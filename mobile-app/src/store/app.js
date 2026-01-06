@@ -1,9 +1,7 @@
 import { defineStore } from 'pinia'
 import { io } from 'socket.io-client'
 import { useAuthStore } from './auth'
-
-const SERVER_URL = window.location.origin
-// const SERVER_URL = 'http://192.168.1.109:3001'
+import { SERVER_URL } from '../config'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
@@ -57,7 +55,7 @@ export const useAppStore = defineStore('app', {
     initSocket() {
       if (this.socket) return
 
-      this.socket = io({
+      this.socket = io(SERVER_URL, {
         transports: ['websocket', 'polling']
       })
       
