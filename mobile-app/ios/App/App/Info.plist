@@ -46,6 +46,17 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+    <true/>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>We need access to camera to take photos of products</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>We need access to photo library to save photos</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to photo library to pick photos</string>
 </dict>
 </plist>
