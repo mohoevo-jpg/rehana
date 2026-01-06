@@ -105,8 +105,8 @@ jobs:
           # List project info for debugging
           xcodebuild -list -project App.xcodeproj || true
           
-          # Build using Target "App" directly (avoids missing Scheme issues)
-          xcodebuild build -project App.xcodeproj -target App -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+          # Build using Scheme "App" (Required for derivedDataPath)
+          xcodebuild build -project App.xcodeproj -scheme App -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
       - name: Package IPA
         working-directory: mobile-app/ios/App
