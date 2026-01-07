@@ -222,7 +222,7 @@
       <!-- Scrollable Content Area -->
       <div class="flex-1 overflow-y-auto relative scroll-smooth no-scrollbar">
         <!-- Header -->
-        <header v-if="showNav" class="bg-white dark:bg-gray-800 sticky top-0 z-30 px-4 py-3 shadow-sm transition-colors duration-300">
+        <header v-if="showNav" class="bg-white dark:bg-gray-800 sticky top-0 z-30 px-4 pb-3 pt-[calc(0.75rem+env(safe-area-inset-top))] shadow-sm transition-colors duration-300">
           <div class="flex justify-between items-center">
             <!-- Menu & Location -->
             <div class="flex items-center gap-3">
