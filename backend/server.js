@@ -24,9 +24,18 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 3001;
 const SHOP_DIST_PATH = process.env.SHOP_DIST_PATH || path.join(__dirname, '../mobile-app/dist');
 
-// Security & Performance Middleware
 app.use(helmet({
-  contentSecurityPolicy: false // Disable CSP for now to allow external scripts/styles if needed
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:"],
+      connectSrc: ["'self'", "https:", "ws:", "wss:"]
+    }
+  }
 }));
 app.use(compression());
 
