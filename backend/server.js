@@ -64,6 +64,14 @@ app.get('/shop/', (req, res) => {
 // 3. Serve Cashier App (Admin) at /admin-panel
 app.use('/admin-panel', express.static(path.join(__dirname, '../dist')));
 
+app.get('/admin-panel', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+app.get('/admin-panel/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
 // 4. Serve Update Files
 app.use('/updates', express.static(path.join(__dirname, '../public/updates')));
 app.use('/downloads', express.static(path.join(__dirname, '../public/downloads')));
