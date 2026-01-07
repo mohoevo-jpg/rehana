@@ -21,6 +21,12 @@ jobs:
       - name: Install Wrangler
         run: npm i -g wrangler
 
+      - name: Wrangler whoami
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: wrangler whoami
+
       - name: Publish Worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
@@ -30,4 +36,4 @@ jobs:
             echo "Cloudflare secrets missing: CF_API_TOKEN / CF_ACCOUNT_ID"
             exit 1
           fi
-          wrangler publish --account-id "$CLOUDFLARE_ACCOUNT_ID"
+          wrangler publish
