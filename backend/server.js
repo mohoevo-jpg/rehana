@@ -26,14 +26,18 @@ const SHOP_DIST_PATH = process.env.SHOP_DIST_PATH || path.join(__dirname, '../mo
 
 app.use(helmet({
   contentSecurityPolicy: {
-    useDefaults: true,
+    useDefaults: false,
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://static.cloudflareinsights.com"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://static.cloudflareinsights.com", "https://cloudflareinsights.com"],
+      scriptSrcElem: ["'self'", "'unsafe-inline'", "https://static.cloudflareinsights.com", "https://cloudflareinsights.com"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'", "https:", "ws:", "wss:", "https://static.cloudflareinsights.com", "https://cloudflareinsights.com"]
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "https:", "ws:", "wss:", "https://static.cloudflareinsights.com", "https://cloudflareinsights.com"],
+      frameSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: []
     }
   }
 }));
