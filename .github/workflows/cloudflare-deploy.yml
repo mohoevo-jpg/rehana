@@ -27,6 +27,18 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
         run: wrangler whoami
 
+      - name: Inject account_id into wrangler.toml
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "Missing CF_ACCOUNT_ID"
+            exit 1
+          fi
+          if ! grep -q "^account_id" wrangler.toml; then
+            echo "account_id = \"$CLOUDFLARE_ACCOUNT_ID\"" >> wrangler.toml
+          fi
+
       - name: Publish Worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
@@ -36,4 +48,4 @@ jobs:
             echo "Cloudflare secrets missing: CF_API_TOKEN / CF_ACCOUNT_ID"
             exit 1
           fi
-          wrangler publish
+          wrangler deploy -c wrangler.toml --yes
