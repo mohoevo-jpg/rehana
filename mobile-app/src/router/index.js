@@ -96,7 +96,9 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/shop/'),
+  history: Capacitor.isNativePlatform() 
+    ? createWebHashHistory() 
+    : createWebHistory('/shop/'),
   routes
 })
 
