@@ -1,0 +1,9 @@
+name = "rehana-router"
+main = "cloudflare/worker.js"
+compatibility_date = "2024-11-01"
+
+routes = [
+  { pattern = "rehanaforflowers.com/shop*", zone_name = "rehanaforflowers.com" },
+  { pattern = "rehanaforflowers.com/admin-panel*", zone_name = "rehanaforflowers.com" },
+  { pattern = "rehanaforflowers.com/downloads*", zone_name = "rehanaforflowers.com" }
+]
