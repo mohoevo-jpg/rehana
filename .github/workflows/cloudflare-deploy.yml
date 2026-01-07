@@ -48,4 +48,4 @@ jobs:
             echo "Cloudflare secrets missing: CF_API_TOKEN / CF_ACCOUNT_ID"
             exit 1
           fi
-          wrangler deploy -c wrangler.toml --yes
+          wrangler deploy -c wrangler.toml
