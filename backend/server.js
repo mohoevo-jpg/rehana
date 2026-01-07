@@ -22,6 +22,7 @@ const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3001;
+const SHOP_DIST_PATH = process.env.SHOP_DIST_PATH || path.join(__dirname, '../mobile-app/dist');
 
 // Security & Performance Middleware
 app.use(helmet({
@@ -41,13 +42,22 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../landing')));
 
 // 2. Serve Mobile App (Customer Store) at /shop
-app.use('/shop', express.static(path.join(__dirname, '../mobile-app/dist')));
+app.use('/shop', express.static(SHOP_DIST_PATH));
+
+app.get('/shop', (req, res) => {
+  res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
+});
+
+app.get('/shop/', (req, res) => {
+  res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
+});
 
 // 3. Serve Cashier App (Admin) at /admin-panel
 app.use('/admin-panel', express.static(path.join(__dirname, '../dist')));
 
 // 4. Serve Update Files
 app.use('/updates', express.static(path.join(__dirname, '../public/updates')));
+app.use('/downloads', express.static(path.join(__dirname, '../public/downloads')));
 
 // --- Routes ---
 
@@ -59,7 +69,7 @@ app.get('/', (req, res) => {
 // Handle Mobile App client-side routing
 app.get(/\/shop\/.*/, (req, res) => {
   if (req.accepts('html')) {
-    res.sendFile(path.join(__dirname, '../mobile-app/dist/index.html'));
+    res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
   } else {
     res.status(404).send('Not Found');
   }
