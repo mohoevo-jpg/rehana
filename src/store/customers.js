@@ -2,9 +2,9 @@ import { defineStore } from 'pinia';
 
 // Mock Data
 const MOCK_CUSTOMERS = [
-  { id: 1, name: 'أحمد محمد', phone: '07701234567', email: 'ahmed@example.com', address: 'بغداد - المنصور', notes: 'عميل مميز', registrationDate: '2023-01-15' },
-  { id: 2, name: 'سارة علي', phone: '07809876543', email: 'sara@example.com', address: 'البصرة - الجزائر', notes: '', registrationDate: '2023-03-20' },
-  { id: 3, name: 'شركة النور', phone: '07505555555', email: 'info@alnoor.com', address: 'أربيل - بختياري', notes: 'شركة توريد', registrationDate: '2023-06-10' },
+  { id: 1, name: 'أحمد محمد', phone: '07701234567', email: 'ahmed@example.com', address: 'الموصل - حي الزهور', notes: 'عميل مميز', registrationDate: '2023-01-15' },
+  { id: 2, name: 'سارة علي', phone: '07809876543', email: 'sara@example.com', address: 'الموصل - المثنى', notes: '', registrationDate: '2023-03-20' },
+  { id: 3, name: 'شركة النور', phone: '07505555555', email: 'info@alnoor.com', address: 'الموصل - المجموعة الثقافية', notes: 'شركة توريد', registrationDate: '2023-06-10' },
 ];
 
 export const useCustomersStore = defineStore('customers', {

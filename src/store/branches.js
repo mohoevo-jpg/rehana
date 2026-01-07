@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const useBranchesStore = defineStore('branches', {
   state: () => ({
     branches: JSON.parse(localStorage.getItem('branches')) || [
-      { id: '1', name: 'الفرع الرئيسي', location: 'بغداد - المنصور', phone: '07700000000' }
+      { id: '1', name: 'الفرع الرئيسي', location: 'الموصل - حي الزهور', phone: '07700000000' }
     ]
   }),
   

@@ -233,7 +233,7 @@
                <div class="flex flex-col">
                   <span class="text-xs text-gray-400 font-medium mb-0.5">التوصيل إلى</span>
                   <div class="flex items-center gap-1 text-primary-700 dark:text-primary-400 font-bold cursor-pointer">
-                    <span>المنصور، بغداد</span>
+                    <span>حي الزهور، الموصل</span>
                     <ChevronDown class="w-3 h-3 text-gray-400" />
                   </div>
                </div>
@@ -344,7 +344,7 @@ const handleLogout = () => {
 }
 
 // App Version Logic
-const CURRENT_VERSION = '1.0.0'; // Hardcoded current app version
+const CURRENT_VERSION = '1.1.0'; // Hardcoded current app version
 
 // Update Popup Logic
 const showUpdatePopup = ref(false);

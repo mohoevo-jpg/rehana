@@ -5,7 +5,7 @@ export const useSettingsStore = defineStore('settings', {
   state: () => ({
     // General Info
     shopName: localStorage.getItem('settings_shopName') || 'متجر ريحانة',
-    address: localStorage.getItem('settings_address') || 'بغداد - المنصور',
+    address: localStorage.getItem('settings_address') || 'الموصل - حي الزهور',
     phone: localStorage.getItem('settings_phone') || '07700000000',
     email: localStorage.getItem('settings_email') || '',
     

@@ -62,9 +62,9 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const zoom = ref(13)
-// Baghdad Center
-const center = ref([33.3128, 44.3615])
-const markerLatLng = ref([33.3128, 44.3615])
+// Mosul Center
+const center = ref([36.34, 43.13])
+const markerLatLng = ref([36.34, 43.13])
 
 const form = ref({
   name: '',
