@@ -316,6 +316,11 @@ const route = useRoute()
 const router = useRouter()
 
 const showSidebar = ref(false)
+
+// Splash Logic
+const showSplash = ref(true)
+const startSplashFadeOut = ref(false)
+
 const showNav = computed(() => {
   return route.name !== 'Login' && !route.path.startsWith('/admin')
 })

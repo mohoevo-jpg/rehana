@@ -180,6 +180,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../store/auth'
+import { ArrowRight } from 'lucide-vue-next'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -189,6 +190,7 @@ const loginForm = ref({ identifier: '', password: '' })
 const registerForm = ref({ name: '', phone: '', email: '', password: '' })
 const showVerificationModal = ref(false)
 const verificationCode = ref('')
+const tempRegistrationId = ref(null)
 
 const handleLogin = async () => {
   const success = await authStore.login(loginForm.value)
@@ -223,7 +225,8 @@ const verifyCode = async () => {
 }
 
 const resendCode = async (method) => {
-  const result = await authStore.registerResend(registerForm.value.phone, method)
+  if (!tempRegistrationId.value) return
+  const result = await authStore.registerResend(tempRegistrationId.value, method)
   if (result.success) {
     alert(result.message || 'تم إرسال الرمز بنجاح')
   } else {

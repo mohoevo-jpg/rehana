@@ -1,7 +1,67 @@
 <template>
-  <div class="pb-24 space-y-8 animate-fade-in">
+  <div class="pb-24 space-y-6 animate-fade-in">
+    <!-- Header -->
+    <div class="px-4 pt-4 flex items-center justify-between">
+      <!-- Logo/Brand -->
+      <div class="flex items-center gap-2">
+        <img src="/logo.png" class="w-10 h-10 object-contain" />
+        <div>
+          <h1 class="font-black text-xl text-primary-700 leading-none">ريحانة</h1>
+          <span class="text-[10px] text-gray-400 font-medium">وجهتك الأولى للتسوق</span>
+        </div>
+      </div>
+
+      <!-- Location Dropdown -->
+      <div class="relative">
+        <button @click="showLocationDropdown = !showLocationDropdown" class="flex items-center gap-2 bg-white border border-gray-100 pl-2 pr-3 py-1.5 rounded-full shadow-sm text-sm font-bold text-gray-700 active:scale-95 transition-transform">
+          <div class="w-6 h-6 bg-primary-50 rounded-full flex items-center justify-center">
+            <MapPin class="w-3.5 h-3.5 text-primary-600" />
+          </div>
+          <span class="max-w-[100px] truncate">{{ currentAddressName }}</span>
+          <ChevronDown class="w-3 h-3 text-gray-400" />
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div v-if="showLocationDropdown" class="absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 p-2 z-30 animate-scale-in origin-top-left">
+          <div class="px-3 py-2 text-xs font-bold text-gray-400">اختر موقع التوصيل</div>
+          
+          <div v-if="authStore.user?.addresses?.length > 0" class="max-h-48 overflow-y-auto no-scrollbar space-y-1 mb-2">
+            <button 
+              v-for="addr in authStore.user.addresses" 
+              :key="addr.id"
+              @click="selectAddress(addr)"
+              class="w-full text-right px-3 py-2.5 rounded-xl hover:bg-gray-50 text-sm flex items-center gap-3 transition-colors"
+              :class="{'bg-primary-50 text-primary-700 ring-1 ring-primary-100': currentAddressId === addr.id}"
+            >
+              <MapPin class="w-4 h-4 shrink-0" :class="currentAddressId === addr.id ? 'text-primary-600' : 'text-gray-400'" />
+              <div class="flex flex-col overflow-hidden">
+                <span class="font-bold truncate">{{ addr.name }}</span>
+                <span class="text-[10px] text-gray-500 truncate">{{ addr.address }}</span>
+              </div>
+              <Check v-if="currentAddressId === addr.id" class="w-4 h-4 text-primary-600 mr-auto" />
+            </button>
+          </div>
+          
+          <div v-else class="text-center py-6 bg-gray-50 rounded-xl border border-dashed border-gray-200 mb-2">
+            <MapPin class="w-8 h-8 text-gray-300 mx-auto mb-2" />
+            <p class="text-xs text-gray-500">لا توجد عناوين محفوظة</p>
+          </div>
+
+          <div class="border-t border-gray-100 pt-2">
+            <router-link to="/addresses/add" class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-xl shadow-lg shadow-primary-600/20 transition-all active:scale-95">
+              <Plus class="w-4 h-4" />
+              إضافة عنوان جديد
+            </router-link>
+          </div>
+        </div>
+        
+        <!-- Backdrop for dropdown -->
+        <div v-if="showLocationDropdown" @click="showLocationDropdown = false" class="fixed inset-0 z-20 cursor-default"></div>
+      </div>
+    </div>
+
     <!-- Search Bar -->
-    <div class="px-4 mt-2">
+    <div class="px-4">
       <div class="relative">
         <Search class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
         <input type="text" v-model="searchQuery" placeholder="ابحث عن منتج..." class="w-full bg-white pl-4 pr-12 py-3.5 rounded-2xl shadow-sm border border-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all text-sm font-medium placeholder:text-gray-400">

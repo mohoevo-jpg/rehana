@@ -188,8 +188,23 @@ async function sendEmail(email, subject, text) {
   console.log(`[EMAIL] Subject: ${subject}`);
   console.log(`[EMAIL] Body: ${text}`);
   console.log('---------------------------------------------------');
-  // In a real environment, configure nodemailer transport here
-  return true;
+
+  try {
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_USER || 'service@rehanaforflowers.com',
+      to: email,
+      subject: subject,
+      text: text
+    });
+    console.log('[EMAIL] Sent successfully:', info.messageId);
+    return true;
+  } catch (error) {
+    console.error('[EMAIL] Failed to send email:', error);
+    // In development, we might want to return true even if email fails, 
+    // but in production we should return false. 
+    // For now, let's return false to indicate failure.
+    return false;
+  }
 }
 
 // --- Data Storage ---

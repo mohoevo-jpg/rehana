@@ -98,13 +98,13 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async registerResend(phone, method) {
+    async registerResend(tempId, method) {
       // Don't set global loading here to avoid blocking UI excessively, or handle in component
       try {
         const res = await fetch(`${SERVER_URL}/api/auth/register-resend`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone, method })
+          body: JSON.stringify({ tempId, method })
         })
         
         const data = await res.json()
