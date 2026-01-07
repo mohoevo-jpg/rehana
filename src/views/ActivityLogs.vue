@@ -84,8 +84,8 @@ import { io } from 'socket.io-client';
 const logs = ref([]);
 const filterType = ref('all');
 const searchQuery = ref('');
-const isElectron = window.navigator.userAgent.toLowerCase().includes('electron');
-const socketUrl = isElectron ? 'http://localhost:3001' : '/';
+const isElectron = !!(window.process && window.process.versions && window.process.versions.electron);
+const socketUrl = isElectron ? 'http://localhost:3001' : '';
 const socket = io(socketUrl, { path: '/socket.io' });
 
 const fetchLogs = async () => {
