@@ -12,6 +12,24 @@ export default {
       return pathname.includes(".") || pathname.includes("/assets/");
     })();
 
+    // Helper to add CSP headers
+    const addCSP = (response) => {
+      const newResponse = new Response(response.body, response);
+      newResponse.headers.set("Content-Security-Policy", 
+        "default-src 'self'; " +
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cloudflareinsights.com; " +
+        "script-src-elem 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://cloudflareinsights.com; " +
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+        "font-src 'self' https://fonts.gstatic.com; " +
+        "img-src 'self' data: https:; " +
+        "connect-src 'self' https: ws: wss: https://static.cloudflareinsights.com https://cloudflareinsights.com; " +
+        "frame-src 'self'; " +
+        "object-src 'none'; " +
+        "upgrade-insecure-requests"
+      );
+      return newResponse;
+    };
+
     // For SPA routes (/shop and /admin-panel), fallback to index.html
     if ((isShop || isAdmin) && !isAsset) {
       const indexPath = isShop ? "/shop/index.html" : "/admin-panel/index.html";
@@ -25,7 +43,8 @@ export default {
         redirect: 'manual'
       });
       
-      return fetch(newRequest);
+      const response = await fetch(newRequest);
+      return addCSP(response);
     }
 
     // Downloads: forward as-is to origin
@@ -34,6 +53,7 @@ export default {
     }
 
     // Default: proxy to origin
-    return fetch(request);
+    const response = await fetch(request);
+    return addCSP(response);
   }
 };
