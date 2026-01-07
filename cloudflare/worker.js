@@ -30,23 +30,6 @@ export default {
       return newResponse;
     };
 
-    // For SPA routes (/shop and /admin-panel), fallback to index.html
-    if ((isShop || isAdmin) && !isAsset) {
-      const indexPath = isShop ? "/shop/index.html" : "/admin-panel/index.html";
-      const indexUrl = new URL(indexPath, request.url);
-      
-      // Create a new request to ensure headers are preserved but url is updated
-      const newRequest = new Request(indexUrl, {
-        method: request.method,
-        headers: request.headers,
-        body: request.body,
-        redirect: 'manual'
-      });
-      
-      const response = await fetch(newRequest);
-      return addCSP(response);
-    }
-
     // Downloads: forward as-is to origin
     if (isDownloads) {
       return fetch(request);

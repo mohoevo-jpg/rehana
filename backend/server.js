@@ -94,15 +94,8 @@ app.get('/', (req, res) => {
 });
 
 // Handle Mobile App client-side routing
-app.get(/\/shop\/.*/, (req, res) => {
-  if (req.accepts('html')) {
-    console.log(`[DEBUG] SPA Fallback for ${req.url} -> serving index.html`);
-    res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
-  } else {
-    console.log(`[DEBUG] 404 for ${req.url} (Not HTML). Accept: ${req.headers.accept}`);
-    res.status(404).send('Not Found');
-  }
-});
+// Removed duplicate regex handler as it is covered by app.get('/shop/*', ...)
+
 
 // Handle Cashier App client-side routing (if needed, though it uses HashHistory)
 // But we should ensure /admin-panel returns the index
