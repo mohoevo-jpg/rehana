@@ -1,0 +1,48 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script_stop: true
+          command_timeout: 30m
+          script: |
+            set -e
+            DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}"
+            if [ -z "$DEPLOY_PATH" ]; then
+              echo "DEPLOY_PATH secret is required"
+              exit 1
+            fi
+            cd "$DEPLOY_PATH"
+            git fetch --all
+            git reset --hard origin/main
+            git clean -fd
+            cd mobile-app
+            if command -v npm >/dev/null 2>&1; then
+              npm ci || npm install
+              npm run build
+            fi
+            cd "$DEPLOY_PATH"
+            echo "SHOP_DIST_PATH=$DEPLOY_PATH/mobile-app/dist" >> backend/.env
+            if command -v pm2 >/dev/null 2>&1; then
+              pm2 restart all || pm2 start "$DEPLOY_PATH/backend/server.js"
+            elif command -v systemctl >/dev/null 2>&1; then
+              sudo systemctl restart rehana.service || true
+            else
+              nohup node "$DEPLOY_PATH/backend/server.js" >/dev/null 2>&1 &
+            fi
