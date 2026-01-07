@@ -1,6 +1,7 @@
 name = "rehana-router"
 main = "cloudflare/worker.js"
 compatibility_date = "2024-11-01"
+workers_dev = false
 
 routes = [
   { pattern = "rehanaforflowers.com/shop*", zone_name = "rehanaforflowers.com" },
