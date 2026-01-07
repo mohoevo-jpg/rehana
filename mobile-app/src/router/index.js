@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import { Capacitor } from '@capacitor/core'
 import { useAuthStore } from '../store/auth'
 import Home from '../views/Home.vue'
