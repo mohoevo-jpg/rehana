@@ -29,11 +29,11 @@ app.use(helmet({
     useDefaults: true,
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://static.cloudflareinsights.com"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'", "https:", "ws:", "wss:"]
+      connectSrc: ["'self'", "https:", "ws:", "wss:", "https://static.cloudflareinsights.com", "https://cloudflareinsights.com"]
     }
   }
 }));
@@ -51,13 +51,19 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../landing')));
 
 // 2. Serve Mobile App (Customer Store) at /shop
+app.use('/shop', (req, res, next) => {
+  console.log(`[DEBUG] Request to /shop: ${req.method} ${req.url} | Accept: ${req.headers.accept}`);
+  next();
+});
 app.use('/shop', express.static(SHOP_DIST_PATH));
 
 app.get('/shop', (req, res) => {
+  console.log('[DEBUG] Serving /shop/index.html explicitly');
   res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
 });
 
 app.get('/shop/', (req, res) => {
+  console.log('[DEBUG] Serving /shop/index.html explicitly (trailing slash)');
   res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
 });
 
@@ -86,8 +92,10 @@ app.get('/', (req, res) => {
 // Handle Mobile App client-side routing
 app.get(/\/shop\/.*/, (req, res) => {
   if (req.accepts('html')) {
+    console.log(`[DEBUG] SPA Fallback for ${req.url} -> serving index.html`);
     res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
   } else {
+    console.log(`[DEBUG] 404 for ${req.url} (Not HTML). Accept: ${req.headers.accept}`);
     res.status(404).send('Not Found');
   }
 });

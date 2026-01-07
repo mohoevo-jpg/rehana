@@ -16,7 +16,16 @@ export default {
     if ((isShop || isAdmin) && !isAsset) {
       const indexPath = isShop ? "/shop/index.html" : "/admin-panel/index.html";
       const indexUrl = new URL(indexPath, request.url);
-      return fetch(indexUrl, request);
+      
+      // Create a new request to ensure headers are preserved but url is updated
+      const newRequest = new Request(indexUrl, {
+        method: request.method,
+        headers: request.headers,
+        body: request.body,
+        redirect: 'manual'
+      });
+      
+      return fetch(newRequest);
     }
 
     // Downloads: forward as-is to origin
