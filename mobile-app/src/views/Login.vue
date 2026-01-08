@@ -5,6 +5,11 @@
     <div class="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl z-0"></div>
     <div class="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl z-0"></div>
 
+    <!-- Back Button -->
+    <router-link to="/" class="absolute top-6 left-6 z-20 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 transition-colors shadow-lg border border-white/10">
+      <ArrowLeft class="w-6 h-6" />
+    </router-link>
+
     <div class="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
       <div class="flex justify-center">
         <div class="bg-white rounded-2xl p-4 shadow-xl mb-6">

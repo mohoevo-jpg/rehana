@@ -364,6 +364,28 @@ const searchQuery = ref('')
 const selectedProduct = ref(null)
 const modalQuantity = ref(1)
 
+// Location Logic
+import { MapPin, ChevronDown, Check } from 'lucide-vue-next'
+const showLocationDropdown = ref(false)
+const currentAddressId = ref(null)
+
+const currentAddressName = computed(() => {
+  if (currentAddressId.value) {
+    const addr = authStore.user?.addresses?.find(a => a.id === currentAddressId.value)
+    if (addr) return addr.name
+  }
+  // Default or fallback
+  if (authStore.user?.addresses?.length > 0) {
+    return authStore.user.addresses[0].name
+  }
+  return 'اختر موقع'
+})
+
+const selectAddress = (addr) => {
+  currentAddressId.value = addr.id
+  showLocationDropdown.value = false
+}
+
 const toggleFavorite = (product) => {
   authStore.toggleFavorite(product.id)
 }
