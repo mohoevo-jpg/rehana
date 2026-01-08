@@ -218,42 +218,40 @@ let products = [
 ]; 
 let users = [];
 let settings = {
-  minAppVersion: '1.0.0',
-  latestAppVersion: '1.2.0',
-  updateUrl: 'https://play.google.com/store/apps/details?id=com.rehana.app',
-  announcement: {
-    active: false,
-    title: '',
-    message: ''
-  },
-  facebookUrl: 'https://facebook.com',
-  instagramUrl: 'https://instagram.com',
-  tiktokUrl: 'https://tiktok.com',
-  email: 'info@rehana.com'
-};
-
-let settings = {
+  // Store Settings
   deliveryFee: 5000,
   minOrderAmount: 0,
   isStoreOpen: true,
   allowOrders: true,
   currencySymbol: 'د.ع',
+  
+  // App Version & Updates
   minAppVersion: '1.0.0',
-  latestAppVersion: '1.0.0',
-  updateUrl: '',
+  latestAppVersion: '1.2.0',
+  updateUrl: 'https://play.google.com/store/apps/details?id=com.rehana.app',
   updateMessage: 'تحديث جديد متوفر، يرجى التحديث للحصول على آخر المميزات',
+  
+  // Welcome & Rewards
   welcomeMessage: 'تم إنشاء الحساب بنجاح!\nحصلت على رصيد ترحيبي بقيمة {amount} د.ع هدية مقدمة من تطبيق ريحانة.\nنتمنى لك تجربة تسوق ممتعة.',
   welcomeBonus: 3000,
-  announcement: {
-    active: false,
-    title: 'تنبيه هام',
-    message: ''
-  },
   rewardSystem: {
     active: true,
     threshold: 35000,
     amount: 1000,
     message: 'لانك زبون مميز لدينا هاي 1000 دينار رصيد استخدمه في طلبك القادم'
+  },
+  
+  // Social Media & Contact
+  facebookUrl: 'https://facebook.com',
+  instagramUrl: 'https://instagram.com',
+  tiktokUrl: 'https://tiktok.com',
+  email: 'info@rehana.com',
+  
+  // Announcement
+  announcement: {
+    active: false,
+    title: 'تنبيه هام',
+    message: ''
   }
 };
 
