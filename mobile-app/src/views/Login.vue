@@ -208,8 +208,6 @@ const handleLogin = async () => {
   }
 }
 
-const tempRegistrationId = ref(null)
-
 const handleRegister = async () => {
   const result = await authStore.registerInit(registerForm.value)
   if (result.success) {
