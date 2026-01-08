@@ -216,9 +216,21 @@ let products = [
   { id: '4', name: 'أرز بسمتي', price: 2500, category: 'بقالة', barcode: '1004', quantity: 40, images: [], isAvailable: true },
   { id: '5', name: 'زيت طبخ', price: 3000, category: 'بقالة', barcode: '1005', quantity: 30, images: [], isAvailable: true },
 ]; 
-let users = [
-  { id: '1', name: 'Admin', email: 'admin@rehana.com', phone: '07700000000', password: 'admin', role: 'admin', walletBalance: 0, favorites: [] }
-];
+let users = [];
+let settings = {
+  minAppVersion: '1.0.0',
+  latestAppVersion: '1.2.0',
+  updateUrl: 'https://play.google.com/store/apps/details?id=com.rehana.app',
+  announcement: {
+    active: false,
+    title: '',
+    message: ''
+  },
+  facebookUrl: 'https://facebook.com',
+  instagramUrl: 'https://instagram.com',
+  tiktokUrl: 'https://tiktok.com',
+  email: 'info@rehana.com'
+};
 
 let settings = {
   deliveryFee: 5000,
@@ -283,6 +295,18 @@ app.post('/api/whatsapp/logout', async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
+});
+
+// Settings Routes
+app.get('/api/settings', (req, res) => {
+  res.json(settings);
+});
+
+app.post('/api/settings', (req, res) => {
+  // Add auth check here if needed (e.g. require admin)
+  const newSettings = req.body;
+  settings = { ...settings, ...newSettings };
+  res.json({ success: true, settings });
 });
 
 // Auth Routes
@@ -385,6 +409,25 @@ app.post('/api/auth/register-resend', async (req, res) => {
     res.json({ success: true, message: 'تم إعادة إرسال الرمز إلى البريد الإلكتروني' });
   }
 });
+
+// Ensure Admin User Exists
+const ensureAdmin = () => {
+  if (!users.find(u => u.email === 'admin@rehana.com')) {
+    users.push({
+      id: 'admin-1',
+      name: 'مدير النظام',
+      email: 'admin@rehana.com',
+      password: 'admin',
+      role: 'admin',
+      phone: '07700000000',
+      walletBalance: 0,
+      favorites: [],
+      addresses: []
+    });
+    console.log('Default admin user created: admin@rehana.com / admin');
+  }
+};
+ensureAdmin();
 
 app.post('/api/auth/login', (req, res) => {
   const { identifier, password } = req.body;

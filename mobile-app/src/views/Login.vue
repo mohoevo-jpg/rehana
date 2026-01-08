@@ -6,7 +6,7 @@
     <div class="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl z-0"></div>
 
     <!-- Back Button -->
-    <router-link to="/" class="absolute top-6 left-6 z-20 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 transition-colors shadow-lg border border-white/10">
+    <router-link to="/" class="absolute top-6 left-6 z-20 p-2 bg-gray-900/10 backdrop-blur-md rounded-full text-gray-900 hover:bg-gray-900/20 transition-colors shadow-sm border border-gray-900/5">
       <ArrowLeft class="w-6 h-6" />
     </router-link>
 
@@ -208,9 +208,12 @@ const handleLogin = async () => {
   }
 }
 
+const tempRegistrationId = ref(null)
+
 const handleRegister = async () => {
   const result = await authStore.registerInit(registerForm.value)
   if (result.success) {
+    tempRegistrationId.value = result.tempId
     showVerificationModal.value = true
   } else {
     // Error is already handled in store/auth.js and set to authStore.error
@@ -221,7 +224,13 @@ const handleRegister = async () => {
 const verifyCode = async () => {
   if (!verificationCode.value) return
   
-  const result = await authStore.registerVerify(registerForm.value.phone, verificationCode.value)
+  if (!tempRegistrationId.value) {
+    alert('حدث خطأ: جلسة التسجيل انتهت. يرجى المحاولة مرة أخرى.')
+    showVerificationModal.value = false
+    return
+  }
+
+  const result = await authStore.registerVerify(tempRegistrationId.value, verificationCode.value)
   if (result.success) {
     showVerificationModal.value = false
     alert('تم إنشاء الحساب وتفعيله بنجاح!\nحصلت على رصيد ترحيبي بقيمة 3,000 د.ع')
@@ -230,7 +239,11 @@ const verifyCode = async () => {
 }
 
 const resendCode = async (method) => {
-  if (!tempRegistrationId.value) return
+  if (!tempRegistrationId.value) {
+    alert('جلسة التسجيل انتهت. يرجى إعادة تعبئة البيانات.')
+    showVerificationModal.value = false
+    return
+  }
   const result = await authStore.registerResend(tempRegistrationId.value, method)
   if (result.success) {
     alert(result.message || 'تم إرسال الرمز بنجاح')

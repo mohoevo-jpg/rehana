@@ -14,12 +14,19 @@ import Settings from '../views/Settings.vue'
 import Complaints from '../views/Complaints.vue'
 import AdminDashboard from '../views/admin/Dashboard.vue'
 import Notifications from '../views/Notifications.vue'
+import About from '../views/About.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: About,
     meta: { requiresAuth: false }
   },
   {

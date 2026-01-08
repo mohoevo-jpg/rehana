@@ -210,7 +210,7 @@
 
           <!-- Sidebar Footer -->
           <div class="p-4 border-t border-gray-100 dark:border-gray-700">
-            <button @click="handleLogout" class="w-full flex items-center justify-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl font-bold hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
+            <button v-if="authStore.isAuthenticated" @click="handleLogout" class="w-full flex items-center justify-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl font-bold hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
               <LogOut class="w-5 h-5" />
               تسجيل الخروج
             </button>

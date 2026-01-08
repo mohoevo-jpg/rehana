@@ -56,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
         const data = await res.json()
         
         if (res.ok) {
-          return { success: true, message: data.message }
+          return { success: true, message: data.message, tempId: data.tempId }
         } else {
           this.error = data.error
           return { success: false, error: data.error }
@@ -69,14 +69,14 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async registerVerify(phone, code) {
+    async registerVerify(tempId, code) {
       this.isLoading = true
       this.error = null
       try {
         const res = await fetch(`${SERVER_URL}/api/auth/register-verify`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone, code })
+          body: JSON.stringify({ tempId, code })
         })
         
         const data = await res.json()
@@ -99,7 +99,8 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async registerResend(tempId, method) {
-      // Don't set global loading here to avoid blocking UI excessively, or handle in component
+      this.isLoading = true
+      this.error = null
       try {
         const res = await fetch(`${SERVER_URL}/api/auth/register-resend`, {
           method: 'POST',
@@ -108,9 +109,18 @@ export const useAuthStore = defineStore('auth', {
         })
         
         const data = await res.json()
-        return { success: res.ok, message: data.message, error: data.error }
+        
+        if (res.ok) {
+          return { success: true, message: data.message }
+        } else {
+          this.error = data.error
+          return { success: false, error: data.error }
+        }
       } catch (e) {
+        this.error = 'حدث خطأ في الاتصال'
         return { success: false, error: 'حدث خطأ في الاتصال' }
+      } finally {
+        this.isLoading = false
       }
     },
 

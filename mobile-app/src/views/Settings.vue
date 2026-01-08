@@ -82,6 +82,31 @@
         </div>
       </div>
 
+      <!-- Help Center -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 space-y-2 transition-colors duration-300">
+        <h3 class="font-bold text-gray-900 dark:text-white text-sm mb-2">مركز المساعدة</h3>
+        
+        <router-link to="/complaints" class="flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-xl transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
+              <Headphones class="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            </div>
+            <span class="font-medium text-gray-700 dark:text-gray-200">الشكاوي والمقترحات</span>
+          </div>
+          <ChevronLeft class="w-4 h-4 text-gray-400" />
+        </router-link>
+
+        <router-link to="/about" class="flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-xl transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center">
+              <Info class="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            </div>
+            <span class="font-medium text-gray-700 dark:text-gray-200">عن التطبيق</span>
+          </div>
+          <ChevronLeft class="w-4 h-4 text-gray-400" />
+        </router-link>
+      </div>
+
       <!-- Danger Zone -->
       <div class="bg-red-50 dark:bg-red-900/20 rounded-2xl p-4 border border-red-100 dark:border-red-900/30 space-y-4">
         <h3 class="font-bold text-red-700 dark:text-red-400 text-sm mb-2">منطقة الخطر</h3>
@@ -98,7 +123,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { ArrowRight, User, Lock, Camera, Trash2, Moon } from 'lucide-vue-next'
+import { ArrowRight, User, Lock, Camera, Trash2, Moon, Headphones, ChevronLeft, Info } from 'lucide-vue-next'
 import { useAuthStore } from '../store/auth'
 import { useRouter } from 'vue-router'
 
