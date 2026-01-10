@@ -73,31 +73,24 @@
 
     <!-- Hero / Banners Section -->
     <div class="relative">
-      <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 pb-4 hide-scrollbar">
-        <!-- Banner 1 -->
-        <div class="snap-center shrink-0 w-[90%] sm:w-[80%] h-48 rounded-3xl overflow-hidden relative shadow-lg shadow-primary-900/10 group">
-          <div class="absolute inset-0 bg-gradient-to-r from-violet-600 to-indigo-600"></div>
+      <div v-if="appStore.banners.length === 0" class="flex gap-4 px-4 overflow-x-auto pb-4">
+         <div class="shrink-0 w-[90%] sm:w-[80%] h-48 bg-gray-100 rounded-3xl animate-pulse"></div>
+      </div>
+      <div v-else class="flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 pb-4 hide-scrollbar">
+        <div v-for="banner in appStore.banners" :key="banner.id" class="snap-center shrink-0 w-[90%] sm:w-[80%] h-48 rounded-3xl overflow-hidden relative shadow-lg shadow-primary-900/10 group">
+          <div :class="`absolute inset-0 bg-gradient-to-r from-${banner.colorFrom} to-${banner.colorTo}`"></div>
+          <!-- Fallback -->
+          <div class="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-800" v-if="!banner.colorFrom"></div>
+          
           <div class="absolute inset-0 flex items-center p-6">
             <div class="w-2/3 text-white z-10">
-              <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-3 border border-white/10">عروض خاصة</span>
-              <h2 class="text-2xl font-black mb-2 leading-tight">خصم 50% على جميع العطور</h2>
+              <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-3 border border-white/10">{{ banner.subtitle }}</span>
+              <h2 class="text-2xl font-black mb-2 leading-tight">{{ banner.title }}</h2>
               <button class="px-5 py-2 bg-white text-primary-700 rounded-xl text-sm font-bold shadow-sm active:scale-95 transition-transform">تسوق الآن</button>
             </div>
             <!-- Decorative Circles -->
             <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute right-10 top-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-          </div>
-        </div>
-
-        <!-- Banner 2 -->
-        <div class="snap-center shrink-0 w-[90%] sm:w-[80%] h-48 rounded-3xl overflow-hidden relative shadow-lg shadow-primary-900/10 group">
-          <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500"></div>
-          <div class="absolute inset-0 flex items-center p-6">
-             <div class="w-2/3 text-white z-10">
-              <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-3 border border-white/10">وصل حديثاً</span>
-              <h2 class="text-2xl font-black mb-2 leading-tight">مجموعة العناية بالبشرة</h2>
-              <button class="px-5 py-2 bg-white text-rose-600 rounded-xl text-sm font-bold shadow-sm active:scale-95 transition-transform">اكتشف المزيد</button>
-            </div>
           </div>
         </div>
       </div>
@@ -109,11 +102,20 @@
         <h3 class="font-bold text-gray-900 text-lg">التصنيفات</h3>
         <button class="text-primary-600 text-sm font-medium hover:underline">عرض الكل</button>
       </div>
-      <div class="flex overflow-x-auto gap-4 px-4 pb-4 hide-scrollbar">
-        <div v-for="cat in categories" :key="cat.id" class="flex flex-col items-center gap-2 min-w-[4.5rem] cursor-pointer group">
+      
+      <div v-if="appStore.categories.length === 0" class="flex gap-4 px-4 overflow-x-auto pb-4">
+         <div v-for="n in 5" :key="n" class="flex flex-col items-center gap-2 min-w-[4.5rem]">
+            <div class="w-16 h-16 rounded-full bg-gray-100 animate-pulse"></div>
+            <div class="w-12 h-3 bg-gray-100 rounded animate-pulse"></div>
+         </div>
+      </div>
+
+      <div v-else class="flex overflow-x-auto gap-4 px-4 pb-4 hide-scrollbar">
+        <div v-for="cat in appStore.categories" :key="cat.id" class="flex flex-col items-center gap-2 min-w-[4.5rem] cursor-pointer group">
           <div class="p-[2px] rounded-full bg-gradient-to-tr from-primary-500 to-secondary-500 group-hover:from-primary-600 group-hover:to-secondary-600 transition-colors">
              <div class="w-16 h-16 rounded-full bg-white border-2 border-transparent flex items-center justify-center text-2xl shadow-sm group-active:scale-95 transition-transform">
-               {{ cat.icon }}
+               <!-- Icon mapping logic could be here, for now use generic or cat.icon if emoji -->
+               {{ cat.icon || '📦' }}
              </div>
           </div>
           <span class="text-xs font-bold text-gray-700 group-hover:text-primary-700 transition-colors">{{ cat.name }}</span>
@@ -397,14 +399,6 @@ const isFavorite = (productId) => {
 const getOrderCount = (productId) => {
   return appStore.getProductOrderCount(productId)
 }
-
-const categories = [
-  { id: 1, name: 'عطور', icon: '🌸' },
-  { id: 2, name: 'مكياج', icon: '💄' },
-  { id: 3, name: 'بشرة', icon: '✨' },
-  { id: 4, name: 'شعر', icon: '💇‍♀️' },
-  { id: 5, name: 'هدايا', icon: '🎁' },
-]
 
 const filteredProducts = computed(() => {
   const products = appStore.products || []

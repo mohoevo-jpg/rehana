@@ -49,6 +49,14 @@
                    <Users class="w-5 h-5" />
                    المستخدمين
                 </a>
+                <a href="#" @click.prevent="switchTab('categories')" :class="activeTab === 'categories' ? 'bg-primary-50 text-primary-700 font-bold' : 'text-gray-600 font-medium hover:bg-gray-50 hover:text-gray-900'" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors">
+                   <LayoutList class="w-5 h-5" />
+                   التصنيفات
+                </a>
+                <a href="#" @click.prevent="switchTab('banners')" :class="activeTab === 'banners' ? 'bg-primary-50 text-primary-700 font-bold' : 'text-gray-600 font-medium hover:bg-gray-50 hover:text-gray-900'" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors">
+                   <ImageIcon class="w-5 h-5" />
+                   الإعلانات
+                </a>
                 <router-link to="/" @click="showSidebar = false" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 font-medium hover:bg-gray-50 hover:text-gray-900 transition-colors">
                    <Home class="w-5 h-5" />
                    الواجهة الرئيسية
@@ -341,6 +349,65 @@
            </div>
         </div>
 
+        <!-- Categories Tab -->
+        <div v-if="activeTab === 'categories'" class="space-y-6 animate-fade-in">
+           <div class="flex justify-between items-center">
+              <h2 class="text-2xl font-black text-gray-900">إدارة التصنيفات</h2>
+              <button @click="openAddCategoryModal" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold shadow-lg shadow-primary-600/20 hover:bg-primary-700 transition-transform active:scale-95 flex items-center gap-2">
+                 <Plus class="w-5 h-5" />
+                 إضافة تصنيف
+              </button>
+           </div>
+
+           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div v-for="cat in appStore.categories" :key="cat.id" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group">
+                 <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl">
+                       <!-- Simple icon mapping or emoji if icon lib not full -->
+                       📦
+                    </div>
+                    <div>
+                       <h3 class="font-bold text-gray-900">{{ cat.name }}</h3>
+                       <p class="text-xs text-gray-400">{{ appStore.products.filter(p => p.categoryId === cat.id).length }} منتج</p>
+                    </div>
+                 </div>
+                 <button @click="deleteCategory(cat.id)" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                    <Trash2 class="w-5 h-5" />
+                 </button>
+              </div>
+           </div>
+        </div>
+
+        <!-- Banners Tab -->
+        <div v-if="activeTab === 'banners'" class="space-y-6 animate-fade-in">
+           <div class="flex justify-between items-center">
+              <h2 class="text-2xl font-black text-gray-900">إدارة الإعلانات</h2>
+              <button @click="openAddBannerModal" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold shadow-lg shadow-primary-600/20 hover:bg-primary-700 transition-transform active:scale-95 flex items-center gap-2">
+                 <Plus class="w-5 h-5" />
+                 إضافة إعلان
+              </button>
+           </div>
+
+           <div class="space-y-4">
+              <div v-for="banner in appStore.banners" :key="banner.id" class="relative h-48 rounded-3xl overflow-hidden shadow-lg group">
+                 <div :class="`absolute inset-0 bg-gradient-to-r from-${banner.colorFrom} to-${banner.colorTo}`"></div>
+                 <!-- Fallback gradient if dynamic classes fail (Tailwind JIT limitation) -->
+                 <div class="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-800" v-if="!banner.colorFrom"></div>
+                 
+                 <div class="absolute inset-0 flex items-center p-8">
+                    <div class="w-2/3 text-white z-10">
+                       <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-3 border border-white/10">{{ banner.subtitle }}</span>
+                       <h2 class="text-2xl font-black mb-2 leading-tight">{{ banner.title }}</h2>
+                    </div>
+                 </div>
+                 
+                 <button @click="deleteBanner(banner.id)" class="absolute top-4 left-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-500 transition-colors z-20">
+                    <Trash2 class="w-5 h-5" />
+                 </button>
+              </div>
+           </div>
+        </div>
+
         <!-- App Settings -->
         <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-6">
            <h3 class="font-bold text-gray-900 text-lg">إعدادات التطبيق العامة</h3>
@@ -450,6 +517,14 @@
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-2">اسم المنتج</label>
               <input v-model="newProduct.name" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium" placeholder="مثال: شامبو هيد أند شولدرز">
+            </div>
+
+            <div>
+               <label class="block text-sm font-bold text-gray-700 mb-2">التصنيف</label>
+               <select v-model="newProduct.categoryId" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium appearance-none">
+                  <option :value="null">اختر تصنيف...</option>
+                  <option v-for="cat in appStore.categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+               </select>
             </div>
 
             <div>
@@ -568,6 +643,72 @@
       </div>
     </Teleport>
 
+    <!-- Add Category Modal -->
+    <Teleport to="body">
+      <div v-if="showCategoryModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" dir="rtl">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" @click="showCategoryModal = false"></div>
+        <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 animate-slide-up shadow-2xl">
+           <h3 class="text-xl font-bold text-gray-900 mb-4">إضافة تصنيف جديد</h3>
+           <div class="space-y-4">
+              <div>
+                 <label class="block text-sm font-bold text-gray-700 mb-2">اسم التصنيف</label>
+                 <input v-model="newCategory.name" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium">
+              </div>
+              <button @click="addCategory" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors">إضافة</button>
+           </div>
+           <button @click="showCategoryModal = false" class="absolute top-4 left-4 p-2 rounded-full hover:bg-gray-100">
+              <X class="w-5 h-5 text-gray-500" />
+           </button>
+        </div>
+      </div>
+    </Teleport>
+
+    <!-- Add Banner Modal -->
+    <Teleport to="body">
+      <div v-if="showBannerModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" dir="rtl">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" @click="showBannerModal = false"></div>
+        <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 animate-slide-up shadow-2xl">
+           <h3 class="text-xl font-bold text-gray-900 mb-4">إضافة إعلان جديد</h3>
+           <div class="space-y-4">
+              <div>
+                 <label class="block text-sm font-bold text-gray-700 mb-2">العنوان الرئيسي</label>
+                 <input v-model="newBanner.title" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium">
+              </div>
+              <div>
+                 <label class="block text-sm font-bold text-gray-700 mb-2">العنوان الفرعي</label>
+                 <input v-model="newBanner.subtitle" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium">
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                 <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">لون البداية</label>
+                    <select v-model="newBanner.colorFrom" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium dir-ltr">
+                       <option value="violet-600">Violet</option>
+                       <option value="pink-500">Pink</option>
+                       <option value="blue-500">Blue</option>
+                       <option value="green-500">Green</option>
+                       <option value="orange-500">Orange</option>
+                    </select>
+                 </div>
+                 <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">لون النهاية</label>
+                     <select v-model="newBanner.colorTo" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium dir-ltr">
+                       <option value="indigo-600">Indigo</option>
+                       <option value="rose-500">Rose</option>
+                       <option value="sky-500">Sky</option>
+                       <option value="emerald-500">Emerald</option>
+                       <option value="red-500">Red</option>
+                    </select>
+                 </div>
+              </div>
+              <button @click="addBanner" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors">إضافة</button>
+           </div>
+           <button @click="showBannerModal = false" class="absolute top-4 left-4 p-2 rounded-full hover:bg-gray-100">
+              <X class="w-5 h-5 text-gray-500" />
+           </button>
+        </div>
+      </div>
+    </Teleport>
+
   </div>
 </template>
 
@@ -576,7 +717,8 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { 
   LayoutDashboard, LogOut, Package, ShoppingBag, 
-  Plus, Trash2, Search, X, ScanBarcode, PackageX, Inbox, User, Menu, Home, Settings, Users, Minus, Wallet, Upload, Edit
+  Plus, Trash2, Search, X, ScanBarcode, PackageX, Inbox, User, Menu, Home, Settings, Users, Minus, Wallet, Upload, Edit,
+  LayoutList, Image as ImageIcon, Bell
 } from 'lucide-vue-next'
 import { useAppStore } from '../../store/app'
 import { useAuthStore } from '../../store/auth'
@@ -773,6 +915,7 @@ const openAddModal = () => {
     discountPrice: null,
     barcode: '',
     images: [],
+    categoryId: null,
     isAvailable: true
   }
   showAddModal.value = true
@@ -784,7 +927,8 @@ const openEditModal = (product) => {
     // Ensure these fields exist
     discountPrice: product.discountPrice || null,
     quantity: product.quantity || 0,
-    images: product.images || []
+    images: product.images || [],
+    categoryId: product.categoryId || null
   }
   showAddModal.value = true
 }

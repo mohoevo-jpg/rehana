@@ -6,6 +6,9 @@ import { SERVER_URL } from '../config'
 export const useAppStore = defineStore('app', {
   state: () => ({
     products: [],
+    categories: [],
+    banners: [],
+    wishlist: [],
     cart: [],
     orders: [],
     socket: null,
@@ -144,14 +147,25 @@ export const useAppStore = defineStore('app', {
       }
     },
 
-    async fetchProducts() {
+    async fetchCategories() {
       try {
-        const res = await fetch(`${SERVER_URL}/api/products`)
+        const res = await fetch(`${SERVER_URL}/api/categories`)
         if (res.ok) {
-          this.products = await res.json()
+          this.categories = await res.json()
         }
       } catch (error) {
-        console.error('Failed to fetch products:', error)
+        console.error('Failed to fetch categories:', error)
+      }
+    },
+
+    async fetchBanners() {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/banners`)
+        if (res.ok) {
+          this.banners = await res.json()
+        }
+      } catch (error) {
+        console.error('Failed to fetch banners:', error)
       }
     },
 

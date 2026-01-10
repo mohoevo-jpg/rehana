@@ -304,7 +304,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref, watch } from 'vue'
+import { onMounted, onUnmounted, computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Home, ShoppingCart, ListOrdered, MapPin, ChevronDown, Bell, User, Heart, Menu, Wallet, Settings, Headphones, LogOut, RefreshCw, X, AlertTriangle, Gift, Clock, CheckCircle, Truck } from 'lucide-vue-next'
 import { useAppStore } from './store/app'
@@ -415,6 +415,9 @@ const closeReward = () => {
 
 onMounted(async () => {
   appStore.initSocket()
+  setTimeout(() => {
+    showSplash.value = false
+  }, 3000)
   await appStore.fetchSettings();
   checkVersion();
   
@@ -422,6 +425,10 @@ onMounted(async () => {
   watch(() => appStore.settings, () => {
     checkVersion();
   }, { deep: true });
+})
+
+onUnmounted(() => {
+  appStore.disconnectSocket()
 })
 </script>
 

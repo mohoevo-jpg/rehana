@@ -222,6 +222,16 @@ let products = [
   { id: '5', name: 'زيت طبخ', price: 3000, category: 'بقالة', barcode: '1005', quantity: 30, images: [], isAvailable: true },
 ]; 
 let users = [];
+let banners = [
+  { id: '1', title: 'خصم 50% على العطور', subtitle: 'عروض خاصة', colorFrom: 'violet-600', colorTo: 'indigo-600', image: null },
+  { id: '2', title: 'مجموعة العناية بالبشرة', subtitle: 'وصل حديثاً', colorFrom: 'pink-500', colorTo: 'rose-500', image: null }
+];
+let categories = [
+  { id: '1', name: 'عطور', icon: '🌸' },
+  { id: '2', name: 'مكياج', icon: '💄' },
+  { id: '3', name: 'عناية بالبشرة', icon: '✨' },
+  { id: '4', name: 'هدايا', icon: '🎁' }
+];
 let settings = {
   // Store Settings
   deliveryFee: 5000,
@@ -285,6 +295,51 @@ io.on('connection', (socket) => {
 });
 
 // --- API Routes ---
+
+app.get('/api/banners', (req, res) => {
+  res.json(banners);
+});
+
+app.post('/api/banners', (req, res) => {
+  const newBanner = { id: Date.now().toString(), ...req.body };
+  banners.push(newBanner);
+  io.emit('banners-updated', banners);
+  res.json(newBanner);
+});
+
+app.delete('/api/banners/:id', (req, res) => {
+  banners = banners.filter(b => b.id !== req.params.id);
+  io.emit('banners-updated', banners);
+  res.json({ success: true });
+});
+
+app.get('/api/categories', (req, res) => {
+  res.json(categories);
+});
+
+app.post('/api/categories', (req, res) => {
+  const newCategory = { id: Date.now().toString(), ...req.body };
+  categories.push(newCategory);
+  io.emit('categories-updated', categories);
+  res.json(newCategory);
+});
+
+app.put('/api/categories/:id', (req, res) => {
+  const index = categories.findIndex(c => c.id === req.params.id);
+  if (index !== -1) {
+    categories[index] = { ...categories[index], ...req.body };
+    io.emit('categories-updated', categories);
+    res.json(categories[index]);
+  } else {
+    res.status(404).json({ error: 'Category not found' });
+  }
+});
+
+app.delete('/api/categories/:id', (req, res) => {
+  categories = categories.filter(c => c.id !== req.params.id);
+  io.emit('categories-updated', categories);
+  res.json({ success: true });
+});
 
 // WhatsApp Routes
 app.get('/api/whatsapp/status', (req, res) => {
