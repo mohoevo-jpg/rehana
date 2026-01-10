@@ -72,11 +72,11 @@
           </div>
 
           <div class="grid grid-cols-2 gap-3">
-             <button type="button" class="flex items-center justify-center gap-2 py-3 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors shadow-sm">
+             <button type="button" @click="handleSocialLogin('google')" class="flex items-center justify-center gap-2 py-3 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors shadow-sm">
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" />
                 <span class="text-sm font-bold text-gray-700">Google</span>
              </button>
-             <button type="button" class="flex items-center justify-center gap-2 py-3 bg-black text-white border border-black rounded-xl hover:bg-gray-900 transition-colors shadow-sm">
+             <button type="button" @click="handleSocialLogin('apple')" class="flex items-center justify-center gap-2 py-3 bg-black text-white border border-black rounded-xl hover:bg-gray-900 transition-colors shadow-sm">
                 <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-.54-.26-1.07-.48-1.58-.48-.54 0-1.12.24-1.75.52-1.05.46-2.07.46-2.93-.36-1.75-1.68-2.95-4.81-1.22-7.81 1.01-1.75 2.65-2.6 4.35-2.6 1.13 0 2.05.7 2.69.7.6 0 1.64-.78 3.03-.78 1.07 0 2.22.42 2.97 1.39-2.58 1.48-2.14 5.39.56 6.55-.48 1.41-1.18 2.76-2.14 3.73-.25.26-.52.51-.81.79zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
                 <span class="text-sm font-bold">Apple</span>
              </button>
@@ -220,6 +220,13 @@ const handleLogin = async () => {
     } else {
       router.push('/')
     }
+  }
+}
+
+const handleSocialLogin = async (provider) => {
+  const result = await authStore.socialLogin(provider)
+  if (result.success) {
+    router.push('/')
   }
 }
 

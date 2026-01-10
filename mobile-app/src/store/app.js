@@ -306,6 +306,98 @@ export const useAppStore = defineStore('app', {
       } catch (error) {
         console.error('Failed to update product availability:', error)
       }
+    },
+
+    async addCategory(category) {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/categories`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(category)
+        })
+        if (res.ok) {
+          const newCategory = await res.json()
+          this.categories.push(newCategory)
+        }
+      } catch (error) {
+        console.error('Failed to add category:', error)
+      }
+    },
+
+    async updateCategory(category) {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/categories/${category.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(category)
+        })
+        if (res.ok) {
+          const updated = await res.json()
+          const idx = this.categories.findIndex(c => c.id === updated.id)
+          if (idx !== -1) this.categories[idx] = updated
+        }
+      } catch (error) {
+        console.error('Failed to update category:', error)
+      }
+    },
+
+    async deleteCategory(id) {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/categories/${id}`, {
+          method: 'DELETE'
+        })
+        if (res.ok) {
+          this.categories = this.categories.filter(c => c.id !== id)
+        }
+      } catch (error) {
+        console.error('Failed to delete category:', error)
+      }
+    },
+
+    async addBanner(banner) {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/banners`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(banner)
+        })
+        if (res.ok) {
+          const newBanner = await res.json()
+          this.banners.push(newBanner)
+        }
+      } catch (error) {
+        console.error('Failed to add banner:', error)
+      }
+    },
+
+    async updateBanner(banner) {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/banners/${banner.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(banner)
+        })
+        if (res.ok) {
+          const updated = await res.json()
+          const idx = this.banners.findIndex(b => b.id === updated.id)
+          if (idx !== -1) this.banners[idx] = updated
+        }
+      } catch (error) {
+        console.error('Failed to update banner:', error)
+      }
+    },
+
+    async deleteBanner(id) {
+      try {
+        const res = await fetch(`${SERVER_URL}/api/banners/${id}`, {
+          method: 'DELETE'
+        })
+        if (res.ok) {
+          this.banners = this.banners.filter(b => b.id !== id)
+        }
+      } catch (error) {
+        console.error('Failed to delete banner:', error)
+      }
     }
   }
 })

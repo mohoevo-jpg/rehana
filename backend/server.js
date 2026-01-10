@@ -307,6 +307,18 @@ app.post('/api/banners', (req, res) => {
   res.json(newBanner);
 });
 
+app.put('/api/banners/:id', (req, res) => {
+  const { id } = req.params;
+  const idx = banners.findIndex(b => b.id === id);
+  if (idx !== -1) {
+    banners[idx] = { ...banners[idx], ...req.body };
+    io.emit('banners-updated', banners);
+    res.json(banners[idx]);
+  } else {
+    res.status(404).json({ error: 'Banner not found' });
+  }
+});
+
 app.delete('/api/banners/:id', (req, res) => {
   banners = banners.filter(b => b.id !== req.params.id);
   io.emit('banners-updated', banners);
@@ -325,11 +337,12 @@ app.post('/api/categories', (req, res) => {
 });
 
 app.put('/api/categories/:id', (req, res) => {
-  const index = categories.findIndex(c => c.id === req.params.id);
-  if (index !== -1) {
-    categories[index] = { ...categories[index], ...req.body };
+  const { id } = req.params;
+  const idx = categories.findIndex(c => c.id === id);
+  if (idx !== -1) {
+    categories[idx] = { ...categories[idx], ...req.body };
     io.emit('categories-updated', categories);
-    res.json(categories[index]);
+    res.json(categories[idx]);
   } else {
     res.status(404).json({ error: 'Category not found' });
   }
@@ -393,11 +406,17 @@ app.post('/api/auth/register-init', async (req, res) => {
   const securityNumber = Array.from(Array(8), () => Math.floor(Math.random() * 36).toString(36)).join('').toUpperCase();
   await sendEmail(email, 'رمز التحقق - ريحانة', `رمز التحقق الخاص بك هو: ${code}\nرقم الأمان: ${securityNumber}`);
 
+  // For demo/testing purposes, we include the code in the message if email sending is simulated
+  const isDev = !process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your_email_password_here';
+  const message = isDev 
+    ? `تم إرسال رمز التحقق (لأغراض الاختبار: ${code})` 
+    : 'تم إرسال رمز التحقق إلى بريدك الإلكتروني';
+
   res.json({ 
     success: true, 
     requiresVerification: true, 
     tempId,
-    message: 'تم إرسال رمز التحقق إلى بريدك الإلكتروني'
+    message
   });
 });
 

@@ -371,9 +371,14 @@
                        <p class="text-xs text-gray-400">{{ appStore.products.filter(p => p.categoryId === cat.id).length }} منتج</p>
                     </div>
                  </div>
-                 <button @click="deleteCategory(cat.id)" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
-                    <Trash2 class="w-5 h-5" />
-                 </button>
+                 <div class="flex items-center gap-1">
+                     <button @click="openEditCategoryModal(cat)" class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors">
+                        <Edit class="w-5 h-5" />
+                     </button>
+                     <button @click="deleteCategory(cat.id)" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                        <Trash2 class="w-5 h-5" />
+                     </button>
+                 </div>
               </div>
            </div>
         </div>
@@ -401,9 +406,14 @@
                     </div>
                  </div>
                  
-                 <button @click="deleteBanner(banner.id)" class="absolute top-4 left-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-500 transition-colors z-20">
-                    <Trash2 class="w-5 h-5" />
-                 </button>
+                 <div class="absolute top-4 left-4 z-20 flex gap-2">
+                     <button @click="openEditBannerModal(banner)" class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-blue-500 transition-colors">
+                        <Edit class="w-5 h-5" />
+                     </button>
+                     <button @click="deleteBanner(banner.id)" class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-500 transition-colors">
+                        <Trash2 class="w-5 h-5" />
+                     </button>
+                 </div>
               </div>
            </div>
         </div>
@@ -648,13 +658,13 @@
       <div v-if="showCategoryModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" dir="rtl">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" @click="showCategoryModal = false"></div>
         <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 animate-slide-up shadow-2xl">
-           <h3 class="text-xl font-bold text-gray-900 mb-4">إضافة تصنيف جديد</h3>
+           <h3 class="text-xl font-bold text-gray-900 mb-4">{{ newCategory.id ? 'تعديل تصنيف' : 'إضافة تصنيف جديد' }}</h3>
            <div class="space-y-4">
               <div>
                  <label class="block text-sm font-bold text-gray-700 mb-2">اسم التصنيف</label>
                  <input v-model="newCategory.name" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium">
               </div>
-              <button @click="addCategory" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors">إضافة</button>
+              <button @click="saveCategory" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors">{{ newCategory.id ? 'حفظ التعديلات' : 'إضافة' }}</button>
            </div>
            <button @click="showCategoryModal = false" class="absolute top-4 left-4 p-2 rounded-full hover:bg-gray-100">
               <X class="w-5 h-5 text-gray-500" />
@@ -668,7 +678,7 @@
       <div v-if="showBannerModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" dir="rtl">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" @click="showBannerModal = false"></div>
         <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 animate-slide-up shadow-2xl">
-           <h3 class="text-xl font-bold text-gray-900 mb-4">إضافة إعلان جديد</h3>
+           <h3 class="text-xl font-bold text-gray-900 mb-4">{{ newBanner.id ? 'تعديل إعلان' : 'إضافة إعلان جديد' }}</h3>
            <div class="space-y-4">
               <div>
                  <label class="block text-sm font-bold text-gray-700 mb-2">العنوان الرئيسي</label>
@@ -700,7 +710,7 @@
                     </select>
                  </div>
               </div>
-              <button @click="addBanner" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors">إضافة</button>
+              <button @click="saveBanner" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors">{{ newBanner.id ? 'حفظ التعديلات' : 'إضافة' }}</button>
            </div>
            <button @click="showBannerModal = false" class="absolute top-4 left-4 p-2 rounded-full hover:bg-gray-100">
               <X class="w-5 h-5 text-gray-500" />
@@ -822,6 +832,64 @@ const updateWallet = async (type) => {
     }
   } catch (e) {
     console.error(e)
+  }
+}
+
+// Categories & Banners Logic
+const showCategoryModal = ref(false)
+const showBannerModal = ref(false)
+const newCategory = ref({ id: null, name: '', icon: '' })
+const newBanner = ref({ title: '', subtitle: '', colorFrom: 'violet-600', colorTo: 'indigo-600' })
+
+const openAddCategoryModal = () => {
+  newCategory.value = { id: null, name: '', icon: '' }
+  showCategoryModal.value = true
+}
+
+const openEditCategoryModal = (cat) => {
+  newCategory.value = { ...cat }
+  showCategoryModal.value = true
+}
+
+const saveCategory = async () => {
+  if (!newCategory.value.name) return
+  if (newCategory.value.id) {
+      await appStore.updateCategory(newCategory.value)
+  } else {
+      await appStore.addCategory(newCategory.value)
+  }
+  showCategoryModal.value = false
+}
+
+const deleteCategory = async (id) => {
+  if (confirm('هل أنت متأكد من حذف هذا التصنيف؟')) {
+    await appStore.deleteCategory(id)
+  }
+}
+
+const openAddBannerModal = () => {
+  newBanner.value = { title: '', subtitle: '', colorFrom: 'violet-600', colorTo: 'indigo-600' }
+  showBannerModal.value = true
+}
+
+const openEditBannerModal = (banner) => {
+  newBanner.value = { ...banner }
+  showBannerModal.value = true
+}
+
+const saveBanner = async () => {
+  if (!newBanner.value.title) return
+  if (newBanner.value.id) {
+      await appStore.updateBanner(newBanner.value)
+  } else {
+      await appStore.addBanner(newBanner.value)
+  }
+  showBannerModal.value = false
+}
+
+const deleteBanner = async (id) => {
+  if (confirm('هل أنت متأكد من حذف هذا الإعلان؟')) {
+    await appStore.deleteBanner(id)
   }
 }
 

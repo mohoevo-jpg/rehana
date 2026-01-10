@@ -43,6 +43,30 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    async socialLogin(provider) {
+      this.isLoading = true
+      this.error = null
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      const mockUser = {
+        id: 'social-' + Date.now(),
+        name: provider === 'google' ? 'مستخدم Google' : 'مستخدم Apple',
+        email: provider === 'google' ? 'user@gmail.com' : 'user@icloud.com',
+        role: 'customer',
+        walletBalance: 0,
+        favorites: [],
+        addresses: []
+      }
+      
+      this.user = mockUser
+      this.isAuthenticated = true
+      localStorage.setItem('user', JSON.stringify(mockUser))
+      this.isLoading = false
+      return { success: true, message: 'تم تسجيل الدخول بنجاح' }
+    },
+
     async registerInit(userData) {
       this.isLoading = true
       this.error = null
