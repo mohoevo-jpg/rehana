@@ -22,6 +22,10 @@ export const useAppStore = defineStore('app', {
       latestAppVersion: '1.0.0',
       updateUrl: '',
       updateMessage: 'تحديث جديد متوفر',
+      facebookUrl: '',
+      instagramUrl: '',
+      tiktokUrl: '',
+      email: '',
       announcement: {
         active: false,
         title: '',
@@ -63,6 +67,7 @@ export const useAppStore = defineStore('app', {
         this.isConnected = true
         this.socket.emit('register-customer')
         this.fetchProducts()
+        this.fetchSettings()
       })
 
       this.socket.on('disconnect', () => {

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-50/50 pb-24 font-sans relative overflow-x-hidden">
     <!-- Admin Header -->
-    <header class="bg-white sticky top-0 z-30 px-6 py-4 shadow-sm border-b border-gray-100/50 backdrop-blur-xl bg-white/80">
+    <header class="bg-white sticky top-0 z-30 pt-12 pb-4 px-6 shadow-sm border-b border-gray-100/50 backdrop-blur-xl bg-white/80">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-3">
           <button @click="showSidebar = true" class="p-2 -ml-2 rounded-xl hover:bg-gray-100 transition-colors text-gray-700">
@@ -388,6 +388,31 @@
                     class="w-full px-4 py-3.5 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold"
                  >
                  <span class="absolute left-4 top-3.5 text-gray-400 text-sm font-bold">د.ع</span>
+              </div>
+           </div>
+
+           <!-- Social Media Links -->
+           <div class="pt-6 border-t border-gray-100 space-y-4">
+              <h4 class="font-bold text-gray-900">روابط التواصل الاجتماعي</h4>
+              
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">فيسبوك</label>
+                <input v-model="settings.facebookUrl" @change="saveSettings" type="url" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-left dir-ltr" placeholder="https://facebook.com/...">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">انستغرام</label>
+                <input v-model="settings.instagramUrl" @change="saveSettings" type="url" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-left dir-ltr" placeholder="https://instagram.com/...">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">تيك توك</label>
+                <input v-model="settings.tiktokUrl" @change="saveSettings" type="url" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-left dir-ltr" placeholder="https://tiktok.com/...">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">البريد الإلكتروني للتواصل</label>
+                <input v-model="settings.email" @change="saveSettings" type="email" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-left dir-ltr" placeholder="info@example.com">
               </div>
            </div>
         </div>

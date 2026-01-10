@@ -1,12 +1,10 @@
 <template>
   <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
     <!-- Background Elements -->
-    <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary-600 to-primary-800 rounded-b-[3rem] z-0"></div>
-    <div class="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl z-0"></div>
-    <div class="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl z-0"></div>
+    <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-white to-gray-50 rounded-b-[3rem] z-0"></div>
 
     <!-- Back Button -->
-    <router-link to="/" class="absolute top-6 left-6 z-20 p-2 bg-gray-900/10 backdrop-blur-md rounded-full text-gray-900 hover:bg-gray-900/20 transition-colors shadow-sm border border-gray-900/5">
+    <router-link to="/" class="absolute top-14 left-6 z-50 p-3 bg-white rounded-full text-gray-900 hover:bg-gray-50 transition-colors shadow-lg border border-gray-200">
       <ArrowLeft class="w-6 h-6" />
     </router-link>
 
@@ -17,10 +15,10 @@
           <img src="/logo.png" alt="Rehana" class="w-20 h-20 object-contain" />
         </div>
       </div>
-      <h2 class="text-center text-3xl font-bold text-white mb-2">
+      <h2 class="text-center text-3xl font-bold text-gray-900 mb-2">
         مرحباً بك في ريحانة
       </h2>
-      <p class="text-center text-primary-100 mb-8">
+      <p class="text-center text-gray-500 mb-8">
         وجهتك الأولى للتسوق
       </p>
     </div>

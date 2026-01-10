@@ -189,6 +189,11 @@ async function sendEmail(email, subject, text) {
   console.log(`[EMAIL] Body: ${text}`);
   console.log('---------------------------------------------------');
 
+  if (!process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your_email_password_here') {
+    console.log('[EMAIL] Skipping actual send: No valid EMAIL_PASS provided.');
+    return true; // Simulate success in dev
+  }
+
   try {
     const info = await transporter.sendMail({
       from: process.env.EMAIL_USER || 'service@rehanaforflowers.com',
