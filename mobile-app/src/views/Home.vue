@@ -120,8 +120,9 @@
             class="p-[2px] rounded-full transition-all duration-300"
             :class="[selectedCategory === cat.id ? 'bg-gradient-to-tr from-primary-600 to-secondary-600 scale-110 shadow-md' : 'bg-gradient-to-tr from-primary-500 to-secondary-500 group-hover:from-primary-600 group-hover:to-secondary-600']"
           >
-             <div class="w-16 h-16 rounded-full bg-white border-2 border-transparent flex items-center justify-center text-2xl shadow-sm group-active:scale-95 transition-transform">
-               {{ cat.icon || '📦' }}
+             <div class="w-16 h-16 rounded-full bg-white border-2 border-transparent flex items-center justify-center text-2xl shadow-sm group-active:scale-95 transition-transform overflow-hidden relative">
+               <img v-if="cat.image" :src="cat.image" class="w-full h-full object-cover">
+               <span v-else>{{ cat.icon || '📦' }}</span>
              </div>
           </div>
           <span 

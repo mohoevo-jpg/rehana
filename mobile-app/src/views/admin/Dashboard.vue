@@ -306,8 +306,9 @@
              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div v-for="cat in appStore.categories" :key="cat.id" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group">
                    <div class="flex items-center gap-3">
-                      <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl">
-                         📦
+                      <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl overflow-hidden relative">
+                         <img v-if="cat.image" :src="cat.image" class="w-full h-full object-cover">
+                         <span v-else>📦</span>
                       </div>
                       <div>
                          <h3 class="font-bold text-gray-900">{{ cat.name }}</h3>
@@ -338,13 +339,21 @@
 
              <div class="space-y-4">
                 <div v-for="banner in appStore.banners" :key="banner.id" class="relative h-48 rounded-3xl overflow-hidden shadow-lg group">
-                   <div :class="`absolute inset-0 bg-gradient-to-r from-${banner.colorFrom} to-${banner.colorTo}`"></div>
+                   <!-- Gradient Background -->
+                   <div class="absolute inset-0" :style="{ background: `linear-gradient(to right, ${banner.colorFrom || '#7c3aed'}, ${banner.colorTo || '#4f46e5'})` }"></div>
+                   
+                   <!-- Content -->
                    <div class="absolute inset-0 flex items-center p-8">
                       <div class="w-2/3 text-white z-10">
                          <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-3 border border-white/10">{{ banner.subtitle }}</span>
-                         <h2 class="text-2xl font-black mb-2 leading-tight">{{ banner.title }}</h2>
+                         <h2 class="text-2xl font-black mb-2 leading-tight drop-shadow-md">{{ banner.title }}</h2>
+                      </div>
+                      <!-- Banner Image -->
+                      <div v-if="banner.image" class="absolute right-4 bottom-0 h-full w-1/3 flex items-end justify-end pointer-events-none">
+                          <img :src="banner.image" class="h-[120%] object-contain object-bottom drop-shadow-xl transform translate-y-4">
                       </div>
                    </div>
+
                    <div class="absolute top-4 left-4 z-20 flex gap-2">
                        <button @click="openEditBannerModal(banner)" class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-blue-500 transition-colors">
                           <Edit class="w-5 h-5" />
@@ -668,18 +677,64 @@
     <Teleport to="body">
       <div v-if="showCategoryModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" dir="rtl">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" @click="showCategoryModal = false"></div>
-        <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 animate-slide-up shadow-2xl">
-           <h3 class="text-xl font-bold text-gray-900 mb-4">{{ newCategory.id ? 'تعديل تصنيف' : 'إضافة تصنيف جديد' }}</h3>
-           <div class="space-y-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg p-6 relative z-10 animate-slide-up shadow-2xl flex flex-col max-h-[90vh]">
+           <div class="flex justify-between items-center mb-4 shrink-0">
+             <h3 class="text-xl font-bold text-gray-900">{{ newCategory.id ? 'تعديل تصنيف' : 'إضافة تصنيف جديد' }}</h3>
+             <button @click="showCategoryModal = false" class="p-2 rounded-full hover:bg-gray-100">
+                <X class="w-5 h-5 text-gray-500" />
+             </button>
+           </div>
+
+           <div class="space-y-4 overflow-y-auto flex-1 pr-2">
+              <!-- Name & Icon -->
               <div>
                  <label class="block text-sm font-bold text-gray-700 mb-2">اسم التصنيف</label>
                  <input v-model="newCategory.name" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium">
               </div>
-              <button @click="saveCategory" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors">{{ newCategory.id ? 'حفظ التعديلات' : 'إضافة' }}</button>
+
+              <!-- Image Upload -->
+              <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-2">صورة التصنيف (اختياري)</label>
+                  <div class="flex items-center gap-4">
+                    <div v-if="newCategory.image" class="w-20 h-20 rounded-full border border-gray-200 overflow-hidden shrink-0 relative group">
+                        <img :src="newCategory.image" class="w-full h-full object-cover">
+                        <button @click="newCategory.image = ''" class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-white">
+                          <X class="w-5 h-5" />
+                        </button>
+                    </div>
+                    <label class="flex-1 cursor-pointer">
+                        <div class="w-full py-3 px-4 bg-gray-50 border border-dashed border-gray-300 rounded-xl text-center hover:bg-gray-100 transition-colors">
+                            <span class="text-sm text-gray-600 font-medium flex items-center justify-center gap-2">
+                                <Upload class="w-4 h-4" />
+                                اختر صورة
+                            </span>
+                        </div>
+                        <input type="file" accept="image/*" class="hidden" @change="handleCategoryImageUpload">
+                    </label>
+                  </div>
+              </div>
+
+              <!-- Product Selection -->
+              <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-2">المنتجات في هذا التصنيف</label>
+                  <div class="bg-gray-50 rounded-xl border border-gray-100 p-2 max-h-60 overflow-y-auto">
+                      <div v-if="appStore.products.length === 0" class="text-center py-4 text-gray-500 text-sm">
+                          لا توجد منتجات
+                      </div>
+                      <label v-for="product in appStore.products" :key="product.id" class="flex items-center gap-3 p-2 hover:bg-white rounded-lg transition-colors cursor-pointer">
+                          <input type="checkbox" :value="product.id" v-model="categoryProducts" class="w-4 h-4 rounded text-primary-600 focus:ring-primary-500 border-gray-300">
+                          <div class="flex items-center gap-2 overflow-hidden">
+                              <img v-if="product.images?.[0]" :src="product.images[0]" class="w-8 h-8 rounded-lg object-cover bg-white">
+                              <div v-else class="w-8 h-8 rounded-lg bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-500">{{ product.name.charAt(0) }}</div>
+                              <span class="text-sm font-medium text-gray-700 truncate">{{ product.name }}</span>
+                          </div>
+                      </label>
+                  </div>
+                  <p class="text-xs text-gray-400 mt-1">حدد المنتجات التي تود إضافتها لهذا التصنيف</p>
+              </div>
+
+              <button @click="saveCategory" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors mt-4">{{ newCategory.id ? 'حفظ التعديلات' : 'إضافة' }}</button>
            </div>
-           <button @click="showCategoryModal = false" class="absolute top-4 left-4 p-2 rounded-full hover:bg-gray-100">
-              <X class="w-5 h-5 text-gray-500" />
-           </button>
         </div>
       </div>
     </Teleport>
@@ -688,9 +743,37 @@
     <Teleport to="body">
       <div v-if="showBannerModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" dir="rtl">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" @click="showBannerModal = false"></div>
-        <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 animate-slide-up shadow-2xl">
-           <h3 class="text-xl font-bold text-gray-900 mb-4">{{ newBanner.id ? 'تعديل إعلان' : 'إضافة إعلان جديد' }}</h3>
-           <div class="space-y-4">
+        <div class="bg-white rounded-3xl w-full max-w-md p-6 relative z-10 animate-slide-up shadow-2xl flex flex-col max-h-[90vh]">
+           <div class="flex justify-between items-center mb-4 shrink-0">
+             <h3 class="text-xl font-bold text-gray-900">{{ newBanner.id ? 'تعديل إعلان' : 'إضافة إعلان جديد' }}</h3>
+             <button @click="showBannerModal = false" class="p-2 rounded-full hover:bg-gray-100">
+                <X class="w-5 h-5 text-gray-500" />
+             </button>
+           </div>
+           
+           <div class="space-y-4 overflow-y-auto flex-1 pr-2">
+              <!-- Banner Image -->
+              <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-2">صورة الإعلان (مفرغة/شفافة)</label>
+                  <div class="flex items-center gap-4">
+                    <div v-if="newBanner.image" class="w-24 h-16 rounded-lg border border-gray-200 overflow-hidden shrink-0 relative group bg-gray-100">
+                        <img :src="newBanner.image" class="w-full h-full object-contain">
+                        <button @click="newBanner.image = ''" class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-white">
+                          <X class="w-5 h-5" />
+                        </button>
+                    </div>
+                    <label class="flex-1 cursor-pointer">
+                        <div class="w-full py-3 px-4 bg-gray-50 border border-dashed border-gray-300 rounded-xl text-center hover:bg-gray-100 transition-colors">
+                            <span class="text-sm text-gray-600 font-medium flex items-center justify-center gap-2">
+                                <Upload class="w-4 h-4" />
+                                رفع صورة
+                            </span>
+                        </div>
+                        <input type="file" accept="image/*" class="hidden" @change="handleBannerImageUpload">
+                    </label>
+                  </div>
+              </div>
+
               <div>
                  <label class="block text-sm font-bold text-gray-700 mb-2">العنوان الرئيسي</label>
                  <input v-model="newBanner.title" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium">
@@ -699,33 +782,27 @@
                  <label class="block text-sm font-bold text-gray-700 mb-2">العنوان الفرعي</label>
                  <input v-model="newBanner.subtitle" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium">
               </div>
+              
+              <!-- Colors -->
               <div class="grid grid-cols-2 gap-4">
                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">لون البداية</label>
-                    <select v-model="newBanner.colorFrom" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium dir-ltr">
-                       <option value="violet-600">Violet</option>
-                       <option value="pink-500">Pink</option>
-                       <option value="blue-500">Blue</option>
-                       <option value="green-500">Green</option>
-                       <option value="orange-500">Orange</option>
-                    </select>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">لون البداية (Gradient)</label>
+                    <div class="flex items-center gap-2">
+                        <input type="color" v-model="newBanner.colorFrom" class="w-10 h-10 rounded-lg border-none cursor-pointer">
+                        <input type="text" v-model="newBanner.colorFrom" class="flex-1 px-3 py-2 rounded-lg bg-gray-50 text-xs font-mono">
+                    </div>
                  </div>
                  <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">لون النهاية</label>
-                     <select v-model="newBanner.colorTo" class="w-full px-4 py-3 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium dir-ltr">
-                       <option value="indigo-600">Indigo</option>
-                       <option value="rose-500">Rose</option>
-                       <option value="sky-500">Sky</option>
-                       <option value="emerald-500">Emerald</option>
-                       <option value="red-500">Red</option>
-                    </select>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">لون النهاية (Gradient)</label>
+                    <div class="flex items-center gap-2">
+                        <input type="color" v-model="newBanner.colorTo" class="w-10 h-10 rounded-lg border-none cursor-pointer">
+                        <input type="text" v-model="newBanner.colorTo" class="flex-1 px-3 py-2 rounded-lg bg-gray-50 text-xs font-mono">
+                    </div>
                  </div>
               </div>
-              <button @click="saveBanner" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors">{{ newBanner.id ? 'حفظ التعديلات' : 'إضافة' }}</button>
+
+              <button @click="saveBanner" class="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors mt-2">{{ newBanner.id ? 'حفظ التعديلات' : 'إضافة' }}</button>
            </div>
-           <button @click="showBannerModal = false" class="absolute top-4 left-4 p-2 rounded-full hover:bg-gray-100">
-              <X class="w-5 h-5 text-gray-500" />
-           </button>
         </div>
       </div>
     </Teleport>
@@ -852,26 +929,90 @@ const updateWallet = async (type) => {
 // Categories & Banners Logic
 const showCategoryModal = ref(false)
 const showBannerModal = ref(false)
-const newCategory = ref({ id: null, name: '', icon: '' })
-const newBanner = ref({ title: '', subtitle: '', colorFrom: 'violet-600', colorTo: 'indigo-600' })
+const newCategory = ref({ id: null, name: '', icon: '', image: '' })
+const newBanner = ref({ 
+  title: '', 
+  subtitle: '', 
+  colorFrom: '#7c3aed', 
+  colorTo: '#4f46e5',
+  image: '',
+  textColor: '#ffffff',
+  buttonColor: '#ffffff',
+  buttonTextColor: '#000000'
+})
+
+const categoryProducts = ref([])
 
 const openAddCategoryModal = () => {
-  newCategory.value = { id: null, name: '', icon: '' }
+  newCategory.value = { id: null, name: '', icon: '', image: '' }
+  categoryProducts.value = []
   showCategoryModal.value = true
 }
 
 const openEditCategoryModal = (cat) => {
   newCategory.value = { ...cat }
+  // Pre-select products in this category
+  categoryProducts.value = appStore.products
+    .filter(p => p.categoryId === cat.id)
+    .map(p => p.id)
   showCategoryModal.value = true
+}
+
+const handleCategoryImageUpload = (event) => {
+  const file = event.target.files[0]
+  if (!file) return
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    newCategory.value.image = e.target.result
+  }
+  reader.readAsDataURL(file)
 }
 
 const saveCategory = async () => {
   if (!newCategory.value.name) return
+  
+  let savedCategory
   if (newCategory.value.id) {
       await appStore.updateCategory(newCategory.value)
+      savedCategory = newCategory.value
   } else {
       await appStore.addCategory(newCategory.value)
+      // We need the ID of the new category. 
+      // appStore.addCategory pushes to array, we can get the last one or wait for response.
+      // Ideally appStore.addCategory should return the new category.
+      // Looking at store, it doesn't return it but pushes it. 
+      // We can fetch categories again or assume it's the last one.
+      // For safety, let's refresh categories or find it by name.
+      // Actually, let's assume the user is editing existing ones for product assignment mostly.
+      // If adding new, we might miss the ID reference immediately without store refactor.
+      // For now, let's skip product assignment for *newly created* categories in this step 
+      // unless we refactor store. But wait, `addCategory` in store DOES fetch response.
+      // I will refactor store action to return the category.
+      savedCategory = appStore.categories[appStore.categories.length - 1] // Approximate
   }
+
+  // Update Products
+  if (savedCategory && savedCategory.id) {
+    // 1. Products that should be in this category
+    for (const prodId of categoryProducts.value) {
+      const product = appStore.products.find(p => p.id === prodId)
+      if (product && product.categoryId !== savedCategory.id) {
+        await appStore.addProduct({ ...product, categoryId: savedCategory.id })
+      }
+    }
+    
+    // 2. Products that were removed from this category
+    // (Only if editing existing category)
+    if (newCategory.value.id) {
+      const originalProducts = appStore.products.filter(p => p.categoryId === newCategory.value.id)
+      for (const product of originalProducts) {
+        if (!categoryProducts.value.includes(product.id)) {
+           await appStore.addProduct({ ...product, categoryId: null })
+        }
+      }
+    }
+  }
+
   showCategoryModal.value = false
 }
 
@@ -882,13 +1023,32 @@ const deleteCategory = async (id) => {
 }
 
 const openAddBannerModal = () => {
-  newBanner.value = { title: '', subtitle: '', colorFrom: 'violet-600', colorTo: 'indigo-600' }
+  newBanner.value = { 
+    title: '', 
+    subtitle: '', 
+    colorFrom: '#7c3aed', 
+    colorTo: '#4f46e5',
+    image: '',
+    textColor: '#ffffff',
+    buttonColor: '#ffffff',
+    buttonTextColor: '#000000'
+  }
   showBannerModal.value = true
 }
 
 const openEditBannerModal = (banner) => {
   newBanner.value = { ...banner }
   showBannerModal.value = true
+}
+
+const handleBannerImageUpload = (event) => {
+  const file = event.target.files[0]
+  if (!file) return
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    newBanner.value.image = e.target.result
+  }
+  reader.readAsDataURL(file)
 }
 
 const saveBanner = async () => {

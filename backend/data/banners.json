@@ -21,5 +21,12 @@
     "subtitle": "عرض خاص على الورد الطبيعي",
     "colorFrom": "green-500",
     "colorTo": "sky-500"
+  },
+  {
+    "id": "1768299530535",
+    "title": "هلا",
+    "subtitle": "",
+    "colorFrom": "blue-500",
+    "colorTo": "rose-500"
   }
 ]
