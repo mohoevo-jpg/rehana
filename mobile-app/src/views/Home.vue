@@ -78,15 +78,14 @@
       </div>
       <div v-else class="flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 pb-4 hide-scrollbar">
         <div v-for="banner in appStore.banners" :key="banner.id" class="snap-center shrink-0 w-[90%] sm:w-[80%] h-48 rounded-3xl overflow-hidden relative shadow-lg shadow-primary-900/10 group">
-          <div :class="`absolute inset-0 bg-gradient-to-r from-${banner.colorFrom} to-${banner.colorTo}`"></div>
-          <!-- Fallback -->
-          <div class="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-800" v-if="!banner.colorFrom"></div>
+          <!-- Dynamic Background Color/Gradient -->
+          <div :style="{ background: `linear-gradient(to right, ${banner.colorFrom || '#4f46e5'}, ${banner.colorTo || '#9333ea'})` }" class="absolute inset-0"></div>
           
           <div class="absolute inset-0 flex items-center p-6">
             <div class="w-2/3 text-white z-10">
               <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-3 border border-white/10">{{ banner.subtitle }}</span>
-              <h2 class="text-2xl font-black mb-2 leading-tight">{{ banner.title }}</h2>
-              <button class="px-5 py-2 bg-white text-primary-700 rounded-xl text-sm font-bold shadow-sm active:scale-95 transition-transform">تسوق الآن</button>
+              <h2 class="text-2xl font-black mb-2 leading-tight drop-shadow-sm">{{ banner.title }}</h2>
+              <button @click="handleBannerClick(banner)" class="px-5 py-2 bg-white text-primary-700 rounded-xl text-sm font-bold shadow-sm active:scale-95 transition-transform hover:bg-gray-50">تسوق الآن</button>
             </div>
             <!-- Decorative Circles -->
             <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
@@ -100,7 +99,7 @@
     <div>
       <div class="flex justify-between items-center px-4 mb-4">
         <h3 class="font-bold text-gray-900 text-lg">التصنيفات</h3>
-        <button class="text-primary-600 text-sm font-medium hover:underline">عرض الكل</button>
+        <button @click="scrollToProducts" class="text-primary-600 text-sm font-medium hover:underline">عرض الكل</button>
       </div>
       
       <div v-if="appStore.categories.length === 0" class="flex gap-4 px-4 overflow-x-auto pb-4">
@@ -111,14 +110,24 @@
       </div>
 
       <div v-else class="flex overflow-x-auto gap-4 px-4 pb-4 hide-scrollbar">
-        <div v-for="cat in appStore.categories" :key="cat.id" class="flex flex-col items-center gap-2 min-w-[4.5rem] cursor-pointer group">
-          <div class="p-[2px] rounded-full bg-gradient-to-tr from-primary-500 to-secondary-500 group-hover:from-primary-600 group-hover:to-secondary-600 transition-colors">
+        <div 
+          v-for="cat in appStore.categories" 
+          :key="cat.id" 
+          @click="selectCategory(cat.id)"
+          class="flex flex-col items-center gap-2 min-w-[4.5rem] cursor-pointer group"
+        >
+          <div 
+            class="p-[2px] rounded-full transition-all duration-300"
+            :class="[selectedCategory === cat.id ? 'bg-gradient-to-tr from-primary-600 to-secondary-600 scale-110 shadow-md' : 'bg-gradient-to-tr from-primary-500 to-secondary-500 group-hover:from-primary-600 group-hover:to-secondary-600']"
+          >
              <div class="w-16 h-16 rounded-full bg-white border-2 border-transparent flex items-center justify-center text-2xl shadow-sm group-active:scale-95 transition-transform">
-               <!-- Icon mapping logic could be here, for now use generic or cat.icon if emoji -->
                {{ cat.icon || '📦' }}
              </div>
           </div>
-          <span class="text-xs font-bold text-gray-700 group-hover:text-primary-700 transition-colors">{{ cat.name }}</span>
+          <span 
+            class="text-xs font-bold transition-colors"
+            :class="[selectedCategory === cat.id ? 'text-primary-700' : 'text-gray-700 group-hover:text-primary-700']"
+          >{{ cat.name }}</span>
         </div>
       </div>
     </div>
@@ -133,7 +142,7 @@
             <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
           </span>
         </h3>
-        <button class="text-primary-600 text-sm font-medium hover:underline">عرض الكل</button>
+        <button @click="scrollToProducts" class="text-primary-600 text-sm font-medium hover:underline">عرض الكل</button>
       </div>
       
       <div v-if="appStore.products.length === 0" class="flex gap-4 px-4 overflow-x-auto pb-4">
@@ -198,7 +207,7 @@
     </div>
 
     <!-- All Products (Grid) -->
-    <div class="px-4">
+    <div class="px-4" id="all-products">
       <h3 class="font-bold text-gray-900 text-lg mb-4">جميع المنتجات</h3>
       
       <div v-if="filteredProducts.length === 0" class="text-center py-10">
@@ -364,6 +373,7 @@ const appStore = useAppStore()
 const authStore = useAuthStore()
 const searchQuery = ref('')
 const selectedProduct = ref(null)
+const selectedCategory = ref(null)
 const modalQuantity = ref(1)
 
 // Location Logic
@@ -401,13 +411,52 @@ const getOrderCount = (productId) => {
 }
 
 const filteredProducts = computed(() => {
-  const products = appStore.products || []
-  if (!searchQuery.value) return products
-  const query = searchQuery.value.toLowerCase()
-  return products.filter(p => 
-    p.name.toLowerCase().includes(query)
-  )
+  let products = appStore.products || []
+  
+  // Filter by Category
+  if (selectedCategory.value) {
+    products = products.filter(p => p.categoryId === selectedCategory.value || p.category?.id === selectedCategory.value)
+  }
+
+  // Filter by Search
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    products = products.filter(p => 
+      p.name.toLowerCase().includes(query)
+    )
+  }
+  
+  return products
 })
+
+const selectCategory = (id) => {
+  if (selectedCategory.value === id) {
+    selectedCategory.value = null
+  } else {
+    selectedCategory.value = id
+  }
+  scrollToProducts()
+}
+
+const scrollToProducts = () => {
+  const el = document.getElementById('all-products')
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+const handleBannerClick = (banner) => {
+  if (banner.categoryId) {
+    selectCategory(banner.categoryId)
+  } else if (banner.productId) {
+    const product = appStore.products.find(p => p.id === banner.productId)
+    if (product) {
+      openProductModal(product)
+    }
+  } else {
+    scrollToProducts()
+  }
+}
 
 const openProductModal = (product) => {
   selectedProduct.value = product

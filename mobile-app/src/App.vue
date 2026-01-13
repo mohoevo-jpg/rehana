@@ -189,6 +189,11 @@
               <span class="font-medium">الرئيسية</span>
             </router-link>
 
+            <router-link v-if="authStore.isAdmin" to="/admin" @click="showSidebar = false" active-class="bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400" class="flex items-center gap-3 p-3 rounded-xl text-primary-700 dark:text-primary-400 bg-primary-50/50 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors border border-primary-100 dark:border-primary-900/50">
+              <LayoutDashboard class="w-5 h-5" />
+              <span class="font-bold">لوحة التحكم</span>
+            </router-link>
+
             <router-link to="/orders" @click="showSidebar = false" active-class="bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400" class="flex items-center gap-3 p-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
               <ListOrdered class="w-5 h-5" />
               <span class="font-medium">طلباتي</span>
@@ -327,7 +332,7 @@
 <script setup>
 import { onMounted, onUnmounted, computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { Home, ShoppingCart, ListOrdered, MapPin, ChevronDown, Bell, User, Heart, Menu, Wallet, Settings, Headphones, LogOut, RefreshCw, X, AlertTriangle, Gift, Clock, CheckCircle, Truck } from 'lucide-vue-next'
+import { Home, ShoppingCart, ListOrdered, MapPin, ChevronDown, Bell, User, Heart, Menu, Wallet, Settings, Headphones, LogOut, RefreshCw, X, AlertTriangle, Gift, Clock, CheckCircle, Truck, LayoutDashboard } from 'lucide-vue-next'
 import { useAppStore } from './store/app'
 import { useAuthStore } from './store/auth'
 

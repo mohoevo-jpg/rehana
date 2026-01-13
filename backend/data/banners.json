@@ -14,5 +14,12 @@
     "colorFrom": "pink-500",
     "colorTo": "rose-500",
     "image": null
+  },
+  {
+    "id": "1768297113289",
+    "title": "عرض خاص",
+    "subtitle": "عرض خاص على الورد الطبيعي",
+    "colorFrom": "green-500",
+    "colorTo": "sky-500"
   }
 ]
