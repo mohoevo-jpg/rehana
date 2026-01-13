@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Version: 2026-01-10-v2 -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="./logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/shop/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <script>
       window.onerror = function(message, source, lineno, colno, error) {
         var div = document.createElement('div');
@@ -40,8 +41,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <title>متجر ريحانة</title>
-    <script type="module" crossorigin src="./assets/index-CPnOzQRn.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-VkS4WWfu.css">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+            console.log('Force unregister SW from HTML');
+          }
+        });
+      }
+    </script>
+    <script type="module" crossorigin src="/shop/assets/index-urzwwxpH.js"></script>
+    <link rel="modulepreload" crossorigin href="/shop/assets/ui-BCwvEIFL.js">
+    <link rel="modulepreload" crossorigin href="/shop/assets/rolldown-runtime-CWU8vmCm.js">
+    <link rel="modulepreload" crossorigin href="/shop/assets/vendor-CQ--J9du.js">
+    <link rel="modulepreload" crossorigin href="/shop/assets/utils-8kMdWXSU.js">
+    <link rel="modulepreload" crossorigin href="/shop/assets/maps-Cw-0mlxO.js">
+    <link rel="stylesheet" crossorigin href="/shop/assets/maps-BLd7GYkW.css">
+    <link rel="stylesheet" crossorigin href="/shop/assets/index-DdWDmVgY.css">
   </head>
   <body>
     <div id="app"></div>

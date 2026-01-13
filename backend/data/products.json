@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "name": "شاي أحمد",
+    "price": 5000,
+    "category": "مشروبات",
+    "barcode": "1001",
+    "quantity": 50,
+    "images": [],
+    "isAvailable": true
+  },
+  {
+    "id": "2",
+    "name": "قهوة مختصة",
+    "price": 15000,
+    "category": "مشروبات",
+    "barcode": "1002",
+    "quantity": 20,
+    "images": [],
+    "isAvailable": true
+  },
+  {
+    "id": "3",
+    "name": "سكر 1كغ",
+    "price": 1500,
+    "category": "بقالة",
+    "barcode": "1003",
+    "quantity": 100,
+    "images": [],
+    "isAvailable": true
+  },
+  {
+    "id": "4",
+    "name": "أرز بسمتي",
+    "price": 2500,
+    "category": "بقالة",
+    "barcode": "1004",
+    "quantity": 40,
+    "images": [],
+    "isAvailable": true
+  },
+  {
+    "id": "5",
+    "name": "زيت طبخ",
+    "price": 3000,
+    "category": "بقالة",
+    "barcode": "1005",
+    "quantity": 30,
+    "images": [],
+    "isAvailable": true
+  }
+]

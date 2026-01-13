@@ -1,5 +1,10 @@
-// Server Configuration
-// For local development: Use your computer's IP address (e.g., http://192.168.1.X:3001)
-// For production: Use your domain (e.g., https://rehanaforflowers.com)
+import { Capacitor } from '@capacitor/core';
 
-export const SERVER_URL = 'https://rehanaforflowers.com';
+const isNative = Capacitor.isNativePlatform();
+console.log('Platform Check:', { isNative, hostname: window.location.hostname });
+
+// Server Configuration
+const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+export const SERVER_URL = isNative
+  ? 'https://rehanaforflowers.com'
+  : (isLocalhost ? 'http://localhost:3001' : '');

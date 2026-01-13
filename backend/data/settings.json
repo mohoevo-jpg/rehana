@@ -1,0 +1,28 @@
+{
+  "deliveryFee": 5000,
+  "minOrderAmount": 0,
+  "isStoreOpen": true,
+  "allowOrders": true,
+  "currencySymbol": "د.ع",
+  "minAppVersion": "1.0.0",
+  "latestAppVersion": "1.2.0",
+  "updateUrl": "https://play.google.com/store/apps/details?id=com.rehana.app",
+  "updateMessage": "تحديث جديد متوفر، يرجى التحديث للحصول على آخر المميزات",
+  "welcomeMessage": "تم إنشاء الحساب بنجاح!\nحصلت على رصيد ترحيبي بقيمة {amount} د.ع هدية مقدمة من تطبيق ريحانة.\nنتمنى لك تجربة تسوق ممتعة.",
+  "welcomeBonus": 3000,
+  "rewardSystem": {
+    "active": true,
+    "threshold": 35000,
+    "amount": 1000,
+    "message": "لانك زبون مميز لدينا هاي 1000 دينار رصيد استخدمه في طلبك القادم"
+  },
+  "facebookUrl": "https://facebook.com",
+  "instagramUrl": "https://instagram.com",
+  "tiktokUrl": "https://tiktok.com",
+  "email": "info@rehana.com",
+  "announcement": {
+    "active": false,
+    "title": "تنبيه هام",
+    "message": ""
+  }
+}

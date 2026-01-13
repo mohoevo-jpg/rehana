@@ -1,0 +1,35 @@
+[
+  {
+    "id": "admin-1",
+    "name": "مدير النظام",
+    "email": "admin@rehana.com",
+    "password": "admin",
+    "role": "admin",
+    "phone": "07700000000",
+    "walletBalance": 0,
+    "favorites": [],
+    "addresses": []
+  },
+  {
+    "id": "1768059940828",
+    "name": "Test User",
+    "email": "test1768059940802@example.com",
+    "phone": "07228232734",
+    "password": "password123",
+    "role": "customer",
+    "walletBalance": 3000,
+    "favorites": [],
+    "addresses": []
+  },
+  {
+    "id": "1768295867959",
+    "name": "Test User",
+    "email": "test1768295867946@example.com",
+    "phone": "07551588322",
+    "password": "password123",
+    "role": "customer",
+    "walletBalance": 3000,
+    "favorites": [],
+    "addresses": []
+  }
+]

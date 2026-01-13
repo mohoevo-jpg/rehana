@@ -80,7 +80,7 @@
     <main class="p-6 space-y-8">
       <div v-if="activeTab !== 'settings'" class="space-y-8">
         <!-- Stats Row -->
-        <div class="grid grid-cols-2 gap-4">
+        <div v-if="activeTab === 'products'" class="grid grid-cols-2 gap-4">
           <div class="bg-gradient-to-br from-primary-500 to-primary-700 rounded-3xl p-5 text-white shadow-lg shadow-primary-500/20 relative overflow-hidden group">
             <div class="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -mr-10 -mt-10 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
             <div class="relative z-10">
@@ -105,7 +105,7 @@
         </div>
 
         <!-- Chart Section -->
-        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+        <div v-if="activeTab === 'products'" class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
           <div class="flex items-center justify-between mb-6">
             <h3 class="font-bold text-gray-900 text-lg">تحليل المبيعات</h3>
             <div class="flex gap-2">
@@ -140,6 +140,20 @@
           >
             <Users class="w-4 h-4" />
             المستخدمين
+          </button>
+          <button 
+            @click="activeTab = 'categories'"
+            :class="['flex-1 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2', activeTab === 'categories' ? 'bg-gray-900 text-white shadow-lg' : 'text-gray-500 hover:bg-gray-50']"
+          >
+            <LayoutList class="w-4 h-4" />
+            التصنيفات
+          </button>
+          <button 
+            @click="activeTab = 'banners'"
+            :class="['flex-1 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2', activeTab === 'banners' ? 'bg-gray-900 text-white shadow-lg' : 'text-gray-500 hover:bg-gray-50']"
+          >
+            <ImageIcon class="w-4 h-4" />
+            الإعلانات
           </button>
         </div>
 
@@ -278,6 +292,70 @@
               </div>
             </div>
           </div>
+
+          <!-- Categories Tab -->
+          <div v-else-if="activeTab === 'categories'" class="space-y-6 animate-fade-in">
+             <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-black text-gray-900">إدارة التصنيفات</h2>
+                <button @click="openAddCategoryModal" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold shadow-lg shadow-primary-600/20 hover:bg-primary-700 transition-transform active:scale-95 flex items-center gap-2">
+                   <Plus class="w-5 h-5" />
+                   إضافة تصنيف
+                </button>
+             </div>
+
+             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div v-for="cat in appStore.categories" :key="cat.id" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group">
+                   <div class="flex items-center gap-3">
+                      <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl">
+                         📦
+                      </div>
+                      <div>
+                         <h3 class="font-bold text-gray-900">{{ cat.name }}</h3>
+                         <p class="text-xs text-gray-400">{{ appStore.products.filter(p => p.categoryId === cat.id).length }} منتج</p>
+                      </div>
+                   </div>
+                   <div class="flex items-center gap-1">
+                       <button @click="openEditCategoryModal(cat)" class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors">
+                          <Edit class="w-5 h-5" />
+                       </button>
+                       <button @click="deleteCategory(cat.id)" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                          <Trash2 class="w-5 h-5" />
+                       </button>
+                   </div>
+                </div>
+             </div>
+          </div>
+
+          <!-- Banners Tab -->
+          <div v-else-if="activeTab === 'banners'" class="space-y-6 animate-fade-in">
+             <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-black text-gray-900">إدارة الإعلانات</h2>
+                <button @click="openAddBannerModal" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold shadow-lg shadow-primary-600/20 hover:bg-primary-700 transition-transform active:scale-95 flex items-center gap-2">
+                   <Plus class="w-5 h-5" />
+                   إضافة إعلان
+                </button>
+             </div>
+
+             <div class="space-y-4">
+                <div v-for="banner in appStore.banners" :key="banner.id" class="relative h-48 rounded-3xl overflow-hidden shadow-lg group">
+                   <div :class="`absolute inset-0 bg-gradient-to-r from-${banner.colorFrom} to-${banner.colorTo}`"></div>
+                   <div class="absolute inset-0 flex items-center p-8">
+                      <div class="w-2/3 text-white z-10">
+                         <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-3 border border-white/10">{{ banner.subtitle }}</span>
+                         <h2 class="text-2xl font-black mb-2 leading-tight">{{ banner.title }}</h2>
+                      </div>
+                   </div>
+                   <div class="absolute top-4 left-4 z-20 flex gap-2">
+                       <button @click="openEditBannerModal(banner)" class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-blue-500 transition-colors">
+                          <Edit class="w-5 h-5" />
+                       </button>
+                       <button @click="deleteBanner(banner.id)" class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-500 transition-colors">
+                          <Trash2 class="w-5 h-5" />
+                       </button>
+                   </div>
+                </div>
+             </div>
+          </div>
         </div>
       </div>
 
@@ -349,74 +427,7 @@
            </div>
         </div>
 
-        <!-- Categories Tab -->
-        <div v-if="activeTab === 'categories'" class="space-y-6 animate-fade-in">
-           <div class="flex justify-between items-center">
-              <h2 class="text-2xl font-black text-gray-900">إدارة التصنيفات</h2>
-              <button @click="openAddCategoryModal" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold shadow-lg shadow-primary-600/20 hover:bg-primary-700 transition-transform active:scale-95 flex items-center gap-2">
-                 <Plus class="w-5 h-5" />
-                 إضافة تصنيف
-              </button>
-           </div>
-
-           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div v-for="cat in appStore.categories" :key="cat.id" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between group">
-                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl">
-                       <!-- Simple icon mapping or emoji if icon lib not full -->
-                       📦
-                    </div>
-                    <div>
-                       <h3 class="font-bold text-gray-900">{{ cat.name }}</h3>
-                       <p class="text-xs text-gray-400">{{ appStore.products.filter(p => p.categoryId === cat.id).length }} منتج</p>
-                    </div>
-                 </div>
-                 <div class="flex items-center gap-1">
-                     <button @click="openEditCategoryModal(cat)" class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors">
-                        <Edit class="w-5 h-5" />
-                     </button>
-                     <button @click="deleteCategory(cat.id)" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
-                        <Trash2 class="w-5 h-5" />
-                     </button>
-                 </div>
-              </div>
-           </div>
-        </div>
-
-        <!-- Banners Tab -->
-        <div v-if="activeTab === 'banners'" class="space-y-6 animate-fade-in">
-           <div class="flex justify-between items-center">
-              <h2 class="text-2xl font-black text-gray-900">إدارة الإعلانات</h2>
-              <button @click="openAddBannerModal" class="px-4 py-2 bg-primary-600 text-white rounded-xl font-bold shadow-lg shadow-primary-600/20 hover:bg-primary-700 transition-transform active:scale-95 flex items-center gap-2">
-                 <Plus class="w-5 h-5" />
-                 إضافة إعلان
-              </button>
-           </div>
-
-           <div class="space-y-4">
-              <div v-for="banner in appStore.banners" :key="banner.id" class="relative h-48 rounded-3xl overflow-hidden shadow-lg group">
-                 <div :class="`absolute inset-0 bg-gradient-to-r from-${banner.colorFrom} to-${banner.colorTo}`"></div>
-                 <!-- Fallback gradient if dynamic classes fail (Tailwind JIT limitation) -->
-                 <div class="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-800" v-if="!banner.colorFrom"></div>
-                 
-                 <div class="absolute inset-0 flex items-center p-8">
-                    <div class="w-2/3 text-white z-10">
-                       <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold mb-3 border border-white/10">{{ banner.subtitle }}</span>
-                       <h2 class="text-2xl font-black mb-2 leading-tight">{{ banner.title }}</h2>
-                    </div>
-                 </div>
-                 
-                 <div class="absolute top-4 left-4 z-20 flex gap-2">
-                     <button @click="openEditBannerModal(banner)" class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-blue-500 transition-colors">
-                        <Edit class="w-5 h-5" />
-                     </button>
-                     <button @click="deleteBanner(banner.id)" class="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-500 transition-colors">
-                        <Trash2 class="w-5 h-5" />
-                     </button>
-                 </div>
-              </div>
-           </div>
-        </div>
+        <!-- Categories/Banners moved to main content area above -->
 
         <!-- App Settings -->
         <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 space-y-6">
@@ -732,6 +743,7 @@ import {
 } from 'lucide-vue-next'
 import { useAppStore } from '../../store/app'
 import { useAuthStore } from '../../store/auth'
+import { SERVER_URL } from '../../config'
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 
@@ -745,6 +757,8 @@ onMounted(() => {
   appStore.fetchProducts()
   appStore.fetchOrders()
   appStore.fetchSettings()
+  appStore.fetchCategories()
+  appStore.fetchBanners()
   fetchUsers()
 })
 

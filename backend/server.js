@@ -25,22 +25,16 @@ const PORT = process.env.PORT || 3001;
 const SHOP_DIST_PATH = process.env.SHOP_DIST_PATH || path.join(__dirname, '../mobile-app/dist');
 
 app.use(helmet({
-  contentSecurityPolicy: {
-    useDefaults: false,
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://static.cloudflareinsights.com", "https://cloudflareinsights.com"],
-      scriptSrcElem: ["'self'", "'unsafe-inline'", "https://static.cloudflareinsights.com", "https://cloudflareinsights.com"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https:", "ws:", "wss:", "https://static.cloudflareinsights.com", "https://cloudflareinsights.com"],
-      frameSrc: ["'self'"],
-      objectSrc: ["'none'"],
-      upgradeInsecureRequests: []
-    }
-  }
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false
 }));
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  res.set('Surrogate-Control', 'no-store');
+  next();
+});
 app.use(compression());
 
 // Enable CORS for all origins (Cashier App + Mobile App)
@@ -59,17 +53,36 @@ app.use('/shop', (req, res, next) => {
   console.log(`[DEBUG] Request to /shop: ${req.method} ${req.url} | Accept: ${req.headers.accept}`);
   next();
 });
-app.use('/shop', express.static(SHOP_DIST_PATH));
+
+// Explicitly serve index.html with no-cache headers BEFORE static middleware
+const serveShopIndex = (req, res) => {
+  console.log('[DEBUG] Serving /shop/index.html with cache busting');
+  // Nuke everything to kill the stubborn Service Worker
+  res.set('Clear-Site-Data', '"cache", "cookies", "storage", "executionContexts"');
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
+};
+
+app.get('/shop/', serveShopIndex);
+app.get('/shop/index.html', serveShopIndex);
 
 app.get('/shop', (req, res) => {
-  console.log('[DEBUG] Serving /shop/index.html explicitly');
-  res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
+  console.log('[DEBUG] Redirecting /shop to /shop/');
+  res.redirect('/shop/');
 });
 
-app.get('/shop/', (req, res) => {
-  console.log('[DEBUG] Serving /shop/index.html explicitly (trailing slash)');
-  res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
+app.use('/shop', express.static(SHOP_DIST_PATH));
+
+// Explicitly handle missing assets to prevent index.html fallback (MIME mismatch)
+app.get(/\/shop\/assets\/.*/, (req, res) => {
+  res.status(404).send('Asset not found');
 });
+
+// SPA Catch-all for /shop/ (must be after static middleware)
+// Matches any path starting with /shop/ that wasn't handled by static middleware
+app.get(/\/shop\/.*/, serveShopIndex);
 
 // 3. Serve Cashier App (Admin) at /admin-panel
 app.use('/admin-panel', express.static(path.join(__dirname, '../dist')));
@@ -123,116 +136,55 @@ const whatsappService = new WhatsAppService(io);
 whatsappService.initialize();
 
 const fs = require('fs');
-
-// --- Helper Functions ---
-
-// Logging System
-const LOGS_DIR = path.join(__dirname, 'logs');
-if (!fs.existsSync(LOGS_DIR)) {
-  fs.mkdirSync(LOGS_DIR);
-}
-const LOG_FILE = path.join(LOGS_DIR, 'activity_logs.json');
-
-// Initialize logs from file or empty array
-let activityLogs = [];
-if (fs.existsSync(LOG_FILE)) {
-  try {
-    activityLogs = JSON.parse(fs.readFileSync(LOG_FILE, 'utf8'));
-  } catch (err) {
-    console.error('Failed to load logs:', err);
-    activityLogs = [];
-  }
+const DATA_DIR = path.join(__dirname, 'data');
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR);
 }
 
-function logActivity(type, message, details = {}) {
-  const logEntry = {
-    id: Date.now().toString(),
-    type, // 'order', 'user', 'system', 'campaign', 'product', 'settings'
-    message,
-    details,
-    timestamp: new Date().toISOString()
-  };
-
-  activityLogs.unshift(logEntry);
-  
-  // Keep only last 1000 logs in memory/file to prevent bloat
-  if (activityLogs.length > 1000) {
-    activityLogs = activityLogs.slice(0, 1000);
+// Helper to load/save data
+function loadData(filename, defaultData) {
+  const filepath = path.join(DATA_DIR, filename);
+  if (fs.existsSync(filepath)) {
+    try {
+      return JSON.parse(fs.readFileSync(filepath, 'utf8'));
+    } catch (err) {
+      console.error(`Error loading ${filename}:`, err);
+      return defaultData;
+    }
   }
+  // Save default data immediately if file doesn't exist
+  saveData(filename, defaultData);
+  return defaultData;
+}
 
-  // Persist to file (asynchronously)
-  fs.writeFile(LOG_FILE, JSON.stringify(activityLogs, null, 2), (err) => {
-    if (err) console.error('Failed to save logs:', err);
+function saveData(filename, data) {
+  const filepath = path.join(DATA_DIR, filename);
+  fs.writeFile(filepath, JSON.stringify(data, null, 2), (err) => {
+    if (err) console.error(`Error saving ${filename}:`, err);
   });
-
-  // Notify admins via Socket.io
-  io.to('cashiers').emit('new-activity', logEntry);
-  console.log(`[ACTIVITY] ${type}: ${message}`);
-}
-
-// Temporary storage for pending registrations: { tempId: { userData, code, expiry } }
-const pendingRegistrations = new Map();
-
-function generateCode() {
-  return 'R-' + Math.floor(100000 + Math.random() * 900000).toString();
-}
-
-async function sendWhatsApp(phone, message) {
-  return await whatsappService.send(phone, message);
-}
-
-async function sendEmail(email, subject, text) {
-  // Log the email content for development/debugging
-  console.log('---------------------------------------------------');
-  console.log(`[EMAIL] To: ${email}`);
-  console.log(`[EMAIL] Subject: ${subject}`);
-  console.log(`[EMAIL] Body: ${text}`);
-  console.log('---------------------------------------------------');
-
-  if (!process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your_email_password_here') {
-    console.log('[EMAIL] Skipping actual send: No valid EMAIL_PASS provided.');
-    return true; // Simulate success in dev
-  }
-
-  try {
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_USER || 'service@rehanaforflowers.com',
-      to: email,
-      subject: subject,
-      text: text
-    });
-    console.log('[EMAIL] Sent successfully:', info.messageId);
-    return true;
-  } catch (error) {
-    console.error('[EMAIL] Failed to send email:', error);
-    // In development, we might want to return true even if email fails, 
-    // but in production we should return false. 
-    // For now, let's return false to indicate failure.
-    return false;
-  }
 }
 
 // --- Data Storage ---
-let orders = [];
-let products = [
+let orders = loadData('orders.json', []);
+let products = loadData('products.json', [
   { id: '1', name: 'شاي أحمد', price: 5000, category: 'مشروبات', barcode: '1001', quantity: 50, images: [], isAvailable: true },
   { id: '2', name: 'قهوة مختصة', price: 15000, category: 'مشروبات', barcode: '1002', quantity: 20, images: [], isAvailable: true },
   { id: '3', name: 'سكر 1كغ', price: 1500, category: 'بقالة', barcode: '1003', quantity: 100, images: [], isAvailable: true },
   { id: '4', name: 'أرز بسمتي', price: 2500, category: 'بقالة', barcode: '1004', quantity: 40, images: [], isAvailable: true },
   { id: '5', name: 'زيت طبخ', price: 3000, category: 'بقالة', barcode: '1005', quantity: 30, images: [], isAvailable: true },
-]; 
-let users = [];
-let banners = [
+]); 
+let users = loadData('users.json', []);
+let banners = loadData('banners.json', [
   { id: '1', title: 'خصم 50% على العطور', subtitle: 'عروض خاصة', colorFrom: 'violet-600', colorTo: 'indigo-600', image: null },
   { id: '2', title: 'مجموعة العناية بالبشرة', subtitle: 'وصل حديثاً', colorFrom: 'pink-500', colorTo: 'rose-500', image: null }
-];
-let categories = [
+]);
+let categories = loadData('categories.json', [
   { id: '1', name: 'عطور', icon: '🌸' },
   { id: '2', name: 'مكياج', icon: '💄' },
   { id: '3', name: 'عناية بالبشرة', icon: '✨' },
   { id: '4', name: 'هدايا', icon: '🎁' }
-];
-let settings = {
+]);
+let settings = loadData('settings.json', {
   // Store Settings
   deliveryFee: 5000,
   minOrderAmount: 0,
@@ -268,10 +220,85 @@ let settings = {
     title: 'تنبيه هام',
     message: ''
   }
-};
+});
 
-let complaints = [];
-let campaigns = [];
+let complaints = loadData('complaints.json', []);
+let campaigns = loadData('campaigns.json', []);
+
+// --- Helper Functions & State ---
+const LOGS_DIR = path.join(__dirname, 'logs');
+if (!fs.existsSync(LOGS_DIR)) {
+  fs.mkdirSync(LOGS_DIR);
+}
+
+let activityLogs = [];
+const pendingRegistrations = new Map();
+
+function logActivity(type, message, meta = {}) {
+  const logEntry = {
+    id: Date.now().toString(),
+    timestamp: new Date().toISOString(),
+    type,
+    message,
+    meta
+  };
+  activityLogs.unshift(logEntry);
+  if (activityLogs.length > 200) activityLogs.pop();
+
+  const dateStr = new Date().toISOString().split('T')[0];
+  const logFile = path.join(LOGS_DIR, `activity-${dateStr}.log`);
+  fs.appendFile(logFile, JSON.stringify(logEntry) + '\n', (err) => {
+    if (err) console.error('Error writing log:', err);
+  });
+}
+
+function generateCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+async function sendEmail(to, subject, text) {
+   // Log the email content for development/debugging
+   console.log('---------------------------------------------------');
+   console.log(`[EMAIL] To: ${to}`);
+   console.log(`[EMAIL] Subject: ${subject}`);
+   console.log(`[EMAIL] Body: ${text}`);
+   console.log('---------------------------------------------------');
+
+   if (!process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your-password' || process.env.EMAIL_PASS === 'your_email_password_here') {
+     console.log('[EMAIL] Skipping actual send: No valid EMAIL_PASS provided.');
+     return true; // Simulate success in dev
+   }
+
+   try {
+     await transporter.sendMail({
+       from: process.env.EMAIL_USER || 'service@rehanaforflowers.com',
+       to,
+       subject,
+       text
+     });
+     console.log('[EMAIL] Sent successfully');
+     return true;
+   } catch (err) {
+     console.error('Error sending email:', err);
+     return false;
+   }
+ }
+
+async function sendWhatsApp(phone, message) {
+  try {
+    const status = whatsappService.getStatus();
+    if (status.status !== 'connected' || !whatsappService.client) return false;
+    
+    let formattedPhone = phone.replace(/\D/g, '').replace(/^00/, '').replace(/^\+/, '');
+    if (formattedPhone.startsWith('07')) formattedPhone = '964' + formattedPhone.substring(1);
+    
+    await whatsappService.client.sendMessage(`${formattedPhone}@c.us`, message);
+    return true;
+  } catch (err) {
+    console.error('WhatsApp error:', err);
+    return false;
+  }
+}
 
 // --- Socket.io ---
 io.on('connection', (socket) => {
@@ -303,6 +330,7 @@ app.get('/api/banners', (req, res) => {
 app.post('/api/banners', (req, res) => {
   const newBanner = { id: Date.now().toString(), ...req.body };
   banners.push(newBanner);
+  saveData('banners.json', banners);
   io.emit('banners-updated', banners);
   res.json(newBanner);
 });
@@ -312,6 +340,7 @@ app.put('/api/banners/:id', (req, res) => {
   const idx = banners.findIndex(b => b.id === id);
   if (idx !== -1) {
     banners[idx] = { ...banners[idx], ...req.body };
+    saveData('banners.json', banners);
     io.emit('banners-updated', banners);
     res.json(banners[idx]);
   } else {
@@ -321,6 +350,7 @@ app.put('/api/banners/:id', (req, res) => {
 
 app.delete('/api/banners/:id', (req, res) => {
   banners = banners.filter(b => b.id !== req.params.id);
+  saveData('banners.json', banners);
   io.emit('banners-updated', banners);
   res.json({ success: true });
 });
@@ -332,6 +362,7 @@ app.get('/api/categories', (req, res) => {
 app.post('/api/categories', (req, res) => {
   const newCategory = { id: Date.now().toString(), ...req.body };
   categories.push(newCategory);
+  saveData('categories.json', categories);
   io.emit('categories-updated', categories);
   res.json(newCategory);
 });
@@ -341,6 +372,7 @@ app.put('/api/categories/:id', (req, res) => {
   const idx = categories.findIndex(c => c.id === id);
   if (idx !== -1) {
     categories[idx] = { ...categories[idx], ...req.body };
+    saveData('categories.json', categories);
     io.emit('categories-updated', categories);
     res.json(categories[idx]);
   } else {
@@ -350,6 +382,7 @@ app.put('/api/categories/:id', (req, res) => {
 
 app.delete('/api/categories/:id', (req, res) => {
   categories = categories.filter(c => c.id !== req.params.id);
+  saveData('categories.json', categories);
   io.emit('categories-updated', categories);
   res.json({ success: true });
 });
@@ -377,6 +410,8 @@ app.post('/api/settings', (req, res) => {
   // Add auth check here if needed (e.g. require admin)
   const newSettings = req.body;
   settings = { ...settings, ...newSettings };
+  saveData('settings.json', settings);
+  io.emit('settings-updated', settings); // Emit update to clients
   res.json({ success: true, settings });
 });
 
@@ -450,6 +485,7 @@ app.post('/api/auth/register-verify', (req, res) => {
   };
 
   users.push(newUser);
+  saveData('users.json', users);
   pendingRegistrations.delete(tempId);
   
   logActivity('user', `تسجيل مستخدم جديد: ${newUser.name}`, { userId: newUser.id, email: newUser.email });

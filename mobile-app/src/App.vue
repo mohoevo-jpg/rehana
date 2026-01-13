@@ -1,6 +1,27 @@
 <template>
   <div class="h-screen w-full bg-gray-100 dark:bg-gray-900 flex justify-center overflow-hidden font-sans text-gray-900 dark:text-gray-100 selection:bg-primary-100 transition-colors duration-300">
     <div id="app-container" class="w-full max-w-md h-full bg-gray-50 dark:bg-gray-900 relative shadow-2xl flex flex-col overflow-hidden transition-colors duration-300">
+      <div v-if="showSplash" class="absolute inset-0 z-[80] flex items-center justify-center bg-white dark:bg-black">
+        <video
+          v-if="!hasVideoError"
+          :src="splashVideoUrl"
+          autoplay
+          muted
+          playsinline
+          class="w-full h-full object-cover"
+          @error="hasVideoError = true"
+        ></video>
+        <div v-if="!hasVideoError" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <img src="/logo.png" class="w-40 h-40 opacity-95" />
+          <p class="mt-4 text-white text-lg font-bold drop-shadow-lg">ريحانة للورود و المناسبات</p>
+        </div>
+        <div v-else class="flex flex-col items-center">
+          <img src="/logo.png" class="w-40 h-40 opacity-95" />
+          <p class="mt-4 text-gray-800 dark:text-gray-200 text-lg font-bold">ريحانة للورود و المناسبات</p>
+          <div class="mt-6 w-10 h-10 rounded-full border-4 border-primary-600 border-t-transparent animate-spin"></div>
+        </div>
+      </div>
+
       <!-- Offline Mode Indicator -->
       <div v-if="!appStore.isConnected" class="absolute top-0 left-0 w-full z-50 bg-red-500 text-white text-xs py-1 text-center font-bold shadow-md">
         المحل الان مغلق سننفذ طلبك عند الساعة العاشرة من صباح الغد
@@ -320,6 +341,8 @@ const showSidebar = ref(false)
 // Splash Logic
 const showSplash = ref(true)
 const startSplashFadeOut = ref(false)
+const hasVideoError = ref(false)
+const splashVideoUrl = computed(() => appStore.settings?.splashVideoUrl || '/splash.mp4')
 
 const showNav = computed(() => {
   return route.name !== 'Login' && !route.path.startsWith('/admin')

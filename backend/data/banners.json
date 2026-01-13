@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "title": "خصم 50% على العطور",
+    "subtitle": "عروض خاصة",
+    "colorFrom": "violet-600",
+    "colorTo": "indigo-600",
+    "image": null
+  },
+  {
+    "id": "2",
+    "title": "مجموعة العناية بالبشرة",
+    "subtitle": "وصل حديثاً",
+    "colorFrom": "pink-500",
+    "colorTo": "rose-500",
+    "image": null
+  }
+]

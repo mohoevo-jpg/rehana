@@ -29,4 +29,15 @@ app.config.errorHandler = (err, instance, info) => {
 
 app.use(pinia)
 app.use(router)
+
+// Unregister any existing service workers to avoid caching issues
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    for(let registration of registrations) {
+      registration.unregister();
+      console.log('Service Worker unregistered');
+    }
+  });
+}
+
 app.mount('#app')
