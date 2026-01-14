@@ -1,32 +1,13 @@
 [
   {
-    "id": "1",
-    "title": "خصم 50% على العطور",
-    "subtitle": "عروض خاصة",
-    "colorFrom": "violet-600",
-    "colorTo": "indigo-600",
-    "image": null
-  },
-  {
-    "id": "2",
-    "title": "مجموعة العناية بالبشرة",
-    "subtitle": "وصل حديثاً",
-    "colorFrom": "pink-500",
-    "colorTo": "rose-500",
-    "image": null
-  },
-  {
-    "id": "1768297113289",
-    "title": "عرض خاص",
-    "subtitle": "عرض خاص على الورد الطبيعي",
-    "colorFrom": "green-500",
-    "colorTo": "sky-500"
-  },
-  {
-    "id": "1768299530535",
-    "title": "هلا",
-    "subtitle": "",
-    "colorFrom": "blue-500",
-    "colorTo": "rose-500"
+    "id": "1768302850092",
+    "title": "رتال",
+    "subtitle": "رزاا",
+    "colorFrom": "#7c3aed",
+    "colorTo": "#4f46e5",
+    "image": "",
+    "textColor": "#ffffff",
+    "buttonColor": "#ffffff",
+    "buttonTextColor": "#000000"
   }
 ]
