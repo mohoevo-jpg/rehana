@@ -152,9 +152,14 @@ export const useAppStore = defineStore('app', {
         const res = await fetch(`${SERVER_URL}/api/categories`)
         if (res.ok) {
           this.categories = await res.json()
+          localStorage.setItem('cached_categories', JSON.stringify(this.categories))
         }
       } catch (error) {
         console.error('Failed to fetch categories:', error)
+        const cached = localStorage.getItem('cached_categories')
+        if (cached) {
+          this.categories = JSON.parse(cached)
+        }
       }
     },
 
@@ -163,9 +168,14 @@ export const useAppStore = defineStore('app', {
         const res = await fetch(`${SERVER_URL}/api/banners`)
         if (res.ok) {
           this.banners = await res.json()
+          localStorage.setItem('cached_banners', JSON.stringify(this.banners))
         }
       } catch (error) {
         console.error('Failed to fetch banners:', error)
+        const cached = localStorage.getItem('cached_banners')
+        if (cached) {
+          this.banners = JSON.parse(cached)
+        }
       }
     },
 
