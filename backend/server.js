@@ -23,6 +23,8 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3001;
 const SHOP_DIST_PATH = process.env.SHOP_DIST_PATH || path.join(__dirname, '../mobile-app/dist');
+const ADMIN_DIST_PATH = process.env.ADMIN_DIST_PATH || path.join(__dirname, '../cashier-app/dist');
+const SHOP_ASSETS_PATH = path.join(SHOP_DIST_PATH, 'assets');
 
 app.use(helmet({
   contentSecurityPolicy: false,
@@ -47,6 +49,9 @@ app.use(bodyParser.json());
 
 // 1. Serve Landing Page Assets (if any) and Root
 app.use(express.static(path.join(__dirname, '../landing')));
+
+// Global assets path (fix older builds that request /assets/* from root)
+app.use('/assets', express.static(SHOP_ASSETS_PATH));
 
 // 2. Serve Mobile App (Customer Store) at /shop
 app.use('/shop', (req, res, next) => {
@@ -84,15 +89,14 @@ app.get(/\/shop\/assets\/.*/, (req, res) => {
 // Matches any path starting with /shop/ that wasn't handled by static middleware
 app.get(/\/shop\/.*/, serveShopIndex);
 
-// 3. Serve Cashier App (Admin) at /admin-panel
-app.use('/admin-panel', express.static(path.join(__dirname, '../dist')));
+app.use('/admin-panel', express.static(ADMIN_DIST_PATH));
 
 app.get('/admin-panel', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+  res.sendFile(path.join(ADMIN_DIST_PATH, 'index.html'));
 });
 
 app.get('/admin-panel/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+  res.sendFile(path.join(ADMIN_DIST_PATH, 'index.html'));
 });
 
 // 4. Serve Update Files
@@ -110,10 +114,8 @@ app.get('/', (req, res) => {
 // Removed duplicate regex handler as it is covered by app.get('/shop/*', ...)
 
 
-// Handle Cashier App client-side routing (if needed, though it uses HashHistory)
-// But we should ensure /admin-panel returns the index
 app.get(/\/admin-panel\/.*/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
+    res.sendFile(path.join(ADMIN_DIST_PATH, 'index.html'));
 });
 
 

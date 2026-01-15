@@ -872,7 +872,7 @@ const walletAmount = ref('')
 
 const fetchUsers = async () => {
   try {
-    const res = await fetch('http://localhost:3001/api/users')
+    const res = await fetch(`${SERVER_URL}/api/users`)
     if (res.ok) {
       usersList.value = await res.json()
     }

@@ -4,7 +4,7 @@
 
     <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden flex flex-col md:flex-row">
       <!-- Sidebar Tabs -->
-      <div class="w-full md:w-64 bg-gray-50 dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 flex flex-row md:flex-col overflow-x-auto md:overflow-visible">
+      <div class="w-full md:w-64 bg-gray-50 dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 flex flex-col overflow-y-auto">
         <button 
           v-for="tab in tabs" 
           :key="tab.id"

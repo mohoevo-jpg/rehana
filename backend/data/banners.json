@@ -1,13 +1,9 @@
 [
   {
-    "id": "1768302850092",
-    "title": "رتال",
-    "subtitle": "رزاا",
-    "colorFrom": "#7c3aed",
-    "colorTo": "#4f46e5",
-    "image": "",
-    "textColor": "#ffffff",
-    "buttonColor": "#ffffff",
-    "buttonTextColor": "#000000"
+    "id": "1768463148626",
+    "title": "عرض خاص",
+    "subtitle": "ورد طبيعي",
+    "colorFrom": "sky-500",
+    "colorTo": "orange-500"
   }
 ]

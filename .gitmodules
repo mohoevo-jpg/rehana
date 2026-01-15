@@ -1,0 +1,3 @@
+[submodule "cashier-app"]
+	path = cashier-app
+	url = https://github.com/mohoevo-jpg/rehana-ipad-cashier.git

@@ -53,6 +53,14 @@
             <label for="password" class="block text-sm font-medium text-gray-700 mb-1">كلمة المرور</label>
             <input id="password" v-model="loginForm.password" type="password" required class="appearance-none block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 text-gray-900 focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all sm:text-sm">
           </div>
+          
+          <div class="flex items-center justify-between">
+            <label class="inline-flex items-center gap-2 text-sm text-gray-600">
+              <input type="checkbox" v-model="rememberMe" class="rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+              <span>تذكرني</span>
+            </label>
+            <router-link to="/settings" class="text-xs text-primary-600 hover:underline">نسيت كلمة المرور؟</router-link>
+          </div>
 
           <div v-if="authStore.error" class="p-3 bg-red-50 text-red-600 text-sm rounded-lg text-center font-medium">
             {{ authStore.error }}
@@ -199,7 +207,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '../store/auth'
 import { ArrowRight, ArrowLeft } from 'lucide-vue-next'
@@ -210,6 +218,7 @@ const authStore = useAuthStore()
 
 const activeTab = ref('login')
 const loginForm = ref({ identifier: '', password: '' })
+const rememberMe = ref(true)
 const registerForm = ref({ name: '', phone: '', email: '', password: '' })
 const showVerificationModal = ref(false)
 const verificationCode = ref('')
@@ -218,6 +227,16 @@ const tempRegistrationId = ref(null)
 const handleLogin = async () => {
   const success = await authStore.login(loginForm.value)
   if (success) {
+    try {
+      if (rememberMe.value) {
+        localStorage.setItem('remember_credentials', JSON.stringify({
+          identifier: loginForm.value.identifier,
+          password: loginForm.value.password
+        }))
+      } else {
+        localStorage.removeItem('remember_credentials')
+      }
+    } catch (e) {}
     if (authStore.isAdmin) {
       router.push('/admin')
     } else {
@@ -283,4 +302,16 @@ const resendCode = async (method) => {
     alert(result.error || 'حدث خطأ أثناء إرسال الرمز')
   }
 }
+
+onMounted(() => {
+  try {
+    const saved = localStorage.getItem('remember_credentials')
+    if (saved) {
+      const obj = JSON.parse(saved)
+      if (obj?.identifier) loginForm.value.identifier = obj.identifier
+      if (obj?.password) loginForm.value.password = obj.password
+      rememberMe.value = true
+    }
+  } catch (e) {}
+})
 </script>

@@ -180,6 +180,17 @@ app.on('ready', () => {
   autoUpdater.logger = console;
   autoUpdater.autoDownload = false; 
   
+  // Set default feed URL if not set in package.json or to override
+  // This ensures a valid URL is always present
+  try {
+      autoUpdater.setFeedURL({
+        provider: 'generic',
+        url: 'https://rehanaflowers.com/updates'
+      });
+  } catch (e) {
+      console.log('Error setting default feed URL:', e);
+  }
+
   // autoUpdater listeners are defined globally
 
   try {

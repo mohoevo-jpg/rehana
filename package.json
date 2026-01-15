@@ -1,7 +1,7 @@
 {
   "name": "rehana-cashier",
   "private": true,
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "main": "electron/main.cjs",
   "scripts": {
@@ -45,7 +45,7 @@
     "productName": "Rehana Cashier",
     "icon": "public/logo.png",
     "directories": {
-      "output": "dist_electron_v16"
+      "output": "dist_electron_final"
     },
     "files": [
       "dist/**/*",
@@ -67,7 +67,9 @@
           "node_modules/**/*",
           "!**/.wwebjs_auth/**",
           "!**/logs/**",
-          "!**/.env" 
+          "!**/.env",
+          "!**/puppeteer-core/.local-chromium/**",
+          "!**/puppeteer/.local-chromium/**"
         ]
       },
       {
