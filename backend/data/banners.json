@@ -1,9 +1,13 @@
 [
   {
-    "id": "1768463148626",
-    "title": "عرض خاص",
-    "subtitle": "ورد طبيعي",
-    "colorFrom": "sky-500",
-    "colorTo": "orange-500"
+    "id": "1768471179879",
+    "title": "ورد طبيعي",
+    "subtitle": "عرض خاص",
+    "colorFrom": "#7c3aed",
+    "colorTo": "#4f46e5",
+    "image": "",
+    "textColor": "#ffffff",
+    "buttonColor": "#ffffff",
+    "buttonTextColor": "#000000"
   }
 ]

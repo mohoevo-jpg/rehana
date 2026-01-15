@@ -146,6 +146,9 @@
           <p class="text-sm text-gray-500 mt-2">
             تم إرسال رمز التفعيل (باركود) إلى بريدك الإلكتروني. الرجاء إدخال الرمز أدناه.
           </p>
+          <p v-if="registerMessage" class="text-xs text-gray-400 mt-1">
+            {{ registerMessage }}
+          </p>
         </div>
 
         <form @submit.prevent="verifyCode" class="space-y-4">
@@ -223,6 +226,22 @@ const registerForm = ref({ name: '', phone: '', email: '', password: '' })
 const showVerificationModal = ref(false)
 const verificationCode = ref('')
 const tempRegistrationId = ref(null)
+const registerMessage = ref('')
+
+onMounted(() => {
+  try {
+    const savedCreds = localStorage.getItem('remember_credentials')
+    if (savedCreds) {
+      const { identifier, password } = JSON.parse(savedCreds)
+      if (identifier && password) {
+        loginForm.value = { identifier, password }
+        rememberMe.value = true
+      }
+    }
+  } catch (e) {
+    console.error('Failed to load saved credentials', e)
+  }
+})
 
 const handleLogin = async () => {
   const success = await authStore.login(loginForm.value)
@@ -265,6 +284,7 @@ const handleRegister = async () => {
   const result = await authStore.registerInit(registerForm.value)
   if (result.success) {
     tempRegistrationId.value = result.tempId
+    registerMessage.value = result.message || ''
     showVerificationModal.value = true
   } else {
     // Error is already handled in store/auth.js and set to authStore.error

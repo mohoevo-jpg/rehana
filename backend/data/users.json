@@ -31,5 +31,16 @@
     "walletBalance": 3000,
     "favorites": [],
     "addresses": []
+  },
+  {
+    "id": "1768470900895",
+    "name": "محمد",
+    "email": "mohoevo@gmail.com",
+    "phone": "07710094473",
+    "password": "moha1234",
+    "role": "customer",
+    "walletBalance": 3000,
+    "favorites": [],
+    "addresses": []
   }
 ]

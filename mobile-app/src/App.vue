@@ -447,6 +447,9 @@ onMounted(async () => {
     showSplash.value = false
   }, 3000)
   await appStore.fetchSettings();
+  await appStore.fetchBanners();
+  await appStore.fetchCategories();
+  await appStore.fetchProducts();
   checkVersion();
   
   // Watch for settings changes (real-time updates)

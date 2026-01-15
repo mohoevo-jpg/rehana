@@ -9,13 +9,33 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const WhatsAppService = require('./services/whatsappService');
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER || 'service@rehanaforflowers.com',
-    pass: process.env.EMAIL_PASS || 'your-password'
+function createEmailTransporter() {
+  const emailUser = process.env.EMAIL_USER || 'service@rehanaforflowers.com';
+  const emailPass = process.env.EMAIL_PASS || 'your-password';
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = parseInt(process.env.SMTP_PORT || '465', 10);
+  const smtpSecure = process.env.SMTP_SECURE === 'false' ? false : true;
+
+  if (smtpHost) {
+    return nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: { user: emailUser, pass: emailPass }
+    });
   }
-});
+
+  if ((emailUser || '').toLowerCase().endsWith('@gmail.com')) {
+    return nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: emailUser, pass: emailPass }
+    });
+  }
+
+  return null;
+}
+
+const transporter = createEmailTransporter();
 
 const path = require('path');
 
@@ -62,8 +82,7 @@ app.use('/shop', (req, res, next) => {
 // Explicitly serve index.html with no-cache headers BEFORE static middleware
 const serveShopIndex = (req, res) => {
   console.log('[DEBUG] Serving /shop/index.html with cache busting');
-  // Nuke everything to kill the stubborn Service Worker
-  res.set('Clear-Site-Data', '"cache", "cookies", "storage", "executionContexts"');
+  // Only clear cache to ensure updates are seen, but preserve storage (session)
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.set('Pragma', 'no-cache');
   res.set('Expires', '0');
@@ -266,7 +285,7 @@ async function sendEmail(to, subject, text) {
    console.log(`[EMAIL] Body: ${text}`);
    console.log('---------------------------------------------------');
 
-   if (!process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your-password' || process.env.EMAIL_PASS === 'your_email_password_here') {
+   if (!transporter || !process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your-password' || process.env.EMAIL_PASS === 'your_email_password_here') {
      console.log('[EMAIL] Skipping actual send: No valid EMAIL_PASS provided.');
      return true; // Simulate success in dev
    }
@@ -441,10 +460,10 @@ app.post('/api/auth/register-init', async (req, res) => {
 
   // 4. Send Code (Default: Email)
   const securityNumber = Array.from(Array(8), () => Math.floor(Math.random() * 36).toString(36)).join('').toUpperCase();
-  await sendEmail(email, 'رمز التحقق - ريحانة', `رمز التحقق الخاص بك هو: ${code}\nرقم الأمان: ${securityNumber}`);
+  const emailSent = await sendEmail(email, 'رمز التحقق - ريحانة', `رمز التحقق الخاص بك هو: ${code}\nرقم الأمان: ${securityNumber}`);
 
   // For demo/testing purposes, we include the code in the message if email sending is simulated
-  const isDev = !process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your_email_password_here';
+  const isDev = !process.env.EMAIL_PASS || process.env.EMAIL_PASS === 'your_email_password_here' || !emailSent;
   const message = isDev 
     ? `تم إرسال رمز التحقق (لأغراض الاختبار: ${code})` 
     : 'تم إرسال رمز التحقق إلى بريدك الإلكتروني';
@@ -520,8 +539,12 @@ app.post('/api/auth/register-resend', async (req, res) => {
     }
   } else {
     const securityNumber = Array.from(Array(8), () => Math.floor(Math.random() * 36).toString(36)).join('').toUpperCase();
-    await sendEmail(pending.userData.email, 'رمز التحقق - ريحانة', `رمز التحقق الخاص بك هو: ${code}\nرقم الأمان: ${securityNumber}`);
-    res.json({ success: true, message: 'تم إعادة إرسال الرمز إلى البريد الإلكتروني' });
+    const emailSent = await sendEmail(pending.userData.email, 'رمز التحقق - ريحانة', `رمز التحقق الخاص بك هو: ${code}\nرقم الأمان: ${securityNumber}`);
+    if (emailSent) {
+      res.json({ success: true, message: 'تم إعادة إرسال الرمز إلى البريد الإلكتروني' });
+    } else {
+      res.json({ success: true, message: `فشل الإرسال للبريد، هذا هو رمزك لأغراض التفعيل: ${code}` });
+    }
   }
 });
 
