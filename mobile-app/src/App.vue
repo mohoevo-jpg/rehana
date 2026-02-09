@@ -161,6 +161,47 @@
         </div>
       </div>
 
+      <!-- About Us Modal -->
+      <div v-if="showAboutModal" class="absolute inset-0 z-[70] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-scale-in relative">
+          <button @click="showAboutModal = false" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+            <X class="w-6 h-6" />
+          </button>
+          
+          <div class="p-6 text-center flex flex-col items-center">
+            <div class="w-20 h-20 bg-primary-50 rounded-full flex items-center justify-center text-primary-600 mb-4 shadow-sm">
+              <Info class="w-10 h-10" />
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">من نحن</h3>
+            
+            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-6 w-full text-right">
+               <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-line">
+                 {{ appStore.settings.aboutUsText || 'أهلاً بكم في تطبيق ريحانة.' }}
+               </p>
+            </div>
+            
+            <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-3">تواصل معنا</h4>
+            <div class="flex items-center justify-center gap-4">
+               <a v-if="appStore.settings.facebookUrl" :href="appStore.settings.facebookUrl" target="_blank" class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                 <Facebook class="w-5 h-5" />
+               </a>
+               <a v-if="appStore.settings.instagramUrl" :href="appStore.settings.instagramUrl" target="_blank" class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                 <Instagram class="w-5 h-5" />
+               </a>
+               <a v-if="appStore.settings.tiktokUrl" :href="appStore.settings.tiktokUrl" target="_blank" class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                 <Music class="w-5 h-5" />
+               </a>
+            </div>
+          </div>
+          
+          <div class="p-4 bg-gray-50 dark:bg-gray-700/50">
+             <button @click="showAboutModal = false" class="w-full btn-primary py-3">
+               إغلاق
+             </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Sidebar / Drawer (Absolute over the entire device) -->
       <div v-if="showSidebar" class="absolute inset-0 z-50 flex pointer-events-none h-full">
         <!-- Backdrop -->
@@ -256,13 +297,13 @@
                  <Menu class="w-6 h-6" />
                </button>
                
-               <div class="flex flex-col">
-                  <span class="text-xs text-gray-400 font-medium mb-0.5">التوصيل إلى</span>
-                  <div class="flex items-center gap-1 text-primary-700 dark:text-primary-400 font-bold cursor-pointer">
-                    <span>حي الزهور، الموصل</span>
-                    <ChevronDown class="w-3 h-3 text-gray-400" />
+               <button @click="showAboutModal = true" class="flex flex-col items-start group">
+                  <span class="text-xs text-gray-400 font-medium mb-0.5 group-hover:text-primary-600 transition-colors">من نحن</span>
+                  <div class="flex items-center gap-1 text-primary-700 dark:text-primary-400 font-bold">
+                    <span>نبذة عن المتجر</span>
+                    <Info class="w-3 h-3 text-gray-400 group-hover:text-primary-600 transition-colors" />
                   </div>
-               </div>
+               </button>
             </div>
             
             <!-- Actions -->
@@ -332,9 +373,10 @@
 <script setup>
 import { onMounted, onUnmounted, computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { Home, ShoppingCart, ListOrdered, MapPin, ChevronDown, Bell, User, Heart, Menu, Wallet, Settings, Headphones, LogOut, RefreshCw, X, AlertTriangle, Gift, Clock, CheckCircle, Truck, LayoutDashboard } from 'lucide-vue-next'
+import { Home, ShoppingCart, ListOrdered, MapPin, ChevronDown, Bell, User, Heart, Menu, Wallet, Settings, Headphones, LogOut, RefreshCw, X, AlertTriangle, Gift, Clock, CheckCircle, Truck, LayoutDashboard, Info, Facebook, Instagram, Music } from 'lucide-vue-next'
 import { useAppStore } from './store/app'
 import { useAuthStore } from './store/auth'
+import logo from '@/assets/logo.png'
 
 const appStore = useAppStore()
 const authStore = useAuthStore()
@@ -342,6 +384,7 @@ const route = useRoute()
 const router = useRouter()
 
 const showSidebar = ref(false)
+const showAboutModal = ref(false)
 
 // Splash Logic
 const showSplash = ref(true)

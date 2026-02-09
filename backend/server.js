@@ -41,7 +41,12 @@ const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3100;
+const SERVER_VERSION = '1.0.1'; // Bump version to track updates
+
+console.log(`[SERVER] Starting Rehana Backend v${SERVER_VERSION}`);
+console.log(`[SERVER] Port: ${PORT}`);
+
 const SHOP_DIST_PATH = process.env.SHOP_DIST_PATH || path.join(__dirname, '../mobile-app/dist');
 const ADMIN_DIST_PATH = process.env.ADMIN_DIST_PATH || path.join(__dirname, '../cashier-app/dist');
 const SHOP_ASSETS_PATH = path.join(SHOP_DIST_PATH, 'assets');
@@ -61,8 +66,14 @@ app.use(compression());
 
 // Enable CORS for all origins (Cashier App + Mobile App)
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || "*",
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow any origin
+    callback(null, true);
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true
 }));
 app.use(bodyParser.json());
@@ -154,12 +165,29 @@ const io = new Server(server, {
 
 // --- WhatsApp Client Setup ---
 const whatsappService = new WhatsAppService(io);
-whatsappService.initialize();
+try {
+  // Only initialize if explicitly enabled or not in electron (safe mode)
+  // For now, we wrap it to prevent server crash on startup
+// WhatsApp Service temporarily disabled for debugging
+// console.log('Initializing WhatsApp Service...');
+// whatsappService.initialize();
+console.log('WhatsApp Service disabled (debugging mode)');
+} catch (err) {
+  console.error('Failed to initialize WhatsApp Service:', err);
+}
 
 const fs = require('fs');
-const DATA_DIR = path.join(__dirname, 'data');
+const DATA_DIR = process.argv[2] || path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR);
+  try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  } catch (err) {
+    console.error('Failed to create data directory:', err);
+    // Fallback to local data dir if passed path fails
+    if (DATA_DIR !== path.join(__dirname, 'data')) {
+      // try local
+    }
+  }
 }
 
 // Helper to load/save data
@@ -218,6 +246,7 @@ let settings = loadData('settings.json', {
   latestAppVersion: '1.2.0',
   updateUrl: 'https://play.google.com/store/apps/details?id=com.rehana.app',
   updateMessage: 'تحديث جديد متوفر، يرجى التحديث للحصول على آخر المميزات',
+  aboutUsText: 'نحن متجر ريحانة للورود الطبيعية والصناعية، نسعى لتقديم أجمل الباقات والهدايا لمناسباتكم السعيدة. خبرة سنوات في تنسيق الزهور وتجهيز المناسبات.',
   
   // Welcome & Rewards
   welcomeMessage: 'تم إنشاء الحساب بنجاح!\nحصلت على رصيد ترحيبي بقيمة {amount} د.ع هدية مقدمة من تطبيق ريحانة.\nنتمنى لك تجربة تسوق ممتعة.',
@@ -245,6 +274,7 @@ let settings = loadData('settings.json', {
 
 let complaints = loadData('complaints.json', []);
 let campaigns = loadData('campaigns.json', []);
+let attendance = loadData('attendance.json', []);
 
 // --- Helper Functions & State ---
 const LOGS_DIR = path.join(__dirname, 'logs');
@@ -437,6 +467,30 @@ app.post('/api/settings', (req, res) => {
 });
 
 // Auth Routes
+
+// Attendance Logging
+app.post('/api/attendance', (req, res) => {
+  const { userId, username, type, timestamp } = req.body;
+  const log = {
+    id: Date.now().toString(),
+    userId,
+    username,
+    type, // 'login' or 'logout'
+    timestamp: timestamp || new Date().toISOString()
+  };
+  attendance.push(log);
+  // Keep last 1000 logs
+  if (attendance.length > 1000) attendance.shift();
+  
+  saveData('attendance.json', attendance);
+  io.emit('attendance-updated', attendance);
+  res.json({ success: true, log });
+});
+
+app.get('/api/attendance', (req, res) => {
+  console.log('[API] GET /api/attendance called');
+  res.json(attendance);
+});
 
 // Step 1: Register Init (Send Code)
 app.post('/api/auth/register-init', async (req, res) => {
@@ -995,6 +1049,10 @@ app.post('/api/campaigns/:id/send', async (req, res) => {
 
 app.get('/api/logs', (req, res) => {
   res.json(activityLogs);
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
 });
 
 // Catch-all route to serve Frontend

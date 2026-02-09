@@ -488,6 +488,18 @@
               </div>
            </div>
 
+           <!-- About Us Text -->
+           <div>
+              <label class="block text-sm font-bold text-gray-700 mb-2">نص "من نحن"</label>
+              <textarea 
+                 v-model="settings.aboutUsText" 
+                 @change="saveSettings"
+                 rows="4"
+                 class="w-full px-4 py-3.5 rounded-xl bg-gray-50 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none font-medium resize-none"
+                 placeholder="اكتب نبذة عن المتجر هنا..."
+              ></textarea>
+           </div>
+
            <!-- Social Media Links -->
            <div class="pt-6 border-t border-gray-100 space-y-4">
               <h4 class="font-bold text-gray-900">روابط التواصل الاجتماعي</h4>

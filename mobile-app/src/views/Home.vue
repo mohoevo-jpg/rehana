@@ -4,60 +4,20 @@
     <div class="px-4 pt-4 flex items-center justify-between">
       <!-- Logo/Brand -->
       <div class="flex items-center gap-2">
-        <img src="/logo.png" class="w-10 h-10 object-contain" />
+        <img :src="logo" class="w-10 h-10 object-contain" />
         <div>
           <h1 class="font-black text-xl text-primary-700 leading-none">ريحانة</h1>
-          <span class="text-[10px] text-gray-400 font-medium">وجهتك الأولى للتسوق</span>
+          <span class="text-[10px] text-gray-400 font-medium">عالم الورود الطبيعية و الصناعية</span>
         </div>
       </div>
 
-      <!-- Location Dropdown -->
-      <div class="relative">
-        <button @click="showLocationDropdown = !showLocationDropdown" class="flex items-center gap-2 bg-white border border-gray-100 pl-2 pr-3 py-1.5 rounded-full shadow-sm text-sm font-bold text-gray-700 active:scale-95 transition-transform">
-          <div class="w-6 h-6 bg-primary-50 rounded-full flex items-center justify-center">
-            <MapPin class="w-3.5 h-3.5 text-primary-600" />
-          </div>
-          <span class="max-w-[100px] truncate">{{ currentAddressName }}</span>
-          <ChevronDown class="w-3 h-3 text-gray-400" />
-        </button>
-
-        <!-- Dropdown Menu -->
-        <div v-if="showLocationDropdown" class="absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 p-2 z-30 animate-scale-in origin-top-left">
-          <div class="px-3 py-2 text-xs font-bold text-gray-400">اختر موقع التوصيل</div>
-          
-          <div v-if="authStore.user?.addresses?.length > 0" class="max-h-48 overflow-y-auto no-scrollbar space-y-1 mb-2">
-            <button 
-              v-for="addr in authStore.user.addresses" 
-              :key="addr.id"
-              @click="selectAddress(addr)"
-              class="w-full text-right px-3 py-2.5 rounded-xl hover:bg-gray-50 text-sm flex items-center gap-3 transition-colors"
-              :class="{'bg-primary-50 text-primary-700 ring-1 ring-primary-100': currentAddressId === addr.id}"
-            >
-              <MapPin class="w-4 h-4 shrink-0" :class="currentAddressId === addr.id ? 'text-primary-600' : 'text-gray-400'" />
-              <div class="flex flex-col overflow-hidden">
-                <span class="font-bold truncate">{{ addr.name }}</span>
-                <span class="text-[10px] text-gray-500 truncate">{{ addr.address }}</span>
-              </div>
-              <Check v-if="currentAddressId === addr.id" class="w-4 h-4 text-primary-600 mr-auto" />
-            </button>
-          </div>
-          
-          <div v-else class="text-center py-6 bg-gray-50 rounded-xl border border-dashed border-gray-200 mb-2">
-            <MapPin class="w-8 h-8 text-gray-300 mx-auto mb-2" />
-            <p class="text-xs text-gray-500">لا توجد عناوين محفوظة</p>
-          </div>
-
-          <div class="border-t border-gray-100 pt-2">
-            <router-link to="/addresses/add" class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-xl shadow-lg shadow-primary-600/20 transition-all active:scale-95">
-              <Plus class="w-4 h-4" />
-              إضافة عنوان جديد
-            </router-link>
-          </div>
+      <!-- About Us Button -->
+      <button @click="showAboutModal = true" class="flex items-center gap-2 bg-white border border-gray-100 pl-2 pr-3 py-1.5 rounded-full shadow-sm text-sm font-bold text-gray-700 active:scale-95 transition-transform">
+        <div class="w-6 h-6 bg-primary-50 rounded-full flex items-center justify-center">
+          <Info class="w-3.5 h-3.5 text-primary-600" />
         </div>
-        
-        <!-- Backdrop for dropdown -->
-        <div v-if="showLocationDropdown" @click="showLocationDropdown = false" class="fixed inset-0 z-20 cursor-default"></div>
-      </div>
+        <span>من نحن</span>
+      </button>
     </div>
 
     <!-- Search Bar -->
@@ -65,9 +25,47 @@
       <div class="relative">
         <Search class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
         <input type="text" v-model="searchQuery" placeholder="ابحث عن منتج..." class="w-full bg-white pl-4 pr-12 py-3.5 rounded-2xl shadow-sm border border-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all text-sm font-medium placeholder:text-gray-400">
-        <button class="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-gray-50 rounded-xl text-gray-500 hover:text-primary-600 transition-colors">
-          <SlidersHorizontal class="w-4 h-4" />
-        </button>
+        <div class="absolute left-2 top-1/2 -translate-y-1/2 z-20">
+            <button @click="showSortMenu = !showSortMenu" class="p-2 bg-gray-50 rounded-xl text-gray-500 hover:text-primary-600 transition-colors" :class="{'bg-primary-50 text-primary-600': showSortMenu}">
+              <SlidersHorizontal class="w-4 h-4" />
+            </button>
+            
+            <div v-if="showSortMenu" class="absolute top-full left-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 p-2 animate-scale-in origin-top-left overflow-hidden z-30">
+                <div class="px-3 py-2 text-xs font-bold text-gray-400">ترتيب حسب</div>
+                
+                <button @click="sortOption = 'popularity'; showSortMenu = false" class="w-full text-right px-3 py-2.5 rounded-xl text-sm flex items-center gap-2 transition-colors" :class="sortOption === 'popularity' ? 'bg-primary-50 text-primary-700 font-bold' : 'hover:bg-gray-50 text-gray-700'">
+                    <Flame class="w-4 h-4" />
+                    <span>الأكثر طلباً</span>
+                    <Check v-if="sortOption === 'popularity'" class="w-3 h-3 mr-auto text-primary-600" />
+                </button>
+
+                <button @click="sortOption = 'price-asc'; showSortMenu = false" class="w-full text-right px-3 py-2.5 rounded-xl text-sm flex items-center gap-2 transition-colors" :class="sortOption === 'price-asc' ? 'bg-primary-50 text-primary-700 font-bold' : 'hover:bg-gray-50 text-gray-700'">
+                    <ArrowDownUp class="w-4 h-4" />
+                    <span>السعر: الأقل إلى الأعلى</span>
+                    <Check v-if="sortOption === 'price-asc'" class="w-3 h-3 mr-auto text-primary-600" />
+                </button>
+
+                <button @click="sortOption = 'price-desc'; showSortMenu = false" class="w-full text-right px-3 py-2.5 rounded-xl text-sm flex items-center gap-2 transition-colors" :class="sortOption === 'price-desc' ? 'bg-primary-50 text-primary-700 font-bold' : 'hover:bg-gray-50 text-gray-700'">
+                    <ArrowUpDown class="w-4 h-4" />
+                    <span>السعر: الأعلى إلى الأقل</span>
+                    <Check v-if="sortOption === 'price-desc'" class="w-3 h-3 mr-auto text-primary-600" />
+                </button>
+
+                 <button @click="sortOption = 'name-asc'; showSortMenu = false" class="w-full text-right px-3 py-2.5 rounded-xl text-sm flex items-center gap-2 transition-colors" :class="sortOption === 'name-asc' ? 'bg-primary-50 text-primary-700 font-bold' : 'hover:bg-gray-50 text-gray-700'">
+                    <ArrowUpAZ class="w-4 h-4" />
+                    <span>الاسم: أ - ي</span>
+                    <Check v-if="sortOption === 'name-asc'" class="w-3 h-3 mr-auto text-primary-600" />
+                </button>
+
+                 <button @click="sortOption = 'name-desc'; showSortMenu = false" class="w-full text-right px-3 py-2.5 rounded-xl text-sm flex items-center gap-2 transition-colors" :class="sortOption === 'name-desc' ? 'bg-primary-50 text-primary-700 font-bold' : 'hover:bg-gray-50 text-gray-700'">
+                    <ArrowDownZA class="w-4 h-4" />
+                    <span>الاسم: ي - أ</span>
+                    <Check v-if="sortOption === 'name-desc'" class="w-3 h-3 mr-auto text-primary-600" />
+                </button>
+            </div>
+            
+            <div v-if="showSortMenu" @click="showSortMenu = false" class="fixed inset-0 z-10 cursor-default"></div>
+        </div>
       </div>
     </div>
 
@@ -361,12 +359,85 @@
       </div>
     </div>
 
+    <!-- About Us Modal -->
+    <Teleport to="body">
+      <div v-if="showAboutModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" dir="rtl">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" @click="showAboutModal = false"></div>
+        
+        <div class="bg-white rounded-3xl w-full max-w-lg p-6 relative z-10 animate-scale-in shadow-2xl flex flex-col max-h-[90vh]">
+          <!-- Header -->
+          <div class="flex justify-between items-center mb-4 shrink-0 border-b border-gray-100 pb-4">
+            <h3 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+              <Info class="w-6 h-6 text-primary-600" />
+              من نحن
+            </h3>
+            <button @click="showAboutModal = false" class="p-2 bg-gray-50 rounded-full hover:bg-gray-100 transition-colors">
+              <X class="w-5 h-5 text-gray-500" />
+            </button>
+          </div>
+
+          <!-- Content -->
+          <div class="overflow-y-auto flex-1 space-y-6">
+            <!-- About Text -->
+            <div class="bg-primary-50/50 rounded-2xl p-5 border border-primary-100">
+              <p class="text-gray-700 leading-relaxed whitespace-pre-line font-medium text-justify">
+                {{ appStore.settings?.aboutUsText || 'نحن متجر ريحانة...' }}
+              </p>
+            </div>
+
+            <!-- Social Links -->
+            <div class="space-y-3">
+              <h4 class="font-bold text-gray-900 text-sm mb-3">تابعنا على مواقع التواصل</h4>
+              
+              <a v-if="appStore.settings?.facebookUrl" :href="appStore.settings.facebookUrl" target="_blank" class="flex items-center gap-3 p-3 bg-[#1877F2]/10 hover:bg-[#1877F2]/20 rounded-xl transition-colors group">
+                <div class="w-10 h-10 bg-[#1877F2] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#1877F2]/30">
+                  <Facebook class="w-5 h-5" />
+                </div>
+                <span class="font-bold text-[#1877F2]">Facebook</span>
+                <ArrowUpLeft class="w-4 h-4 text-[#1877F2] mr-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+
+              <a v-if="appStore.settings?.instagramUrl" :href="appStore.settings.instagramUrl" target="_blank" class="flex items-center gap-3 p-3 bg-[#E4405F]/10 hover:bg-[#E4405F]/20 rounded-xl transition-colors group">
+                <div class="w-10 h-10 bg-gradient-to-tr from-[#FFDC80] via-[#E4405F] to-[#C13584] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#E4405F]/30">
+                  <Instagram class="w-5 h-5" />
+                </div>
+                <span class="font-bold text-[#E4405F]">Instagram</span>
+                <ArrowUpLeft class="w-4 h-4 text-[#E4405F] mr-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+
+              <a v-if="appStore.settings?.tiktokUrl" :href="appStore.settings.tiktokUrl" target="_blank" class="flex items-center gap-3 p-3 bg-black/5 hover:bg-black/10 rounded-xl transition-colors group">
+                <div class="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white shadow-lg shadow-black/30">
+                  <Music class="w-5 h-5" />
+                </div>
+                <span class="font-bold text-gray-900">TikTok</span>
+                <ArrowUpLeft class="w-4 h-4 text-gray-900 mr-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+              
+               <a v-if="appStore.settings?.email" :href="`mailto:${appStore.settings.email}`" class="flex items-center gap-3 p-3 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors group">
+                <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white shadow-lg shadow-gray-700/30">
+                  <Mail class="w-5 h-5" />
+                </div>
+                <span class="font-bold text-gray-700">Email</span>
+                <ArrowUpLeft class="w-4 h-4 text-gray-700 mr-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <div class="mt-6 pt-4 border-t border-gray-100 text-center">
+            <p class="text-xs text-gray-400 font-medium">ريحانة - عالم الورود الطبيعية والصناعية</p>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup>
+import logo from '@/assets/logo.png'
+// ... existing imports
 import { ref, computed } from 'vue'
-import { Search, Package, Plus, SlidersHorizontal, X, Star, Minus, ShoppingCart, Heart, ShoppingBag, AlertTriangle } from 'lucide-vue-next'
+import { Search, Package, Plus, SlidersHorizontal, X, Star, Minus, ShoppingCart, Heart, ShoppingBag, AlertTriangle, ArrowUpDown, ArrowDownUp, ArrowUpAZ, ArrowDownZA, Flame } from 'lucide-vue-next'
 import { useAppStore } from '../store/app'
 import { useAuthStore } from '../store/auth'
 
@@ -378,7 +449,8 @@ const selectedCategory = ref(null)
 const modalQuantity = ref(1)
 
 // Location Logic
-import { MapPin, ChevronDown, Check } from 'lucide-vue-next'
+import { MapPin, ChevronDown, Check, Info, Facebook, Instagram, Music, Mail, ArrowUpLeft } from 'lucide-vue-next'
+const showAboutModal = ref(false)
 const showLocationDropdown = ref(false)
 const currentAddressId = ref(null)
 
@@ -411,8 +483,11 @@ const getOrderCount = (productId) => {
   return appStore.getProductOrderCount(productId)
 }
 
+const showSortMenu = ref(false)
+const sortOption = ref('popularity')
+
 const filteredProducts = computed(() => {
-  let products = appStore.products || []
+  let products = [...(appStore.products || [])]
   
   // Filter by Category
   if (selectedCategory.value) {
@@ -425,6 +500,34 @@ const filteredProducts = computed(() => {
     products = products.filter(p => 
       p.name.toLowerCase().includes(query)
     )
+  }
+  
+  // Sort
+  switch (sortOption.value) {
+    case 'price-asc':
+      products.sort((a, b) => {
+        const pA = a.discountPrice || a.price
+        const pB = b.discountPrice || b.price
+        return pA - pB
+      })
+      break
+    case 'price-desc':
+      products.sort((a, b) => {
+        const pA = a.discountPrice || a.price
+        const pB = b.discountPrice || b.price
+        return pB - pA
+      })
+      break
+    case 'name-asc':
+      products.sort((a, b) => a.name.localeCompare(b.name))
+      break
+    case 'name-desc':
+      products.sort((a, b) => b.name.localeCompare(a.name))
+      break
+    case 'popularity':
+    default:
+       products.sort((a, b) => getOrderCount(b.id) - getOrderCount(a.id))
+       break
   }
   
   return products

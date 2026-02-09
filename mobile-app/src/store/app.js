@@ -25,6 +25,7 @@ export const useAppStore = defineStore('app', {
       latestAppVersion: '1.0.0',
       updateUrl: '',
       updateMessage: 'تحديث جديد متوفر',
+      aboutUsText: 'نحن متجر ريحانة للورود الطبيعية والصناعية، نسعى لتقديم أجمل الباقات والهدايا لمناسباتكم السعيدة. خبرة سنوات في تنسيق الزهور وتجهيز المناسبات.',
       facebookUrl: '',
       instagramUrl: '',
       tiktokUrl: '',
