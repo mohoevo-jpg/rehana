@@ -35,33 +35,20 @@ jobs:
             git reset --hard origin/main
             
             # Install backend dependencies
-            cd mobile-app
+            cd backend
             if command -v npm >/dev/null 2>&1; then
-              npm ci || npm install
-              # npm run build
+              npm install --production
+            elif command -v pnpm >/dev/null 2>&1; then
+              pnpm install --prod
             fi
-            cd "$DEPLOY_PATH"
-            # Removed appending to .env to avoid duplication/corruption.
-            # Server defaults to correct relative path: ../mobile-app/dist
-            if command -v pm2 >/dev/null 2>&1; then
-              pm2 restart all || pm2 start "$DEPLOY_PATH/backend/server.js"
-            elif command -v systemctl >/dev/null 2>&1; then
-              sudo systemctl restart rehana.service || true
+            cd ..
+
+            # Restart Server (Windows Support)
+            if [ -f "scripts/restart_server.ps1" ]; then
+              echo "Detected Windows environment, running restart script..."
+              powershell -ExecutionPolicy Bypass -File scripts/restart_server.ps1
             else
-              # Force kill old process (Aggressive)
-              echo "Killing old server processes..."
+              echo "Assuming Linux environment..."
               pkill -9 -f "server.js" || true
-              pkill -9 -f "node backend/server.js" || true
-              
-              # Kill any process on port 3100
-              if command -v fuser >/dev/null 2>&1; then
-                fuser -k -9 3100/tcp || true
-              fi
-              
-              # Wait for ports to clear
-              sleep 5
-              
-              # Start new server
-              echo "Starting new server..."
-              nohup node "$DEPLOY_PATH/backend/server.js" >/dev/null 2>&1 &
+              nohup node backend/server.js >/dev/null 2>&1 &
             fi

@@ -38,6 +38,7 @@ function createEmailTransporter() {
 const transporter = createEmailTransporter();
 
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const server = http.createServer(app);
@@ -93,8 +94,6 @@ app.use(express.static(path.join(__dirname, '../landing')));
 
 // Global assets path (fix older builds that request /assets/* from root)
 app.use('/assets', express.static(SHOP_ASSETS_PATH));
-
-const fs = require('fs'); // Ensure fs is required
 
 // Debug Route to verify server state
 app.get('/shop/debug-info', (req, res) => {
