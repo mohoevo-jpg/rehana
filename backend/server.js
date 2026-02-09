@@ -42,7 +42,7 @@ const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3100;
-const SERVER_VERSION = '1.0.2'; // Bump version to track updates
+const SERVER_VERSION = '1.0.3'; // Bump version to track updates
 
 console.log(`[SERVER] Starting Rehana Backend v${SERVER_VERSION}`);
 console.log(`[SERVER] Port: ${PORT}`);
@@ -50,6 +50,13 @@ console.log(`[SERVER] Port: ${PORT}`);
 // Explicitly log the dist path being used
 const SHOP_DIST_PATH = process.env.SHOP_DIST_PATH || path.join(__dirname, '../mobile-app/dist');
 console.log(`[SERVER] Serving Shop App from: ${SHOP_DIST_PATH}`);
+
+try {
+  const distFiles = fs.readdirSync(SHOP_DIST_PATH);
+  console.log(`[SERVER] Contents of ${SHOP_DIST_PATH}:`, distFiles);
+} catch (err) {
+  console.error(`[SERVER] Failed to list ${SHOP_DIST_PATH}:`, err.message);
+}
 
 const ADMIN_DIST_PATH = process.env.ADMIN_DIST_PATH || path.join(__dirname, '../cashier-app/dist');
 const SHOP_ASSETS_PATH = path.join(SHOP_DIST_PATH, 'assets');
@@ -129,6 +136,27 @@ app.get('/shop/index.html', serveShopIndex);
 app.get('/shop', (req, res) => {
   console.log('[DEBUG] Redirecting /shop to /shop/');
   res.redirect('/shop/');
+});
+
+// Force verify.txt route to bypass static middleware issues
+app.get('/shop/verify.txt', (req, res) => {
+  const verifyPath = path.join(SHOP_DIST_PATH, 'verify.txt');
+  console.log(`[DEBUG] Attempting to serve verify.txt from: ${verifyPath}`);
+  if (fs.existsSync(verifyPath)) {
+    res.sendFile(verifyPath);
+  } else {
+    // If missing on disk, return a hardcoded response to prove server control
+    res.type('text/plain').send(`Server v${SERVER_VERSION} is running, but verify.txt is missing from disk. This confirms the server code is updated.`);
+  }
+});
+
+// Force version route
+app.get('/shop/version', (req, res) => {
+  res.json({
+    version: SERVER_VERSION,
+    tagline: "عالم الورود الطبيعية و الصناعية",
+    timestamp: new Date().toISOString()
+  });
 });
 
 app.use('/shop', express.static(SHOP_DIST_PATH));
