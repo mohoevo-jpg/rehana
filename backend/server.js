@@ -87,6 +87,26 @@ app.use(express.static(path.join(__dirname, '../landing')));
 // Global assets path (fix older builds that request /assets/* from root)
 app.use('/assets', express.static(SHOP_ASSETS_PATH));
 
+const fs = require('fs'); // Ensure fs is required
+
+// Debug Route to verify server state
+app.get('/shop/debug-info', (req, res) => {
+  try {
+    const files = fs.readdirSync(SHOP_DIST_PATH);
+    const indexContent = fs.readFileSync(path.join(SHOP_DIST_PATH, 'index.html'), 'utf8');
+    
+    res.json({
+      serverVersion: SERVER_VERSION,
+      shopDistPath: SHOP_DIST_PATH,
+      files: files,
+      indexPreview: indexContent.substring(0, 500),
+      env: process.env.NODE_ENV
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message, stack: error.stack });
+  }
+});
+
 // 2. Serve Mobile App (Customer Store) at /shop
 app.use('/shop', (req, res, next) => {
   console.log(`[DEBUG] Request to /shop: ${req.method} ${req.url} | Accept: ${req.headers.accept}`);

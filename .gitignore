@@ -1,5 +1,5 @@
 node_modules
-dist
+# dist  <-- Un-ignoring dist to allow committing build artifacts
 dist_electron
 dist_electron_*
 release
