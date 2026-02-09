@@ -4,10 +4,11 @@
     <div class="px-4 pt-4 flex items-center justify-between">
       <!-- Logo/Brand -->
       <div class="flex items-center gap-2">
-        <img :src="logo" class="w-10 h-10 object-contain" />
-        <div>
-          <h1 class="font-black text-xl text-primary-700 leading-none">ريحانة</h1>
-          <span class="text-[10px] text-gray-400 font-medium">عالم الورود الطبيعية و الصناعية</span>
+        <img src="/logo.png" class="w-16 h-16 object-contain drop-shadow-sm" />
+        <div class="flex flex-col">
+          <h1 class="text-2xl font-black text-gray-900 tracking-tight">ريحانة</h1>
+          <!-- Updated Tagline -->
+          <p class="text-xs font-bold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-md self-start">عالم الورود الطبيعية و الصناعية (v2.0)</p>
         </div>
       </div>
 

@@ -42,7 +42,7 @@ const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3100;
-const SERVER_VERSION = '1.0.4'; // Bump version to track updates
+const SERVER_VERSION = '1.0.5'; // Bump version to track updates
 
 console.log(`[SERVER] Starting Rehana Backend v${SERVER_VERSION}`);
 console.log(`[SERVER] Port: ${PORT}`);
@@ -130,12 +130,13 @@ const serveShopIndex = (req, res) => {
   res.sendFile(path.join(SHOP_DIST_PATH, 'index.html'));
 };
 
-app.get('/shop/', serveShopIndex);
-app.get('/shop/index.html', serveShopIndex);
-
-app.get('/shop', (req, res) => {
-  console.log('[DEBUG] Redirecting /shop to /shop/');
-  res.redirect('/shop/');
+// Force version check at ROOT /shop/version (before static)
+app.get('/shop/version', (req, res) => {
+  res.json({
+    version: SERVER_VERSION,
+    tagline: "عالم الورود الطبيعية و الصناعية",
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Force verify.txt route to bypass static middleware issues
@@ -150,14 +151,8 @@ app.get('/shop/verify.txt', (req, res) => {
   }
 });
 
-// Force version route
-app.get('/shop/version', (req, res) => {
-  res.json({
-    version: SERVER_VERSION,
-    tagline: "عالم الورود الطبيعية و الصناعية",
-    timestamp: new Date().toISOString()
-  });
-});
+app.get('/shop/', serveShopIndex);
+app.get('/shop/index.html', serveShopIndex);
 
 app.use('/shop', express.static(SHOP_DIST_PATH));
 

@@ -29,9 +29,12 @@ jobs:
               exit 1
             fi
             cd "$DEPLOY_PATH"
+            
+            # Reset to ensure clean state
             git fetch --all
             git reset --hard origin/main
-            git clean -fdx
+            
+            # Install backend dependencies
             cd mobile-app
             if command -v npm >/dev/null 2>&1; then
               npm ci || npm install
