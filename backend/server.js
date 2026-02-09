@@ -221,7 +221,6 @@ console.log('WhatsApp Service disabled (debugging mode)');
   console.error('Failed to initialize WhatsApp Service:', err);
 }
 
-const fs = require('fs');
 const DATA_DIR = process.argv[2] || path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) {
   try {
