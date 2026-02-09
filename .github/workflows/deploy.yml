@@ -45,5 +45,10 @@ jobs:
             elif command -v systemctl >/dev/null 2>&1; then
               sudo systemctl restart rehana.service || true
             else
+              # Force kill old process to ensure update
+              pkill -f "backend/server.js" || true
+              if command -v fuser >/dev/null 2>&1; then
+                fuser -k 3100/tcp || true
+              fi
               nohup node "$DEPLOY_PATH/backend/server.js" >/dev/null 2>&1 &
             fi
