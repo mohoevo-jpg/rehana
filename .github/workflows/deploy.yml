@@ -35,7 +35,7 @@ jobs:
             cd mobile-app
             if command -v npm >/dev/null 2>&1; then
               npm ci || npm install
-              npm run build
+              # npm run build  <-- Skipping server-side build to use committed dist
             fi
             cd "$DEPLOY_PATH"
             echo "SHOP_DIST_PATH=$DEPLOY_PATH/mobile-app/dist" >> backend/.env
