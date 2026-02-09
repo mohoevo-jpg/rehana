@@ -31,7 +31,7 @@ jobs:
             cd "$DEPLOY_PATH"
             git fetch --all
             git reset --hard origin/main
-            git clean -fd
+            git clean -fdx  <-- Force clean including ignored files (like old dist)
             cd mobile-app
             if command -v npm >/dev/null 2>&1; then
               npm ci || npm install
