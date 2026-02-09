@@ -1,0 +1,2 @@
+Deployment Verification: v2.0 - Timestamp: 2026-02-09
+If you can read this, the deployment was successful and the files are on the server.
