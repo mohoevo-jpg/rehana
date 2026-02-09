@@ -42,12 +42,15 @@ const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3100;
-const SERVER_VERSION = '1.0.1'; // Bump version to track updates
+const SERVER_VERSION = '1.0.2'; // Bump version to track updates
 
 console.log(`[SERVER] Starting Rehana Backend v${SERVER_VERSION}`);
 console.log(`[SERVER] Port: ${PORT}`);
 
+// Explicitly log the dist path being used
 const SHOP_DIST_PATH = process.env.SHOP_DIST_PATH || path.join(__dirname, '../mobile-app/dist');
+console.log(`[SERVER] Serving Shop App from: ${SHOP_DIST_PATH}`);
+
 const ADMIN_DIST_PATH = process.env.ADMIN_DIST_PATH || path.join(__dirname, '../cashier-app/dist');
 const SHOP_ASSETS_PATH = path.join(SHOP_DIST_PATH, 'assets');
 

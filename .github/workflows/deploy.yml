@@ -38,7 +38,8 @@ jobs:
               # npm run build
             fi
             cd "$DEPLOY_PATH"
-            echo "SHOP_DIST_PATH=$DEPLOY_PATH/mobile-app/dist" >> backend/.env
+            # Removed appending to .env to avoid duplication/corruption.
+            # Server defaults to correct relative path: ../mobile-app/dist
             if command -v pm2 >/dev/null 2>&1; then
               pm2 restart all || pm2 start "$DEPLOY_PATH/backend/server.js"
             elif command -v systemctl >/dev/null 2>&1; then
