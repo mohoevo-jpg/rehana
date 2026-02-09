@@ -31,11 +31,11 @@ jobs:
             cd "$DEPLOY_PATH"
             git fetch --all
             git reset --hard origin/main
-            git clean -fdx  <-- Force clean including ignored files (like old dist)
+            git clean -fdx
             cd mobile-app
             if command -v npm >/dev/null 2>&1; then
               npm ci || npm install
-              # npm run build  <-- Skipping server-side build to use committed dist
+              # npm run build
             fi
             cd "$DEPLOY_PATH"
             echo "SHOP_DIST_PATH=$DEPLOY_PATH/mobile-app/dist" >> backend/.env
