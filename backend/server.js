@@ -42,7 +42,7 @@ const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3100;
-const SERVER_VERSION = '1.0.3'; // Bump version to track updates
+const SERVER_VERSION = '1.0.4'; // Bump version to track updates
 
 console.log(`[SERVER] Starting Rehana Backend v${SERVER_VERSION}`);
 console.log(`[SERVER] Port: ${PORT}`);

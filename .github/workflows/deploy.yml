@@ -45,10 +45,20 @@ jobs:
             elif command -v systemctl >/dev/null 2>&1; then
               sudo systemctl restart rehana.service || true
             else
-              # Force kill old process to ensure update
-              pkill -f "backend/server.js" || true
+              # Force kill old process (Aggressive)
+              echo "Killing old server processes..."
+              pkill -9 -f "server.js" || true
+              pkill -9 -f "node backend/server.js" || true
+              
+              # Kill any process on port 3100
               if command -v fuser >/dev/null 2>&1; then
-                fuser -k 3100/tcp || true
+                fuser -k -9 3100/tcp || true
               fi
+              
+              # Wait for ports to clear
+              sleep 5
+              
+              # Start new server
+              echo "Starting new server..."
               nohup node "$DEPLOY_PATH/backend/server.js" >/dev/null 2>&1 &
             fi
