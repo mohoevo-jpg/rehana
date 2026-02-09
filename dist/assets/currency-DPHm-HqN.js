@@ -1,0 +1,1 @@
+import{J as e}from"./index-DUS2SrFg.js";const c=t=>{const r=e();return new Intl.NumberFormat(r.currencyLocale,{style:"currency",currency:r.currency,minimumFractionDigits:0,maximumFractionDigits:0}).format(t)};export{c as f};

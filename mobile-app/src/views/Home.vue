@@ -6,19 +6,47 @@
       <div class="flex items-center gap-2">
         <img src="/logo.png" class="w-16 h-16 object-contain drop-shadow-sm" />
         <div class="flex flex-col">
-          <h1 class="text-2xl font-black text-gray-900 tracking-tight">ريحانة</h1>
+          <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">ريحانة</h1>
           <!-- Updated Tagline -->
-          <p class="text-xs font-bold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-md self-start">عالم الورود الطبيعية و الصناعية (v2.0)</p>
+          <p class="text-xs font-bold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-md self-start">عالم الورود الطبيعية و الصناعية</p>
         </div>
       </div>
 
-      <!-- About Us Button -->
-      <button @click="showAboutModal = true" class="flex items-center gap-2 bg-white border border-gray-100 pl-2 pr-3 py-1.5 rounded-full shadow-sm text-sm font-bold text-gray-700 active:scale-95 transition-transform">
-        <div class="w-6 h-6 bg-primary-50 rounded-full flex items-center justify-center">
-          <Info class="w-3.5 h-3.5 text-primary-600" />
+      <!-- Location Button -->
+      <div class="relative">
+        <button @click="showLocationDropdown = !showLocationDropdown" class="flex items-center gap-2 bg-white border border-gray-100 pl-2 pr-3 py-1.5 rounded-full shadow-sm text-sm font-bold text-gray-700 active:scale-95 transition-transform">
+          <div class="w-6 h-6 bg-primary-50 rounded-full flex items-center justify-center">
+            <MapPin class="w-3.5 h-3.5 text-primary-600" />
+          </div>
+          <span class="max-w-[100px] truncate">{{ currentAddressName }}</span>
+          <ChevronDown class="w-3 h-3 text-gray-400" />
+        </button>
+
+        <!-- Location Dropdown -->
+        <div v-if="showLocationDropdown" class="absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 p-2 z-30 animate-scale-in origin-top-left">
+           <div class="px-3 py-2 text-xs font-bold text-gray-400">اختر موقع التوصيل</div>
+           
+           <div v-if="authStore.user?.addresses?.length > 0">
+              <button v-for="addr in authStore.user.addresses" :key="addr.id" @click="selectAddress(addr)" class="w-full text-right px-3 py-2.5 rounded-xl text-sm flex items-center gap-2 transition-colors" :class="currentAddressId === addr.id ? 'bg-primary-50 text-primary-700 font-bold' : 'hover:bg-gray-50 text-gray-700'">
+                 <MapPin class="w-4 h-4" :class="currentAddressId === addr.id ? 'text-primary-600' : 'text-gray-400'" />
+                 <span class="flex-1 truncate">{{ addr.name }}</span>
+                 <Check v-if="currentAddressId === addr.id" class="w-3 h-3 text-primary-600" />
+              </button>
+           </div>
+           
+           <div v-else class="text-center py-6 flex flex-col items-center">
+              <div class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 mb-2">
+                <MapPin class="w-5 h-5" />
+              </div>
+              <p class="text-xs text-gray-500 mb-3">لا توجد عناوين محفوظة</p>
+              <router-link to="/addresses" class="px-4 py-1.5 bg-primary-50 text-primary-600 rounded-lg text-xs font-bold hover:bg-primary-100 transition-colors">
+                إضافة عنوان جديد
+              </router-link>
+           </div>
         </div>
-        <span>من نحن</span>
-      </button>
+        
+        <div v-if="showLocationDropdown" @click="showLocationDropdown = false" class="fixed inset-0 z-20 cursor-default"></div>
+      </div>
     </div>
 
     <!-- Search Bar -->

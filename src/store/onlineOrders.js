@@ -5,7 +5,7 @@ import api from '../services/api';
 
 // Use relative path for socket.io to leverage Vite proxy
 const isElectron = window.navigator.userAgent.toLowerCase().includes('electron');
-const SERVER_URL = isElectron ? 'http://localhost:3001' : '';
+const SERVER_URL = isElectron ? 'http://localhost:3100' : '';
 
 export const useOnlineOrdersStore = defineStore('onlineOrders', {
   state: () => ({

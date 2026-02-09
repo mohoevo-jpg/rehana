@@ -1,0 +1,777 @@
+[2026-02-04T13:19:55.419Z] App starting... UserData: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier
+[2026-02-04T13:19:55.422Z] CWD: C:\Users\moham\Documents\trae_projects\rehana
+[2026-02-04T13:19:57.659Z] Starting server...
+[2026-02-04T13:19:57.699Z] Backend Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend
+[2026-02-04T13:19:57.699Z] Script Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js
+[2026-02-04T13:19:57.700Z] User Data Path: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier\server-data
+[2026-02-04T13:19:57.701Z] Node Executable: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\Rehana Cashier.exe
+[2026-02-04T13:19:57.702Z] Exists(backend): true
+[2026-02-04T13:19:57.702Z] Exists(script): true
+[2026-02-04T13:19:57.703Z] Exists(node_modules): true
+[2026-02-04T13:19:57.987Z] STDOUT: [dotenv@17.2.3] injecting env (7) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+[2026-02-04T13:25:59.210Z] App starting... UserData: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier
+[2026-02-04T13:25:59.213Z] CWD: C:\Users\moham\Documents\trae_projects\rehana
+[2026-02-04T13:26:01.441Z] Starting server...
+[2026-02-04T13:26:01.442Z] Backend Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend
+[2026-02-04T13:26:01.442Z] Script Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js
+[2026-02-04T13:26:01.443Z] User Data Path: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier\server-data
+[2026-02-04T13:26:01.443Z] Node Executable: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\Rehana Cashier.exe
+[2026-02-04T13:26:01.444Z] Exists(backend): true
+[2026-02-04T13:26:01.444Z] Exists(script): true
+[2026-02-04T13:26:01.445Z] Exists(node_modules): true
+[2026-02-04T13:26:01.682Z] STDOUT: [dotenv@17.2.3] injecting env (7) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+[2026-02-04T13:26:02.267Z] STDOUT: [SERVER] Starting Rehana Backend v1.0.1
+[SERVER] Port: 3100
+[2026-02-04T13:26:02.274Z] STDOUT: WhatsApp Service disabled (debugging mode)
+[2026-02-04T13:26:02.277Z] STDERR: Error loading orders.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:217:14)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T13:26:02.278Z] STDERR: Error loading products.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:218:16)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T13:26:02.279Z] STDERR: Error loading users.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:225:13)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading banners.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:226:15)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T13:26:02.279Z] STDERR: Error loading categories.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:230:18)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T13:26:02.280Z] STDERR: Error loading settings.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:236:16)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading complaints.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:274:18)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T13:26:02.281Z] STDERR: Error loading campaigns.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v26\win-unpacked\resources\backend\server.js:275:17)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T13:26:02.284Z] STDOUT: Default admin user created: admin@rehana.com / admin
+[2026-02-04T13:26:02.292Z] STDOUT: Server running on port 3100
+[2026-02-04T13:26:02.325Z] STDOUT: User connected: kCFwbyB1t502kMn-AAAB
+[2026-02-04T13:26:02.327Z] STDOUT: Cashier registered
+[2026-02-04T13:26:02.651Z] STDOUT: 2026-02-04T13:26:02.650Z GET /api/products
+[2026-02-04T13:26:03.340Z] STDOUT: User connected: LRKgf1tNEOvByjUbAAAE
+[2026-02-04T13:26:03.347Z] STDOUT: User connected: BXKdh-zQ-YmR1KFQAAAF
+[2026-02-04T13:26:03.363Z] STDOUT: Customer connected
+[2026-02-04T13:26:03.400Z] STDOUT: 2026-02-04T13:26:03.399Z GET /api/products
+[2026-02-04T13:26:03.401Z] STDOUT: 2026-02-04T13:26:03.400Z GET /api/settings
+[2026-02-04T13:26:04.212Z] STDOUT: User connected: _NWTKYUAgbcYHAKYAAAH
+[2026-02-04T13:26:04.227Z] STDOUT: Customer connected
+[2026-02-04T13:26:04.237Z] STDOUT: 2026-02-04T13:26:04.236Z GET /api/products
+[2026-02-04T13:26:04.843Z] STDOUT: User connected: eZTxGkM87WvgB_soAAAJ
+[2026-02-04T13:26:04.859Z] STDOUT: Customer connected
+[2026-02-04T13:26:04.864Z] STDOUT: 2026-02-04T13:26:04.863Z GET /api/products
+[2026-02-04T13:26:04.870Z] STDOUT: 2026-02-04T13:26:04.869Z GET /api/settings
+[2026-02-04T13:26:13.806Z] STDOUT: User disconnected: kCFwbyB1t502kMn-AAAB
+User disconnected: LRKgf1tNEOvByjUbAAAE
+[2026-02-04T13:41:45.652Z] App starting... UserData: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier
+[2026-02-04T13:41:45.655Z] CWD: C:\Users\moham\Documents\trae_projects\rehana
+[2026-02-04T13:41:47.890Z] Starting server...
+[2026-02-04T13:41:47.891Z] Backend Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v27\win-unpacked\resources\backend
+[2026-02-04T13:41:47.891Z] Script Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v27\win-unpacked\resources\backend\server.js
+[2026-02-04T13:41:47.892Z] User Data Path: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier\server-data
+[2026-02-04T13:41:47.892Z] Node Executable: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v27\win-unpacked\Rehana Cashier.exe
+[2026-02-04T13:41:47.893Z] Exists(backend): true
+[2026-02-04T13:41:47.893Z] Exists(script): true
+[2026-02-04T13:41:47.894Z] Exists(node_modules): false
+[2026-02-04T13:41:48.136Z] STDERR: node:internal/modules/cjs/loader:1235
+  throw err;
+  ^
+
+Error: Cannot find module 'dotenv'
+Require stack:
+- C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v27\win-unpacked\resources\backend\server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1232:15)
+    at Module._load (node:internal/modules/cjs/loader:1058:27)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Module.require (node:internal/modules/cjs/loader:1318:19)
+    at require (node:internal/modules/helpers:179:18)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v27\win-unpacked\resources\backend\server.js:1:1)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\moham\\Documents\\trae_projects\\rehana\\cashier-app\\dist_electron_v27\\win-unpacked\\resources\\backend\\server.js'
+  ]
+}
+
+Node.js v20.18.0
+[2026-02-04T13:41:48.154Z] EXIT CODE: 1
+[2026-02-04T14:43:44.867Z] App starting... UserData: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier
+[2026-02-04T14:43:44.869Z] CWD: C:\Users\moham\Documents\trae_projects\rehana
+[2026-02-04T14:43:46.987Z] Starting Cloudflare Tunnel from: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\cloudflared.exe
+[2026-02-04T14:43:47.228Z] Starting server...
+[2026-02-04T14:43:47.229Z] Backend Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend
+[2026-02-04T14:43:47.229Z] Script Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js
+[2026-02-04T14:43:47.229Z] User Data Path: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier\server-data
+[2026-02-04T14:43:47.229Z] Node Executable: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\Rehana Cashier.exe
+[2026-02-04T14:43:47.230Z] Exists(backend): true
+[2026-02-04T14:43:47.230Z] Exists(script): true
+[2026-02-04T14:43:47.231Z] Exists(node_modules): true
+[2026-02-04T14:43:47.388Z] STDOUT: [dotenv@17.2.3] injecting env (7) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+[2026-02-04T14:43:47.513Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF Starting tunnel tunnelID=b7beabf0-148d-433d-a66c-005515bd1c9f
+
+[2026-02-04T14:43:47.514Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF Version 2026.1.2 (Checksum 6304f5e1c017c038fb74a02c0157b2b63d4bc1f15709c639fcc08cb6dbe4c126)
+2026-02-04T14:43:47Z INF GOOS: windows, GOVersion: go1.24.11, GoArch: amd64
+2026-02-04T14:43:47Z INF Settings: map[token:*****]
+
+[2026-02-04T14:43:47.515Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF cloudflared will not automatically update on Windows systems.
+
+[2026-02-04T14:43:47.527Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF Generated Connector ID: c959efd8-1922-48cf-afd2-ccc59c96418d
+
+[2026-02-04T14:43:47.537Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF Initial protocol quic
+
+[2026-02-04T14:43:47.538Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF ICMP proxy will use 192.168.1.111 as source for IPv4
+
+[2026-02-04T14:43:47.569Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF ICMP proxy will use fe80::f87e:a360:bb6b:e513 in zone Wi-Fi as source for IPv6
+
+[2026-02-04T14:43:47.591Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF ICMP proxy will use 192.168.1.111 as source for IPv4
+
+[2026-02-04T14:43:47.592Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.7
+
+[2026-02-04T14:43:47.618Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF ICMP proxy will use fe80::f87e:a360:bb6b:e513 in zone Wi-Fi as source for IPv6
+
+[2026-02-04T14:43:47.619Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF Starting metrics server on 127.0.0.1:20242/metrics
+
+[2026-02-04T14:43:47.751Z] STDOUT: [SERVER] Starting Rehana Backend v1.0.1
+[SERVER] Port: 3100
+[2026-02-04T14:43:47.755Z] STDOUT: WhatsApp Service disabled (debugging mode)
+[2026-02-04T14:43:47.757Z] STDERR: Error loading orders.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:217:14)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:43:47.757Z] STDERR: Error loading products.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:218:16)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:43:47.758Z] STDERR: Error loading users.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:225:13)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading banners.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:226:15)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:43:47.758Z] STDERR: Error loading categories.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:230:18)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:43:47.759Z] STDERR: Error loading settings.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:236:16)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading complaints.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:274:18)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:43:47.759Z] STDERR: Error loading campaigns.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:275:17)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:43:47.760Z] STDOUT: Default admin user created: admin@rehana.com / admin
+[2026-02-04T14:43:47.764Z] STDOUT: Server running on port 3100
+[2026-02-04T14:43:47.905Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF Registered tunnel connection connIndex=0 connection=fcedacdd-3047-4d3c-9cf4-636ddcda8d4c event=0 ip=198.41.192.7 location=ebl01 protocol=quic
+
+[2026-02-04T14:43:47.905Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=1 event=0 ip=198.41.200.13
+
+[2026-02-04T14:43:47.910Z] [Cloudflare Err]: 2026-02-04T14:43:47Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-02-04T14:43:47Z INF Updated to new configuration config="{\"ingress\":[{\"hostname\":\"rehanaforflowers.com\",\"originRequest\":{},\"service\":\"http://localhost:3100\"},{\"service\":\"http_status:404\"}],\"warp-routing\":{\"enabled\":false}}" version=4
+
+[2026-02-04T14:43:48.208Z] [Cloudflare Err]: 2026-02-04T14:43:48Z INF Registered tunnel connection connIndex=1 connection=e0dee74f-e83e-4afb-8289-e8ee8bdfeb6c event=0 ip=198.41.200.13 location=ist07 protocol=quic
+
+[2026-02-04T14:43:48.904Z] [Cloudflare Err]: 2026-02-04T14:43:48Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=2 event=0 ip=198.41.192.27
+
+[2026-02-04T14:43:49.854Z] [Cloudflare Err]: 2026-02-04T14:43:49Z INF Registered tunnel connection connIndex=2 connection=42364dc5-5e6d-4618-9c5b-96e14368cf81 event=0 ip=198.41.192.27 location=ebl01 protocol=quic
+
+[2026-02-04T14:43:49.904Z] [Cloudflare Err]: 2026-02-04T14:43:49Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=3 event=0 ip=198.41.200.193
+
+[2026-02-04T14:43:50.216Z] [Cloudflare Err]: 2026-02-04T14:43:50Z INF Registered tunnel connection connIndex=3 connection=addeab25-8d7c-46c2-a8cd-0efc31274f71 event=0 ip=198.41.200.193 location=ist07 protocol=quic
+
+[2026-02-04T14:43:51.054Z] STDOUT: User connected: DlvyKQYyak2nO5dkAAAB
+[2026-02-04T14:43:51.320Z] STDOUT: 2026-02-04T14:43:51.320Z GET /api/settings
+[2026-02-04T14:43:51.341Z] STDOUT: 2026-02-04T14:43:51.341Z GET /api/orders
+[2026-02-04T14:43:51.650Z] STDOUT: User connected: hchzwiteWFgCotkPAAAD
+[2026-02-04T14:43:51.655Z] STDOUT: Cashier registered
+[2026-02-04T14:43:51.659Z] STDOUT: 2026-02-04T14:43:51.659Z GET /api/products
+[2026-02-04T14:43:52.671Z] STDOUT: User connected: ULtfUiKJ1kP6GNfYAAAF
+[2026-02-04T14:43:52.973Z] STDOUT: User connected: bkj9rLe7fQE2tA-vAAAH
+[2026-02-04T14:43:52.974Z] STDOUT: Cashier registered
+[2026-02-04T14:43:52.976Z] STDOUT: 2026-02-04T14:43:52.976Z GET /api/products
+[2026-02-04T14:43:53.639Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:44:05.779Z] STDOUT: 2026-02-04T14:44:05.779Z POST /api/attendance
+[2026-02-04T14:44:05.784Z] STDOUT: 2026-02-04T14:44:05.784Z GET /api/categories
+[2026-02-04T14:44:05.786Z] STDOUT: 2026-02-04T14:44:05.786Z GET /api/banners
+[2026-02-04T14:44:05.788Z] STDOUT: User connected: VzPs7SqzPkrpUD4CAAAJ
+[2026-02-04T14:44:13.365Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:44:15.471Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:44:36.256Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:44:47.551Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:45:21.252Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:45:22.000Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:45:46.309Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:45:48.872Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:45:51.432Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:46:04.837Z] [Cloudflare Err]: 2026-02-04T14:46:04Z ERR failed to run the datagram handler error="timeout: no recent network activity" connIndex=0 event=0 ip=198.41.192.7
+2026-02-04T14:46:04Z ERR failed to accept incoming stream requests error="failed to accept QUIC stream: timeout: no recent network activity" connIndex=0 event=0 ip=198.41.192.7
+
+[2026-02-04T14:46:04.838Z] [Cloudflare Err]: 2026-02-04T14:46:04Z WRN failed to serve tunnel connection error="datagram manager encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.7
+2026-02-04T14:46:04Z WRN Serve tunnel error error="datagram manager encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.7
+2026-02-04T14:46:04Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.192.7
+
+[2026-02-04T14:46:04.895Z] [Cloudflare Err]: 2026-02-04T14:46:04Z ERR failed to accept incoming stream requests error="failed to accept QUIC stream: timeout: no recent network activity" connIndex=1 event=0 ip=198.41.200.13
+2026-02-04T14:46:04Z ERR failed to run the datagram handler error="timeout: no recent network activity" connIndex=1 event=0 ip=198.41.200.13
+
+[2026-02-04T14:46:04.896Z] [Cloudflare Err]: 2026-02-04T14:46:04Z WRN failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=1 event=0 ip=198.41.200.13
+2026-02-04T14:46:04Z WRN Serve tunnel error error="accept stream listener encountered a failure while serving" connIndex=1 event=0 ip=198.41.200.13
+2026-02-04T14:46:04Z INF Retrying connection in up to 1s connIndex=1 event=0 ip=198.41.200.13
+
+[2026-02-04T14:46:05.174Z] [Cloudflare Err]: 2026-02-04T14:46:05Z ERR failed to accept incoming stream requests error="failed to accept QUIC stream: timeout: no recent network activity" connIndex=2 event=0 ip=198.41.192.27
+2026-02-04T14:46:05Z ERR failed to run the datagram handler error="timeout: no recent network activity" connIndex=2 event=0 ip=198.41.192.27
+
+[2026-02-04T14:46:05.176Z] [Cloudflare Err]: 2026-02-04T14:46:05Z WRN failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=2 event=0 ip=198.41.192.27
+2026-02-04T14:46:05Z WRN Serve tunnel error error="accept stream listener encountered a failure while serving" connIndex=2 event=0 ip=198.41.192.27
+2026-02-04T14:46:05Z INF Retrying connection in up to 1s connIndex=2 event=0 ip=198.41.192.27
+
+[2026-02-04T14:46:05.461Z] [Cloudflare Err]: 2026-02-04T14:46:05Z ERR failed to accept incoming stream requests error="failed to accept QUIC stream: timeout: no recent network activity" connIndex=3 event=0 ip=198.41.200.193
+2026-02-04T14:46:05Z ERR failed to run the datagram handler error="timeout: no recent network activity" connIndex=3 event=0 ip=198.41.200.193
+
+[2026-02-04T14:46:05.462Z] [Cloudflare Err]: 2026-02-04T14:46:05Z ERR failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=3 event=0 ip=198.41.200.193
+2026-02-04T14:46:05Z ERR Serve tunnel error error="accept stream listener encountered a failure while serving" connIndex=3 event=0 ip=198.41.200.193
+2026-02-04T14:46:05Z INF Retrying connection in up to 1s connIndex=3 event=0 ip=198.41.200.193
+
+[2026-02-04T14:46:05.495Z] [Cloudflare Err]: 2026-02-04T14:46:05Z ERR Connection terminated error="accept stream listener encountered a failure while serving" connIndex=1
+
+[2026-02-04T14:46:06.363Z] [Cloudflare Err]: 2026-02-04T14:46:06Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.7
+
+[2026-02-04T14:46:06.397Z] [Cloudflare Err]: 2026-02-04T14:46:06Z ERR Connection terminated error="accept stream listener encountered a failure while serving" connIndex=3
+
+[2026-02-04T14:46:06.885Z] [Cloudflare Err]: 2026-02-04T14:46:06Z ERR Connection terminated error="accept stream listener encountered a failure while serving" connIndex=2
+
+[2026-02-04T14:46:11.365Z] [Cloudflare Err]: 2026-02-04T14:46:11Z ERR Failed to dial a quic connection error="failed to dial to edge with quic: timeout: no recent network activity" connIndex=0 event=0 ip=198.41.192.7
+2026-02-04T14:46:11Z INF Retrying connection in up to 4s connIndex=0 event=0 ip=198.41.192.7
+
+[2026-02-04T14:46:11.580Z] [Cloudflare Err]: 2026-02-04T14:46:11Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.77
+
+[2026-02-04T14:46:13.928Z] [Cloudflare Err]: 2026-02-04T14:46:13Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=2 event=0 ip=198.41.192.27
+2026-02-04T14:46:13Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=3 event=0 ip=198.41.200.193
+2026-02-04T14:46:13Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=1 event=0 ip=198.41.200.13
+
+[2026-02-04T14:46:14.347Z] [Cloudflare Err]: 2026-02-04T14:46:14Z INF Registered tunnel connection connIndex=0 connection=62cceaf8-ee50-4f80-9e3c-419fa723df0c event=0 ip=198.41.192.77 location=bgw09 protocol=quic
+
+[2026-02-04T14:46:14.373Z] [Cloudflare Err]: 2026-02-04T14:46:14Z INF Registered tunnel connection connIndex=1 connection=2de70dcd-2b10-467a-8a5e-d1f9c5398f13 event=0 ip=198.41.200.13 location=ist07 protocol=quic
+
+[2026-02-04T14:46:14.885Z] [Cloudflare Err]: 2026-02-04T14:46:14Z INF Registered tunnel connection connIndex=3 connection=0a28cd43-63ac-4d3b-b4a2-899ea13691f0 event=0 ip=198.41.200.193 location=sof01 protocol=quic
+2026-02-04T14:46:14Z INF Registered tunnel connection connIndex=2 connection=95e5a7c4-eaa2-43a8-b3c0-0a6888abd569 event=0 ip=198.41.192.27 location=bgw09 protocol=quic
+
+[2026-02-04T14:48:04.319Z] App starting... UserData: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier
+[2026-02-04T14:48:04.321Z] CWD: C:\Users\moham\Documents\trae_projects\rehana
+[2026-02-04T14:48:06.446Z] Starting Cloudflare Tunnel from: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\cloudflared.exe
+[2026-02-04T14:48:06.474Z] Starting server...
+[2026-02-04T14:48:06.475Z] Backend Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend
+[2026-02-04T14:48:06.475Z] Script Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js
+[2026-02-04T14:48:06.475Z] User Data Path: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier\server-data
+[2026-02-04T14:48:06.476Z] Node Executable: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\Rehana Cashier.exe
+[2026-02-04T14:48:06.476Z] Exists(backend): true
+[2026-02-04T14:48:06.477Z] Exists(script): true
+[2026-02-04T14:48:06.477Z] Exists(node_modules): true
+[2026-02-04T14:48:06.657Z] STDOUT: [dotenv@17.2.3] injecting env (7) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+[2026-02-04T14:48:06.813Z] [Cloudflare Err]: 2026-02-04T14:48:06Z INF Starting tunnel tunnelID=b7beabf0-148d-433d-a66c-005515bd1c9f
+
+[2026-02-04T14:48:06.813Z] [Cloudflare Err]: 2026-02-04T14:48:06Z INF Version 2026.1.2 (Checksum 6304f5e1c017c038fb74a02c0157b2b63d4bc1f15709c639fcc08cb6dbe4c126)
+2026-02-04T14:48:06Z INF GOOS: windows, GOVersion: go1.24.11, GoArch: amd64
+2026-02-04T14:48:06Z INF Settings: map[token:*****]
+2026-02-04T14:48:06Z INF cloudflared will not automatically update on Windows systems.
+
+[2026-02-04T14:48:07.164Z] STDOUT: [SERVER] Starting Rehana Backend v1.0.1
+[SERVER] Port: 3100
+[2026-02-04T14:48:07.173Z] STDOUT: WhatsApp Service disabled (debugging mode)
+[2026-02-04T14:48:07.177Z] STDERR: Error loading orders.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:217:14)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:07.178Z] STDERR: Error loading products.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:218:16)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading users.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:225:13)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:07.180Z] STDERR: Error loading banners.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:226:15)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading categories.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:230:18)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:07.181Z] STDERR: Error loading settings.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:236:16)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:07.182Z] STDERR: Error loading complaints.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:274:18)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading campaigns.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:275:17)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:07.185Z] STDOUT: Default admin user created: admin@rehana.com / admin
+[2026-02-04T14:48:07.192Z] STDOUT: Server running on port 3100
+[2026-02-04T14:48:10.826Z] STDOUT: 2026-02-04T14:48:10.825Z GET /api/settings
+[2026-02-04T14:48:10.841Z] STDOUT: 2026-02-04T14:48:10.841Z GET /api/orders
+[2026-02-04T14:48:11.019Z] STDOUT: User connected: ZPaoiuFxjU3AKgz7AAAC
+[2026-02-04T14:48:11.022Z] STDOUT: User connected: stmZKfP9H6Q7nfjBAAAD
+[2026-02-04T14:48:11.159Z] STDOUT: User connected: _9gkr9vJOkZbScM_AAAF
+[2026-02-04T14:48:11.161Z] STDOUT: Cashier registered
+[2026-02-04T14:48:11.163Z] STDOUT: 2026-02-04T14:48:11.163Z GET /api/products
+[2026-02-04T14:48:12.988Z] STDOUT: User connected: bsAhmoFUnX1LGCotAAAH
+[2026-02-04T14:48:13.015Z] STDOUT: Cashier registered
+[2026-02-04T14:48:13.017Z] STDOUT: 2026-02-04T14:48:13.017Z GET /api/products
+[2026-02-04T14:48:18.867Z] [Cloudflare Err]: 2026-02-04T14:48:18Z ERR Failed to fetch features, default to disable error="lookup cfd-features.argotunnel.com: dnsquery: This operation returned because the timeout period expired."
+2026-02-04T14:48:18Z INF Generated Connector ID: 6d7441aa-5826-48d3-a5b5-61cbd781957f
+
+[2026-02-04T14:48:19.686Z] STDOUT: 2026-02-04T14:48:19.686Z POST /api/attendance
+[2026-02-04T14:48:19.729Z] STDOUT: 2026-02-04T14:48:19.729Z GET /api/categories
+[2026-02-04T14:48:19.731Z] STDOUT: 2026-02-04T14:48:19.731Z GET /api/banners
+[2026-02-04T14:48:19.750Z] STDOUT: User connected: 4HapDW-23NxYJ3hVAAAJ
+[2026-02-04T14:48:30.898Z] [Cloudflare Err]: 2026-02-04T14:48:30Z WRN Unable to lookup protocol percentage.
+2026-02-04T14:48:30Z INF Initial protocol quic
+
+[2026-02-04T14:48:30.900Z] [Cloudflare Err]: 2026-02-04T14:48:30Z INF ICMP proxy will use 172.20.10.5 as source for IPv4
+
+[2026-02-04T14:48:30.979Z] [Cloudflare Err]: 2026-02-04T14:48:30Z INF ICMP proxy will use fe80::f87e:a360:bb6b:e513 in zone Wi-Fi as source for IPv6
+
+[2026-02-04T14:48:31.863Z] [Cloudflare Err]: 2026-02-04T14:48:31Z INF ICMP proxy will use 172.20.10.5 as source for IPv4
+
+[2026-02-04T14:48:31.866Z] [Cloudflare Err]: 2026-02-04T14:48:31Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.193
+
+[2026-02-04T14:48:31.900Z] [Cloudflare Err]: 2026-02-04T14:48:31Z INF ICMP proxy will use fe80::f87e:a360:bb6b:e513 in zone Wi-Fi as source for IPv6
+
+[2026-02-04T14:48:31.900Z] [Cloudflare Err]: 2026-02-04T14:48:31Z INF Starting metrics server on 127.0.0.1:20242/metrics
+
+[2026-02-04T14:48:32.693Z] [Cloudflare Err]: 2026-02-04T14:48:32Z INF Registered tunnel connection connIndex=0 connection=e4a75d60-62c3-4ad0-afdf-33a22a96123b event=0 ip=198.41.200.193 location=ist03 protocol=quic
+2026-02-04T14:48:32Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=1 event=0 ip=198.41.192.67
+
+[2026-02-04T14:48:32.707Z] [Cloudflare Err]: 2026-02-04T14:48:32Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-02-04T14:48:32Z INF Updated to new configuration config="{\"ingress\":[{\"hostname\":\"rehanaforflowers.com\",\"originRequest\":{},\"service\":\"http://localhost:3100\"},{\"service\":\"http_status:404\"}],\"warp-routing\":{\"enabled\":false}}" version=4
+
+[2026-02-04T14:48:33.594Z] [Cloudflare Err]: 2026-02-04T14:48:33Z INF Registered tunnel connection connIndex=1 connection=67e95b13-381f-4b15-9bd2-1199e7c085ff event=0 ip=198.41.192.67 location=bgw09 protocol=quic
+
+[2026-02-04T14:48:33.694Z] [Cloudflare Err]: 2026-02-04T14:48:33Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=2 event=0 ip=198.41.200.53
+
+[2026-02-04T14:48:34.023Z] STDOUT: User disconnected: stmZKfP9H6Q7nfjBAAAD
+[2026-02-04T14:48:34.136Z] [Cloudflare Err]: 2026-02-04T14:48:34Z INF Registered tunnel connection connIndex=2 connection=a47384a9-95a2-4623-96c2-d1a3d2b5db7c event=0 ip=198.41.200.53 location=sof01 protocol=quic
+
+[2026-02-04T14:48:34.695Z] [Cloudflare Err]: 2026-02-04T14:48:34Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=3 event=0 ip=198.41.192.227
+
+[2026-02-04T14:48:35.112Z] [Cloudflare Err]: 2026-02-04T14:48:35Z INF Registered tunnel connection connIndex=3 connection=9583ae0d-59f3-490e-9633-c8dfbcd740a9 event=0 ip=198.41.192.227 location=bgw09 protocol=quic
+
+[2026-02-04T14:48:36.114Z] STDOUT: 2026-02-04T14:48:36.114Z GET /api/orders
+[2026-02-04T14:48:36.761Z] STDOUT: 2026-02-04T14:48:36.760Z GET /api/orders
+[2026-02-04T14:48:36.948Z] STDOUT: 2026-02-04T14:48:36.947Z GET /api/orders
+[2026-02-04T14:48:37.115Z] STDOUT: 2026-02-04T14:48:37.114Z GET /api/orders
+[2026-02-04T14:48:45.693Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:48:47.019Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:48:50.378Z] App starting... UserData: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier
+[2026-02-04T14:48:50.380Z] CWD: C:\Users\moham\Documents\trae_projects\rehana
+[2026-02-04T14:48:52.510Z] Starting Cloudflare Tunnel from: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\cloudflared.exe
+[2026-02-04T14:48:52.543Z] Starting server...
+[2026-02-04T14:48:52.544Z] Backend Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend
+[2026-02-04T14:48:52.544Z] Script Path: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js
+[2026-02-04T14:48:52.544Z] User Data Path: C:\Users\moham\AppData\Roaming\rehana-ipad-cashier\server-data
+[2026-02-04T14:48:52.545Z] Node Executable: C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\Rehana Cashier.exe
+[2026-02-04T14:48:52.545Z] Exists(backend): true
+[2026-02-04T14:48:52.546Z] Exists(script): true
+[2026-02-04T14:48:52.546Z] Exists(node_modules): true
+[2026-02-04T14:48:52.720Z] STDOUT: [dotenv@17.2.3] injecting env (7) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+[2026-02-04T14:48:52.789Z] EXIT CODE: 1
+[2026-02-04T14:48:52.911Z] [Cloudflare Err]: 2026-02-04T14:48:52Z INF Starting tunnel tunnelID=b7beabf0-148d-433d-a66c-005515bd1c9f
+
+[2026-02-04T14:48:52.911Z] [Cloudflare Err]: 2026-02-04T14:48:52Z INF Version 2026.1.2 (Checksum 6304f5e1c017c038fb74a02c0157b2b63d4bc1f15709c639fcc08cb6dbe4c126)
+2026-02-04T14:48:52Z INF GOOS: windows, GOVersion: go1.24.11, GoArch: amd64
+2026-02-04T14:48:52Z INF Settings: map[token:*****]
+
+[2026-02-04T14:48:52.912Z] [Cloudflare Err]: 2026-02-04T14:48:52Z INF cloudflared will not automatically update on Windows systems.
+
+[2026-02-04T14:48:53.183Z] STDOUT: [SERVER] Starting Rehana Backend v1.0.1
+[SERVER] Port: 3100
+[2026-02-04T14:48:53.187Z] STDOUT: WhatsApp Service disabled (debugging mode)
+[2026-02-04T14:48:53.189Z] STDERR: Error loading orders.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:217:14)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:53.190Z] STDERR: Error loading products.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:218:16)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading users.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:225:13)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:53.191Z] STDERR: Error loading banners.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:226:15)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:53.191Z] STDERR: Error loading categories.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:230:18)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+Error loading settings.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:236:16)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:53.192Z] STDERR: Error loading complaints.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:274:18)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:53.192Z] STDERR: Error loading campaigns.json: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at loadData (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:198:19)
+    at Object.<anonymous> (C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\backend\server.js:275:17)
+    at Module._compile (node:internal/modules/cjs/loader:1484:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+[2026-02-04T14:48:53.194Z] STDOUT: Default admin user created: admin@rehana.com / admin
+[2026-02-04T14:48:53.198Z] STDOUT: Server running on port 3100
+[2026-02-04T14:48:53.985Z] STDOUT: User connected: c7UTk4DzIoGF_2ENAAAB
+[2026-02-04T14:48:53.986Z] STDOUT: Cashier registered
+[2026-02-04T14:48:54.295Z] STDOUT: 2026-02-04T14:48:54.296Z GET /api/products
+[2026-02-04T14:48:54.682Z] STDOUT: User connected: z251M5EdrwCsSO0pAAAD
+[2026-02-04T14:48:54.989Z] STDOUT: User connected: GeCKzmLSVsBdAawmAAAG
+[2026-02-04T14:48:54.992Z] STDOUT: User connected: DwcNx2JgrgXDYhSxAAAH
+[2026-02-04T14:48:54.994Z] STDOUT: Cashier registered
+[2026-02-04T14:48:54.997Z] STDOUT: 2026-02-04T14:48:54.998Z GET /api/products
+[2026-02-04T14:49:02.890Z] STDOUT: 2026-02-04T14:49:02.890Z GET /api/settings
+[2026-02-04T14:49:02.905Z] STDOUT: 2026-02-04T14:49:02.906Z GET /api/orders
+[2026-02-04T14:49:03.215Z] STDOUT: User connected: tUkw2l7jylOlxFEPAAAJ
+[2026-02-04T14:49:03.219Z] STDOUT: Cashier registered
+[2026-02-04T14:49:03.224Z] STDOUT: 2026-02-04T14:49:03.225Z GET /api/products
+[2026-02-04T14:49:04.961Z] [Cloudflare Err]: 2026-02-04T14:49:04Z ERR Failed to fetch features, default to disable error="lookup cfd-features.argotunnel.com: dnsquery: This operation returned because the timeout period expired."
+2026-02-04T14:49:04Z INF Generated Connector ID: e642df13-e5a9-4408-82b4-a3d9c1580652
+
+[2026-02-04T14:49:04.984Z] [Cloudflare Err]: 2026-02-04T14:49:04Z WRN Unable to lookup protocol percentage.
+2026-02-04T14:49:04Z INF Initial protocol quic
+
+[2026-02-04T14:49:04.986Z] [Cloudflare Err]: 2026-02-04T14:49:04Z INF ICMP proxy will use 172.20.10.5 as source for IPv4
+
+[2026-02-04T14:49:05.018Z] [Cloudflare Err]: 2026-02-04T14:49:05Z INF ICMP proxy will use fe80::f87e:a360:bb6b:e513 in zone Wi-Fi as source for IPv6
+
+[2026-02-04T14:49:05.029Z] [Cloudflare Err]: 2026-02-04T14:49:05Z INF ICMP proxy will use 172.20.10.5 as source for IPv4
+
+[2026-02-04T14:49:05.030Z] [Cloudflare Err]: 2026-02-04T14:49:05Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.13
+
+[2026-02-04T14:49:05.054Z] [Cloudflare Err]: 2026-02-04T14:49:05Z INF ICMP proxy will use fe80::f87e:a360:bb6b:e513 in zone Wi-Fi as source for IPv6
+2026-02-04T14:49:05Z INF Starting metrics server on 127.0.0.1:20241/metrics
+
+[2026-02-04T14:49:05.952Z] [Cloudflare Err]: 2026-02-04T14:49:05Z INF Registered tunnel connection connIndex=0 connection=670b4944-cbae-4a76-9bc5-9494ba29bb36 event=0 ip=198.41.200.13 location=ist06 protocol=quic
+2026-02-04T14:49:05Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=1 event=0 ip=198.41.192.167
+
+[2026-02-04T14:49:05.966Z] [Cloudflare Err]: 2026-02-04T14:49:05Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-02-04T14:49:05Z INF Updated to new configuration config="{\"ingress\":[{\"hostname\":\"rehanaforflowers.com\",\"originRequest\":{},\"service\":\"http://localhost:3100\"},{\"service\":\"http_status:404\"}],\"warp-routing\":{\"enabled\":false}}" version=4
+
+[2026-02-04T14:49:06.430Z] [Cloudflare Err]: 2026-02-04T14:49:06Z INF Registered tunnel connection connIndex=1 connection=74ad6f91-a752-4de1-8747-814a265c64f2 event=0 ip=198.41.192.167 location=bgw09 protocol=quic
+
+[2026-02-04T14:49:06.954Z] [Cloudflare Err]: 2026-02-04T14:49:06Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=2 event=0 ip=198.41.192.37
+
+[2026-02-04T14:49:07.404Z] [Cloudflare Err]: 2026-02-04T14:49:07Z INF Registered tunnel connection connIndex=2 connection=1e6504cc-750e-45ea-aa20-58e9b685c04c event=0 ip=198.41.192.37 location=bgw09 protocol=quic
+
+[2026-02-04T14:49:07.954Z] [Cloudflare Err]: 2026-02-04T14:49:07Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=3 event=0 ip=198.41.200.33
+
+[2026-02-04T14:49:09.759Z] [Cloudflare Err]: 2026-02-04T14:49:09Z INF Registered tunnel connection connIndex=3 connection=4c8ec544-749a-4c91-b1e4-1bbf7726b839 event=0 ip=198.41.200.33 location=ist07 protocol=quic
+
+[2026-02-04T14:49:10.916Z] STDOUT: 2026-02-04T14:49:10.917Z POST /api/attendance
+[2026-02-04T14:49:10.957Z] STDOUT: 2026-02-04T14:49:10.958Z GET /api/categories
+[2026-02-04T14:49:10.959Z] STDOUT: 2026-02-04T14:49:10.960Z GET /api/banners
+[2026-02-04T14:49:10.980Z] STDOUT: User connected: 1QFwk-C0TkgjTCyeAAAL
+[2026-02-04T14:49:29.252Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:31.171Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:32.934Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:33.363Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:33.901Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:35.160Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:36.949Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:37.722Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:39.492Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:45.649Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:46.844Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:49.447Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:49:50.630Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:07.243Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:08.465Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:09.330Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:12.402Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:14.432Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:15.978Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:18.376Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:29.556Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:31.484Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:33.155Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:37.245Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:37.851Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:38.130Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:38.892Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:40.746Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:42.008Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:43.947Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:51.151Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:51.754Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:50:55.618Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:51:12.412Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:51:13.354Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:51:14.052Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:51:15.549Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:51:17.378Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:51:18.862Z] STDERR: Error: ENOENT: no such file or directory, stat 'C:\Users\moham\Documents\trae_projects\rehana\cashier-app\dist_electron_v28\win-unpacked\resources\landing\index.html'
+[2026-02-04T14:51:53.228Z] STDOUT: User disconnected: DwcNx2JgrgXDYhSxAAAH
+[2026-02-04T14:51:53.229Z] STDOUT: User disconnected: GeCKzmLSVsBdAawmAAAG
+[2026-02-04T14:51:55.801Z] EXIT CODE: null
+[2026-02-04T14:55:02.408Z] [Cloudflare Err]: 2026-02-04T14:55:02Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=0 event=1 ingressRule=0 originService=http://localhost:3100
+2026-02-04T14:55:02Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=0 dest=https://rehanaforflowers.com/ event=0 ip=198.41.200.13 type=http
+
+[2026-02-04T14:55:02.867Z] [Cloudflare Err]: 2026-02-04T14:55:02Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=0 event=1 ingressRule=0 originService=http://localhost:3100
+2026-02-04T14:55:02Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=0 dest=https://rehanaforflowers.com/@vite/client event=0 ip=198.41.200.13 type=http
+
+[2026-02-04T14:55:32.494Z] [Cloudflare Err]: 2026-02-04T14:55:32Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=3 event=1 ingressRule=0 originService=http://localhost:3100
+2026-02-04T14:55:32Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=3 dest=http://rehanaforflowers.com/ event=0 ip=198.41.200.33 type=http
+
+[2026-02-04T14:57:40.505Z] [Cloudflare Err]: 2026-02-04T14:57:40Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=0 event=1 ingressRule=0 originService=http://localhost:3100
+2026-02-04T14:57:40Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=0 dest=https://rehanaforflowers.com/ event=0 ip=198.41.200.13 type=http
+
+[2026-02-04T14:57:40.934Z] [Cloudflare Err]: 2026-02-04T14:57:40Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=0 event=1 ingressRule=0 originService=http://localhost:3100
+2026-02-04T14:57:40Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3100: connectex: No connection could be made because the target machine actively refused it." connIndex=0 dest=https://rehanaforflowers.com/@vite/client event=0 ip=198.41.200.13 type=http
+

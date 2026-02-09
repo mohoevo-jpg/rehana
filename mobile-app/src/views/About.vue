@@ -68,6 +68,7 @@
 
 <script setup>
 import { ArrowRight, Facebook, Instagram, Mail, ChevronLeft, Music2 } from 'lucide-vue-next'
+import logo from '@/assets/logo.png'
 import { useAppStore } from '../store/app'
 import { computed } from 'vue'
 

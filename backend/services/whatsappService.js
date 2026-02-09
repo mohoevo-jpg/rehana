@@ -1,4 +1,3 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode');
 const axios = require('axios');
 
@@ -29,6 +28,9 @@ class WhatsAppService {
 
   initLocalClient() {
     try {
+      // Lazy load whatsapp-web.js to prevent crashes if it fails to load in some environments
+      const { Client, LocalAuth } = require('whatsapp-web.js');
+      
       this.client = new Client({
         authStrategy: new LocalAuth(),
         puppeteer: {
